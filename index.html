@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2B2T.US.KG - 新兴的Minecraft无政府服务器</title>
+    <!-- 添加网站图标 -->
+    <link rel="icon" href="https://raw.githubusercontent.com/maqirangithob/2b2t.github.io/main/114514.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
     <style>
@@ -98,9 +100,11 @@
             gap: 15px;
         }
 
+        /* 添加Logo图片样式 */
         .logo img {
             height: 50px;
             width: auto;
+            margin-right: 10px;
         }
 
         .logo h1 {
@@ -108,6 +112,11 @@
             color: var(--light);
             text-transform: uppercase;
             letter-spacing: 2px;
+        }
+
+        /* 调整状态指示器位置 */
+        .status-indicator {
+            margin-left: 15px;
         }
 
         .nav-links {
@@ -882,6 +891,19 @@
                 justify-content: center;
                 margin-top: 15px;
             }
+            
+            /* 响应式调整Logo区域 */
+            .logo {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .status-indicator {
+                margin-left: 0;
+                margin-top: 10px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -962,6 +984,17 @@
             .capacity-title {
                 font-size: 1.5rem;
             }
+            
+            /* 小屏幕调整Logo布局 */
+            .logo {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .logo h1 {
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -984,14 +1017,15 @@
         </div>
     </div>
 
-    <!-- 导航栏 -->
+    <!-- 导航栏 - 添加了Logo图片 -->
     <nav class="navbar">
         <div class="logo">
+            <img src="https://raw.githubusercontent.com/maqirangithob/2b2t.github.io/main/114514.png" alt="2B2T.US.KG Logo">
+            <h1 class="minecraft-font">2B2T.US.KG</h1>
             <div class="status-indicator">
                 <div class="status-dot" id="statusDot"></div>
                 <span id="statusText">正在检测服务器状态...</span>
             </div>
-            <h1 class="minecraft-font">2B2T.US.KG</h1>
         </div>
         <div class="nav-links">
             <a href="#" class="active">首页</a>
