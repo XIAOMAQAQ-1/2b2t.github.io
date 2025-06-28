@@ -1,1 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>局内搜索引擎</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --warning: #fbbc05;
+            --light-bg: #f8f9fa;
+            --dark-text: #202124;
+            --light-text: #5f6368;
+            --border: #dadce0;
+            --card-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* 搜索区域样式 */
+        .search-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .search-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+        }
+        
+        .search-subtitle {
+            font-size: 18px;
+            color: var(--light-text);
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            display: flex;
+            box-shadow: var(--card-shadow);
+            border-radius: 50px;
+            overflow: hidden;
+            background: white;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+        
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 2px 15px rgba(66, 133, 244, 0.3);
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 16px 25px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .search-options {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .option-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        .option-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .option-btn i {
+            margin-right: 5px;
+        }
+        
+        /* 结果区域样式 */
+        .results-section {
+            padding: 20px 0 50px;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .results-title {
+            font-size: 22px;
+            color: var(--dark-text);
+        }
+        
+        .results-count {
+            color: var(--light-text);
+            font-size: 16px;
+        }
+        
+        .sort-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .sort-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .sort-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-header {
+            padding: 15px;
+            background: var(--light-bg);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+            text-decoration: none;
+            display: block;
+        }
+        
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        
+        .result-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--light-text);
+        }
+        
+        .result-body {
+            padding: 15px;
+        }
+        
+        .result-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: var(--dark-text);
+        }
+        
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background: var(--light-bg);
+            color: var(--light-text);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        /* 历史记录样式 */
+        .history-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            padding: 25px;
+            margin-top: 40px;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .history-title {
+            font-size: 20px;
+            color: var(--dark-text);
+        }
+        
+        .history-list {
+            list-style: none;
+        }
+        
+        .history-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-query {
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .history-query:hover {
+            text-decoration: underline;
+        }
+        
+        .history-time {
+            color: var(--light-text);
+            font-size: 14px;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: white;
+            padding: 30px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--light-text);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .search-title {
+                font-size: 28px;
+            }
+            
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-search"></i>
+                <span>局内搜索引擎</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> 关于</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> 设置</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> 登录</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- 搜索区域 -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <h1 class="search-title">探索局内知识库</h1>
+                <p class="search-subtitle">高效检索，精准定位，快速获取所需信息</p>
+                
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="输入关键词进行搜索...">
+                    <button class="search-btn" id="search-button"><i class="fas fa-search"></i> 搜索</button>
+                </div>
+                
+                <div class="search-options">
+                    <button class="option-btn"><i class="fas fa-file-alt"></i> 文档搜索</button>
+                    <button class="option-btn"><i class="fas fa-images"></i> 图片搜索</button>
+                    <button class="option-btn"><i class="fas fa-video"></i> 视频搜索</button>
+                    <button class="option-btn"><i class="fas fa-calendar-alt"></i> 时间范围</button>
+                    <button class="option-btn"><i class="fas fa-filter"></i> 高级筛选</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 搜索结果 -->
+    <section class="results-section">
+        <div class="container">
+            <div class="results-header">
+                <div>
+                    <h2 class="results-title">搜索结果</h2>
+                    <p class="results-count">找到约 24 条结果 (0.38 秒)</p>
+                </div>
+                <div class="sort-options">
+                    <button class="sort-btn active">相关度</button>
+                    <button class="sort-btn">时间</button>
+                    <button class="sort-btn">热度</button>
+                </div>
+            </div>
+            
+            <div class="results-container">
+                <!-- 搜索结果卡片 -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">搜索引擎核心技术解析</a>
+                        <div class="result-meta">
+                            <span>技术文档</span>
+                            <span>2023-10-15</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">本文详细介绍了现代搜索引擎的核心技术，包括倒排索引、PageRank算法、查询处理、相关性排序等关键技术点...</p>
+                        <div class="result-tags">
+                            <span class="tag">搜索引擎</span>
+                            <span class="tag">算法</span>
+                            <span class="tag">技术</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">BM25算法在局内搜索中的应用</a>
+                        <div class="result-meta">
+                            <span>研究报告</span>
+                            <span>2023-09-28</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">BM25是信息检索领域最先进的排序算法之一，本文探讨了该算法在局内搜索环境中的优化和应用效果...</p>
+                        <div class="result-tags">
+                            <span class="tag">算法</span>
+                            <span class="tag">优化</span>
+                            <span class="tag">BM25</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">倒排索引构建指南</a>
+                        <div class="result-meta">
+                            <span>技术指南</span>
+                            <span>2023-08-12</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">倒排索引是搜索引擎的核心数据结构，本指南详细介绍了如何高效构建和维护大规模倒排索引系统...</p>
+                        <div class="result-tags">
+                            <span class="tag">索引</span>
+                            <span class="tag">数据结构</span>
+                            <span class="tag">性能优化</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">搜索结果排名优化策略</a>
+                        <div class="result-meta">
+                            <span>最佳实践</span>
+                            <span>2023-07-22</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">本文分享了提升搜索结果相关性和用户体验的多种策略，包括查询扩展、用户行为分析、个性化推荐等技术...</p>
+                        <div class="result-tags">
+                            <span class="tag">排名</span>
+                            <span class="tag">优化</span>
+                            <span class="tag">用户体验</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">分布式搜索系统架构设计</a>
+                        <div class="result-meta">
+                            <span>架构设计</span>
+                            <span>2023-06-30</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">面对海量数据，分布式架构成为现代搜索引擎的必然选择。本文探讨了分布式搜索系统的核心设计原则和实现方案...</p>
+                        <div class="result-tags">
+                            <span class="tag">分布式</span>
+                            <span class="tag">架构</span>
+                            <span class="tag">高性能</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <a href="#" class="result-title">自然语言处理在搜索中的应用</a>
+                        <div class="result-meta">
+                            <span>技术研究</span>
+                            <span>2023-05-18</span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">NLP技术正在深刻改变搜索引擎的工作方式，从查询理解到结果生成，本文将介绍NLP在搜索系统中的关键应用场景...</p>
+                        <div class="result-tags">
+                            <span class="tag">NLP</span>
+                            <span class="tag">人工智能</span>
+                            <span class="tag">语义分析</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 历史记录 -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h3 class="history-title">搜索历史</h3>
+                    <button class="sort-btn">清除历史</button>
+                </div>
+                <ul class="history-list">
+                    <li class="history-item">
+                        <span class="history-query">倒排索引优化技巧</span>
+                        <span class="history-time">今天 10:23</span>
+                    </li>
+                    <li class="history-item">
+                        <span class="history-query">BM25算法参数调整</span>
+                        <span class="history-time">昨天 15:47</span>
+                    </li>
+                    <li class="history-item">
+                        <span class="history-query">分布式搜索系统设计</span>
+                        <span class="history-time">2023-10-12</span>
+                    </li>
+                    <li class="history-item">
+                        <span class="history-query">搜索结果相关性评估</span>
+                        <span class="history-time">2023-10-10</span>
+                    </li>
+                    <li class="history-item">
+                        <span class="history-query">搜索引擎性能测试</span>
+                        <span class="history-time">2023-10-08</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">关于我们</h4>
+                    <p>局内搜索引擎致力于为组织内部提供高效、精准的信息检索服务，帮助用户快速获取所需知识，提升工作效率。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 帮助中心</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 高级搜索</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> API文档</a></li>
+                        <li><a href="#"><i class="fas fa-angle-right"></i> 开发者指南</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">联系我们</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> support@internal-search.com</li>
+                        <li><i class="fas fa-phone"></i> +86 123 4567 8910</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区科技园</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 局内搜索引擎 | 隐私政策 | 使用条款</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 搜索功能实现
+        document.getElementById('search-button').addEventListener('click', performSearch);
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // 历史记录点击功能
+        document.querySelectorAll('.history-query').forEach(item => {
+            item.addEventListener('click', function() {
+                document.getElementById('search-input').value = this.textContent;
+                performSearch();
+            });
+        });
+        
+        // 排序按钮功能
+        document.querySelectorAll('.sort-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.sort-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 在实际应用中，这里会触发重新排序
+                document.querySelector('.results-count').textContent = "找到约 24 条结果 (排序已更新)";
+            });
+        });
+        
+        // 搜索选项按钮功能
+        document.querySelectorAll('.option-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // 在实际应用中，这里会设置搜索选项
+                alert('搜索选项: ' + this.textContent);
+            });
+        });
+        
+        function performSearch() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query === '') {
+                alert('请输入搜索内容');
+                return;
+            }
+            
+            // 模拟搜索过程
+            document.querySelector('.results-count').textContent = `搜索中: "${query}"...`;
+            
+            // 模拟延迟
+            setTimeout(() => {
+                document.querySelector('.results-title').textContent = `"${query}"的搜索结果`;
+                document.querySelector('.results-count').textContent = `找到约 ${Math.floor(Math.random()*50 + 10)} 条结果 (0.${Math.floor(Math.random()*60+10)} 秒)`;
+                
+                // 在实际应用中，这里会更新搜索结果
+                alert(`执行搜索: "${query}" - 在实际应用中这里会显示真实搜索结果`);
+            }, 800);
+        }
+    </script>
+</body>
+</html>
