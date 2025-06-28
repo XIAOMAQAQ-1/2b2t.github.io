@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaSearch - 跨平台搜索引擎</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --warning: #fbbc05;
+            --dark-bg: #202124;
+            --light-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-dark: #202124;
+            --text-light: #5f6368;
+            --border: #dadce0;
+            --shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .dark-mode {
+            --light-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-dark: #e8eaed;
+            --text-light: #9aa0a6;
+            --border: #5f6368;
+            --shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* 搜索区域样式 */
+        .search-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .search-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .search-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            box-shadow: var(--shadow);
+            border-radius: 50px;
+            overflow: hidden;
+            background: var(--card-bg);
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 2px 15px rgba(66, 133, 244, 0.3);
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 16px 25px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: transparent;
+            color: var(--text-dark);
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 平台选择器 */
+        .platform-selector {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .platform-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 120px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid var(--border);
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .platform-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .platform-card.active {
+            border-color: var(--primary);
+            background-color: rgba(66, 133, 244, 0.1);
+        }
+
+        .platform-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-icon { color: var(--accent); }
+        .bing-icon { color: #008373; }
+        .ddg-icon { color: #de5833; }
+        .yahoo-icon { color: #720e9e; }
+        .yandex-icon { color: #ff0000; }
+        .baidu-icon { color: #2932e1; }
+
+        .platform-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* 结果区域样式 */
+        .results-section {
+            padding: 20px 0 50px;
+            display: none;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-title {
+            font-size: 22px;
+            color: var(--text-dark);
+        }
+
+        .results-count {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .sort-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .sort-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-dark);
+        }
+
+        .sort-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .result-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-header {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--primary);
+            text-decoration: none;
+            display: block;
+        }
+
+        .result-title:hover {
+            text-decoration: underline;
+        }
+
+        .result-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .result-platform {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .result-body {
+            padding: 15px;
+        }
+
+        .result-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(66, 133, 244, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background: var(--card-bg);
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-title {
+                font-size: 28px;
+            }
+            
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-selector {
+                gap: 10px;
+            }
+            
+            .platform-card {
+                min-width: 100px;
+                padding: 10px;
+            }
+        }
+
+        /* 加载动画 */
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(66, 133, 244, 0.2);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>MetaSearch</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> 关于</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> 设置</a></li>
+                </ul>
+            </nav>
+            <div class="header-controls">
+                <button id="theme-toggle" class="sort-btn"><i class="fas fa-moon"></i> 暗黑模式</button>
+                <button class="sort-btn"><i class="fas fa-user"></i> 登录</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 搜索区域 -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <h1 class="search-title">跨平台元搜索引擎</h1>
+                <p class="search-subtitle">一站式搜索Google、Bing、DuckDuckGo、Yahoo等主流平台</p>
+                
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="输入关键词搜索多个平台...">
+                    <button class="search-btn" id="search-button">
+                        <i class="fas fa-search"></i> 搜索
+                    </button>
+                </div>
+                
+                <div class="platform-selector">
+                    <div class="platform-card active" data-platform="all">
+                        <div class="platform-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="platform-name">全部平台</div>
+                    </div>
+                    <div class="platform-card" data-platform="google">
+                        <div class="platform-icon google-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="platform-name">Google</div>
+                    </div>
+                    <div class="platform-card" data-platform="bing">
+                        <div class="platform-icon bing-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <div class="platform-name">Bing</div>
+                    </div>
+                    <div class="platform-card" data-platform="duckduckgo">
+                        <div class="platform-icon ddg-icon">
+                            <i class="fas fa-duck"></i>
+                        </div>
+                        <div class="platform-name">DuckDuckGo</div>
+                    </div>
+                    <div class="platform-card" data-platform="yahoo">
+                        <div class="platform-icon yahoo-icon">
+                            <i class="fab fa-yahoo"></i>
+                        </div>
+                        <div class="platform-name">Yahoo</div>
+                    </div>
+                    <div class="platform-card" data-platform="baidu">
+                        <div class="platform-icon baidu-icon">
+                            <i class="fab fa-baidu"></i>
+                        </div>
+                        <div class="platform-name">百度</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 加载动画 -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>正在从多个平台获取搜索结果...</p>
+    </div>
+
+    <!-- 搜索结果 -->
+    <section class="results-section" id="results-section">
+        <div class="container">
+            <div class="results-header">
+                <div>
+                    <h2 class="results-title">整合搜索结果</h2>
+                    <p class="results-count" id="results-count">找到 <span id="result-num">24</span> 条结果 (用时 <span id="search-time">0.38</span> 秒)</p>
+                </div>
+                <div class="sort-options">
+                    <button class="sort-btn active" data-sort="relevance">相关度</button>
+                    <button class="sort-btn" data-sort="date">时间</button>
+                    <button class="sort-btn" data-sort="source">来源</button>
+                </div>
+            </div>
+            
+            <div class="results-container" id="results-container">
+                <!-- 搜索结果将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>关于MetaSearch</h4>
+                    <p>MetaSearch是一个跨平台元搜索引擎，整合多个主流搜索引擎结果，为您提供高效、全面的搜索体验。</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>支持平台</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-google"></i> Google</a></li>
+                        <li><a href="#"><i class="fab fa-microsoft"></i> Bing</a></li>
+                        <li><a href="#"><i class="fas fa-duck"></i> DuckDuckGo</a></li>
+                        <li><a href="#"><i class="fab fa-yahoo"></i> Yahoo</a></li>
+                        <li><a href="#"><i class="fab fa-baidu"></i> 百度</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>资源链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-question-circle"></i> 帮助中心</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> 使用文档</a></li>
+                        <li><a href="#"><i class="fas fa-lock"></i> 隐私政策</a></li>
+                        <li><a href="#"><i class="fas fa-file-alt"></i> 服务条款</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>联系我们</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@metasearch.com</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> @MetaSearch</a></li>
+                        <li><a href="#"><i class="fab fa-github"></i> GitHub项目</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 MetaSearch 跨平台元搜索引擎 | 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 当前选中的平台
+        let selectedPlatform = 'all';
+        let currentResults = [];
+        let darkMode = false;
+
+        // DOM元素
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const resultsSection = document.getElementById('results-section');
+        const resultsContainer = document.getElementById('results-container');
+        const loader = document.getElementById('loader');
+        const resultsCount = document.getElementById('results-count');
+        const resultNum = document.getElementById('result-num');
+        const searchTime = document.getElementById('search-time');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // 平台卡片点击事件
+        document.querySelectorAll('.platform-card').forEach(card => {
+            card.addEventListener('click', () => {
+                // 移除所有active类
+                document.querySelectorAll('.platform-card').forEach(c => {
+                    c.classList.remove('active');
+                });
+                
+                // 为当前卡片添加active类
+                card.classList.add('active');
+                
+                // 更新选中的平台
+                selectedPlatform = card.dataset.platform;
+                
+                // 如果已经有搜索结果，重新筛选
+                if (currentResults.length > 0) {
+                    filterResults();
+                }
+            });
+        });
+
+        // 排序按钮点击事件
+        document.querySelectorAll('.sort-btn[data-sort]').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有active类
+                document.querySelectorAll('.sort-btn[data-sort]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // 为当前按钮添加active类
+                button.classList.add('active');
+                
+                // 获取排序类型
+                const sortType = button.dataset.sort;
+                
+                // 对结果进行排序
+                sortResults(sortType);
+            });
+        });
+
+        // 主题切换
+        themeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            document.body.classList.toggle('dark-mode', darkMode);
+            themeToggle.innerHTML = darkMode 
+                ? '<i class="fas fa-sun"></i> 明亮模式' 
+                : '<i class="fas fa-moon"></i> 暗黑模式';
+        });
+
+        // 搜索功能
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // 执行搜索
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) {
+                alert('请输入搜索内容');
+                return;
+            }
+            
+            // 显示加载动画
+            loader.style.display = 'block';
+            resultsSection.style.display = 'none';
+            
+            // 模拟API请求延迟
+            setTimeout(() => {
+                // 生成模拟结果
+                currentResults = generateResults(query);
+                
+                // 显示结果
+                displayResults(currentResults);
+                
+                // 隐藏加载动画
+                loader.style.display = 'none';
+                resultsSection.style.display = 'block';
+            }, 1500);
+        }
+
+        // 生成模拟搜索结果
+        function generateResults(query) {
+            const platforms = [
+                { id: 'google', name: 'Google', icon: 'fab fa-google', color: '#ea4335' },
+                { id: 'bing', name: 'Bing', icon: 'fab fa-microsoft', color: '#008373' },
+                { id: 'duckduckgo', name: 'DuckDuckGo', icon: 'fas fa-duck', color: '#de5833' },
+                { id: 'yahoo', name: 'Yahoo', icon: 'fab fa-yahoo', color: '#720e9e' },
+                { id: 'baidu', name: '百度', icon: 'fab fa-baidu', color: '#2932e1' }
+            ];
+            
+            const results = [];
+            const now = new Date();
+            
+            // 为每个平台生成3个结果
+            platforms.forEach(platform => {
+                for (let i = 1; i <= 3; i++) {
+                    const daysAgo = Math.floor(Math.random() * 30);
+                    const date = new Date(now);
+                    date.setDate(now.getDate() - daysAgo);
+                    
+                    results.push({
+                        id: `${platform.id}-${i}`,
+                        title: `关于"${query}"的搜索结果 - ${platform.name} ${i}`,
+                        url: `https://${platform.id}.com/search?q=${encodeURIComponent(query)}`,
+                        content: `这是来自${platform.name}的搜索结果示例。用户搜索了"${query}"，这是第${i}个结果。元搜索引擎整合了多个来源的信息，为您提供全面的搜索结果。`,
+                        date: date.toISOString().split('T')[0],
+                        platform: platform.id,
+                        platformName: platform.name,
+                        platformIcon: platform.icon,
+                        platformColor: platform.color,
+                        tags: [query.split(' ')[0], '搜索', '技术']
+                    });
+                }
+            });
+            
+            // 添加一些额外结果
+            for (let i = 1; i <= 5; i++) {
+                const platform = platforms[Math.floor(Math.random() * platforms.length)];
+                const daysAgo = Math.floor(Math.random() * 30);
+                const date = new Date(now);
+                date.setDate(now.getDate() - daysAgo);
+                
+                results.push({
+                    id: `extra-${i}`,
+                    title: `"${query}"相关文章 - 第${i}篇`,
+                    url: `https://example.com/article-${i}?q=${encodeURIComponent(query)}`,
+                    content: `这是一篇关于"${query}"的文章，来自独立来源。元搜索引擎的优势在于整合多个平台的结果，提供全面的信息视图。`,
+                    date: date.toISOString().split('T')[0],
+                    platform: platform.id,
+                    platformName: platform.name,
+                    platformIcon: platform.icon,
+                    platformColor: platform.color,
+                    tags: ['文章', '研究', query.split(' ')[0]]
+                });
+            }
+            
+            return results;
+        }
+
+        // 显示搜索结果
+        function displayResults(results) {
+            // 清空当前结果
+            resultsContainer.innerHTML = '';
+            
+            // 更新结果统计
+            const time = (Math.random() * 0.5 + 0.2).toFixed(2);
+            resultNum.textContent = results.length;
+            searchTime.textContent = time;
+            
+            // 过滤结果
+            const filteredResults = filterResults(results);
+            
+            // 添加结果到DOM
+            filteredResults.forEach(result => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                resultCard.innerHTML = `
+                    <div class="result-header">
+                        <a href="${result.url}" target="_blank" class="result-title">${result.title}</a>
+                        <div class="result-meta">
+                            <span>${result.date}</span>
+                            <span class="result-platform" style="color: ${result.platformColor}">
+                                <i class="${result.platformIcon}"></i> ${result.platformName}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="result-body">
+                        <p class="result-content">${result.content}</p>
+                        <div class="result-tags">
+                            ${result.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+                resultsContainer.appendChild(resultCard);
+            });
+        }
+
+        // 过滤结果
+        function filterResults() {
+            if (selectedPlatform === 'all') {
+                return currentResults;
+            }
+            return currentResults.filter(result => result.platform === selectedPlatform);
+        }
+
+        // 排序结果
+        function sortResults(sortType) {
+            let sortedResults = [...currentResults];
+            
+            switch (sortType) {
+                case 'date':
+                    sortedResults.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'source':
+                    sortedResults.sort((a, b) => a.platformName.localeCompare(b.platformName));
+                    break;
+                case 'relevance':
+                default:
+                    // 默认按原始顺序（模拟相关度）
+                    break;
+            }
+            
+            // 显示排序后的结果
+            displayResults(sortedResults);
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', () => {
+            // 添加示例搜索词
+            const sampleQueries = ['元搜索引擎', '跨平台搜索', '信息检索技术'];
+            searchInput.placeholder = `例如: ${sampleQueries[Math.floor(Math.random() * sampleQueries.length)]}...`;
+        });
+    </script>
+</body>
+</html>
