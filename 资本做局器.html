@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资本做局器</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        button:hover            {
+ background-color: #45a049;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            height: 20px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            width: 0%;
+            transition: width 0.1s ease-in-out;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            transition: width 0.3s;
+        }
+        
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>资本做局器</h1>
+        <button id="startButton">开始做局</button>
+        <div class="progress-container hidden" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="message hidden" id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            this.classList.add('hidden');
+            document.getElementById('progressContainer').classList.remove('hidden');
+            
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            
+            const updateProgress = setInterval(() => {
+                progress += Math.random() * 3;
+                if (progress < 99) {
+                    progressBar.style.width = progress + '%';
+                    progressBar.textContent = Math.floor(progress) + '%';
+                } else {
+                    clearInterval(updateProgress);
+                    progressBar.style.width = '99%';
+                    progressBar.textContent = '99%';
+                    
+                    setTimeout(() => {
+                        document.getElementById('message').textContent = '请请稍等片刻，马上做局成功';
+                        document.getElementById('message').classList.remove('hidden');
+                        
+                        setTimeout(() => {
+                            document.getElementById('message').textContent = '恭喜你，做局成功，你的时间被资本浪费了 😊';
+                            
+                            setTimeout(() => {
+                                document.getElementById('startButton').textContent = '再来一局';
+ document                               .getElementById('startButton').classList.remove('hidden');
+                                progressBar.style.width = '0%';
+                                document.getElementById('progressContainer').classList.add('hidden');
+                                document.getElementById('message').textContent = '';
+                                document.getElementById('message').classList.add('hidden');
+                            }, 5000);
+                        }, 2000);
+                    }, 1000);
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
