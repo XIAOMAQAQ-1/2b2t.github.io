@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2B2T.US.KG - 新兴的Minecraft无政府服务器</title>
-    <!-- 添加网站图标 -->
-    <link rel="icon" href="https://raw.githubusercontent.com/maqirangithob/2b2t.github.io/main/114514.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
     <style>
@@ -26,6 +24,8 @@
             --online: #4CAF50;
             --offline: #F44336;
             --player-count: #FF9800;
+            --poor: #9e9e9e;
+            --poor-dark: #616161;
         }
 
         body {
@@ -73,6 +73,15 @@
                 radial-gradient(circle at 10% 20%, rgba(58, 150, 221, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(26, 90, 138, 0.1) 0%, transparent 20%);
         }
+        
+        body.poor {
+            --primary: #9e9e9e;
+            --primary-dark: #616161;
+            --secondary: #757575;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(158, 158, 158, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(97, 97, 97, 0.1) 0%, transparent 20%);
+        }
 
         .minecraft-font {
             font-family: 'Minecraft', sans-serif;
@@ -100,11 +109,9 @@
             gap: 15px;
         }
 
-        /* 添加Logo图片样式 */
         .logo img {
             height: 50px;
             width: auto;
-            margin-right: 10px;
         }
 
         .logo h1 {
@@ -112,11 +119,6 @@
             color: var(--light);
             text-transform: uppercase;
             letter-spacing: 2px;
-        }
-
-        /* 调整状态指示器位置 */
-        .status-indicator {
-            margin-left: 15px;
         }
 
         .nav-links {
@@ -157,6 +159,45 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+        
+        /* Poor服务器按钮 */
+        .poor-server-btn {
+            background: var(--poor);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poor-server-btn:hover {
+            background: var(--poor-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .poor-server-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s;
+            transform: rotate(45deg);
+        }
+        
+        .poor-server-btn:hover::before {
+            left: 150%;
         }
 
         /* 服务器状态指示器 */
@@ -278,6 +319,7 @@
         .theme-option.nether { background: linear-gradient(135deg, #b02e26 50%, #5a3926 50%); }
         .theme-option.end { background: linear-gradient(135deg, #7d3fb2 50%, #2c1b47 50%); }
         .theme-option.ocean { background: linear-gradient(135deg, #3a96dd 50%, #1a5a8a 50%); }
+        .theme-option.poor { background: linear-gradient(135deg, #9e9e9e 50%, #616161 50%); }
 
         /* 英雄区域样式 */
         .hero {
@@ -331,6 +373,32 @@
         .ip-address:active {
             transform: scale(0.98);
         }
+        
+        .poor-ip {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid var(--poor);
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ccc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .poor-ip:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.03);
+            box-shadow: 0 0 10px rgba(158, 158, 158, 0.3);
+        }
+        
+        .poor-ip i {
+            color: var(--poor);
+        }
 
         .cta-buttons {
             display: flex;
@@ -370,6 +438,18 @@
 
         .btn-secondary:hover {
             background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-poor {
+            background-color: var(--poor);
+            color: #fff;
+            border: 2px solid var(--poor-dark);
+        }
+        
+        .btn-poor:hover {
+            background-color: var(--poor-dark);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -451,6 +531,11 @@
             background: var(--offline);
             transform: scaleX(1);
         }
+        
+        .server-status-card.poor::before {
+            background: var(--poor);
+            transform: scaleX(1);
+        }
 
         @keyframes loadingBar {
             0% { transform: scaleX(0); transform-origin: left; }
@@ -503,6 +588,10 @@
         .offline-icon {
             color: var(--offline);
         }
+        
+        .poor-icon {
+            color: var(--poor);
+        }
 
         .loading-icon {
             color: #FF9800;
@@ -512,6 +601,43 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        /* Poor服务器卡片 */
+        .poor-server-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            border: 1px solid var(--poor);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .poor-server-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--poor);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .poor-server-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .poor-server-card p {
+            margin-bottom: 20px;
+            color: #bbb;
+            line-height: 1.6;
         }
 
         /* 内容区域 */
@@ -892,17 +1018,10 @@
                 margin-top: 15px;
             }
             
-            /* 响应式调整Logo区域 */
-            .logo {
-                flex-wrap: wrap;
-                justify-content: center;
-                width: 100%;
-                margin-bottom: 15px;
-            }
-            
-            .status-indicator {
-                margin-left: 0;
+            .poor-server-btn {
                 margin-top: 10px;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
@@ -933,6 +1052,11 @@
             .ip-address {
                 font-size: 1.4rem;
                 padding: 10px 20px;
+            }
+            
+            .poor-ip {
+                font-size: 1rem;
+                padding: 8px 15px;
             }
 
             .stats {
@@ -967,6 +1091,11 @@
             .ip-address {
                 font-size: 1.2rem;
             }
+            
+            .poor-ip {
+                font-size: 0.9rem;
+                padding: 6px 12px;
+            }
 
             .stat-box {
                 min-width: 140px;
@@ -983,17 +1112,6 @@
             
             .capacity-title {
                 font-size: 1.5rem;
-            }
-            
-            /* 小屏幕调整Logo布局 */
-            .logo {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .logo h1 {
-                margin: 10px 0;
             }
         }
     </style>
@@ -1017,15 +1135,14 @@
         </div>
     </div>
 
-    <!-- 导航栏 - 添加了Logo图片 -->
+    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="logo">
-            <img src="https://raw.githubusercontent.com/maqirangithob/2b2t.github.io/main/114514.png" alt="2B2T.US.KG Logo">
-            <h1 class="minecraft-font">2B2T.US.KG</h1>
             <div class="status-indicator">
                 <div class="status-dot" id="statusDot"></div>
                 <span id="statusText">正在检测服务器状态...</span>
             </div>
+            <h1 class="minecraft-font">2B2T.US.KG</h1>
         </div>
         <div class="nav-links">
             <a href="#" class="active">首页</a>
@@ -1052,12 +1169,16 @@
                         <div class="theme-option nether" onclick="changeTheme('nether')" title="下界主题"></div>
                         <div class="theme-option end" onclick="changeTheme('end')" title="末地主题"></div>
                         <div class="theme-option ocean" onclick="changeTheme('ocean')" title="海洋主题"></div>
+                        <div class="theme-option poor" onclick="changeTheme('poor')" title="Poor服务器"></div>
                     </div>
                     <a href="#"><i class="fas fa-moon"></i> 暗黑模式</a>
                     <a href="#"><i class="fas fa-sun"></i> 明亮模式</a>
                 </div>
             </div>
         </div>
+        <button class="poor-server-btn" onclick="showPoorServer()">
+            <i class="fas fa-server"></i> Poor服务器
+        </button>
     </nav>
 
     <!-- 英雄区域 -->
@@ -1065,9 +1186,13 @@
         <h2 class="minecraft-font">欢迎来到 2B2T.US.KG</h2>
         <p>新兴的Minecraft无政府服务器，成立一个月，支持114514名玩家同时在线</p>
         <div class="ip-address minecraft-font" onclick="copyToClipboard()">play.2b2t.us.kg</div>
+        <div class="poor-ip" onclick="copyPoorToClipboard()">
+            <i class="fas fa-server"></i> Poor服务器: 2b2t.us.kg/poor
+        </div>
         <div class="cta-buttons">
             <a href="#" class="btn btn-primary">立即加入</a>
             <a href="http://bbs.2b2t.us.kg" class="btn btn-secondary" target="_blank">访问论坛</a>
+            <a href="#" class="btn btn-poor" onclick="connectPoorServer()">连接Poor服务器</a>
         </div>
     </section>
 
@@ -1091,6 +1216,27 @@
                     <div class="status-value" id="serverVersion">--</div>
                     <div class="status-label">服务器版本</div>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Poor服务器卡片 -->
+        <div class="poor-server-card">
+            <h3 class="minecraft-font">Poor服务器选项</h3>
+            <p>为低配置玩家特别优化的服务器版本，使用轻量级服务端，降低资源消耗，让更多玩家可以流畅游戏。</p>
+            <div class="poor-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyPoorToClipboard()">
+                <i class="fas fa-server"></i> IP地址: 2b2t.us.kg/poor
+            </div>
+            <button class="btn btn-poor" style="font-size: 1.2rem;" onclick="connectPoorServer()">
+                <i class="fas fa-plug"></i> 连接Poor服务器
+            </button>
+            <div style="margin-top: 20px;">
+                <p>特点：</p>
+                <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 低内存占用</li>
+                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 优化区块加载</li>
+                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 简化游戏机制</li>
+                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 支持旧版本客户端</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -1192,6 +1338,7 @@
                     <li><a href="#">服务器规则</a></li>
                     <li><a href="#">在线地图</a></li>
                     <li><a href="#">玩家商店</a></li>
+                    <li><a href="#" style="color: var(--poor);">Poor服务器</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -1237,6 +1384,46 @@
             setTimeout(() => {
                 ipElement.textContent = originalText;
                 ipElement.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            }, 1500);
+        }
+        
+        // 复制Poor服务器IP
+        function copyPoorToClipboard() {
+            const textArea = document.createElement('textarea');
+            textArea.value = '2b2t.us.kg/poor';
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const poorIps = document.querySelectorAll('.poor-ip');
+            poorIps.forEach(el => {
+                const originalText = el.innerHTML;
+                el.innerHTML = '<i class="fas fa-check"></i> IP已复制!';
+                el.style.backgroundColor = 'rgba(97, 97, 97, 0.8)';
+                
+                setTimeout(() => {
+                    el.innerHTML = originalText;
+                    el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                }, 1500);
+            });
+        }
+        
+        // 连接Poor服务器
+        function connectPoorServer() {
+            alert('正在连接到 Poor 服务器: 2b2t.us.kg/poor\n此功能在实际服务器中会直接启动Minecraft客户端');
+            // 实际应用中这里会启动Minecraft客户端
+        }
+        
+        // 显示Poor服务器信息
+        function showPoorServer() {
+            const poorCard = document.querySelector('.poor-server-card');
+            poorCard.scrollIntoView({ behavior: 'smooth' });
+            
+            // 添加视觉反馈
+            poorCard.style.boxShadow = '0 0 20px rgba(158, 158, 158, 0.5)';
+            setTimeout(() => {
+                poorCard.style.boxShadow = 'none';
             }, 1500);
         }
 
@@ -1305,7 +1492,8 @@
             document.querySelector('.control-btn span').textContent = 
                 theme === 'classic' ? '经典主题' : 
                 theme === 'nether' ? '下界主题' : 
-                theme === 'end' ? '末地主题' : '海洋主题';
+                theme === 'end' ? '末地主题' : 
+                theme === 'ocean' ? '海洋主题' : 'Poor服务器';
         }
 
         // 服务器状态检测
