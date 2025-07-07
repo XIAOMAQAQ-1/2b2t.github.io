@@ -1,14 +1,126 @@
-<form action="/your-server-endpoint" method="POST">
-  <!-- 其他表单字段 -->
-  
-  <!-- Turnstile 验证框 -->
-  <div class="cf-turnstile" 
-       data-sitekey="0x4AAAAAABkNY_gGV5bDrsAF"
-       data-language="zh" <!-- 可选：设置中文 -->
-  ></div>
-  
-  <!-- 加载JS -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>安全验证 | 2b2t</title>
+  <!-- 引入 Turnstile 脚本 -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-  
-  <button type="submit">提交</button>
-</form>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .status {
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+    .success {
+      background: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0,0,0,.1);
+      border-radius: 50%;
+      border-top-color: #007bff;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>安全验证</h1>
+    <p>请完成下方人机验证以访问网站</p>
+    
+    <!-- Turnstile 验证容器 -->
+    <div class="cf-turnstile" 
+         data-sitekey="0x4AAAAAABkNY_gGV5bDrsAF"
+         data-callback="onVerifySuccess"
+         data-language="zh"></div>
+    
+    <!-- 状态提示 -->
+    <div id="status" class="status"></div>
+  </div>
+
+  <script>
+    // 验证成功回调函数
+    function onVerifySuccess(token) {
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = '正在验证中...';
+      statusEl.className = 'status';
+      statusEl.style.display = 'block';
+      
+      // 显示加载动画
+      statusEl.innerHTML = '<div class="loading"></div>正在验证中...';
+      
+      // 发送 token 到服务器验证
+      fetch('/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // 验证通过
+          statusEl.innerHTML = '<div class="loading"></div>验证成功，即将跳转...';
+          setTimeout(() => {
+            window.location.href = "https://2b2t.us.kg/2b2t";
+          }, 1500);
+        } else {
+          // 验证失败
+          statusEl.className = 'status error';
+          statusEl.innerHTML = '验证失败，请刷新页面重试';
+        }
+      })
+      .catch(error => {
+        statusEl.className = 'status error';
+        statusEl.innerHTML = '网络错误，请检查连接';
+        console.error('验证请求失败:', error);
+      });
+    }
+    
+    // 处理验证错误
+    function onVerifyError() {
+      const statusEl = document.getElementById('status');
+      statusEl.className = 'status error';
+      statusEl.innerHTML = '验证过程出错，请刷新页面重试';
+      statusEl.style.display = 'block';
+    }
+    
+    // 绑定验证错误事件
+    window.turnstileOptions = {
+      errorCallback: onVerifyError
+    };
+  </script>
+</body>
+</html>
