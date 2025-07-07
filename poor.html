@@ -19,7 +19,7 @@
         }
         
         body {
-            background: #1a1f2d;
+            background: #0c162d;
             background-image: 
                 radial-gradient(circle at 10% 20%, rgba(41, 128, 185, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(46, 204, 113, 0.1) 0%, transparent 20%),
@@ -30,9 +30,61 @@
             position: relative;
         }
         
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 2px solid #4a752c;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            color: #4a752c;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-btn {
+            background: rgba(74, 117, 44, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: 2px solid #3d6325;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(74, 117, 44, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 100px auto 50px;
             padding: 20px;
             position: relative;
             z-index: 2;
@@ -40,20 +92,13 @@
         
         header {
             text-align: center;
-            padding: 50px 20px 30px;
+            padding: 40px 20px 30px;
             margin-bottom: 30px;
             position: relative;
-        }
-        
-        .title-box {
-            background: rgba(0, 0, 0, 0.7);
-            border: 4px solid #4a752c;
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
-            padding: 25px;
-            margin: 0 auto 30px;
-            max-width: 800px;
+            border: 4px solid #4a752c;
             box-shadow: 0 0 30px rgba(74, 117, 44, 0.6);
-            position: relative;
         }
         
         h1 {
@@ -341,6 +386,12 @@
         }
         
         @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 10px;
+            }
+            
             h1 {
                 font-size: 2.2rem;
             }
@@ -366,6 +417,10 @@
             .creeper, .steve {
                 display: none;
             }
+            
+            .container {
+                margin-top: 150px;
+            }
         }
         
         .version-support {
@@ -389,22 +444,74 @@
             font-size: 0.9rem;
             border: 2px solid #3498db;
         }
+        
+        .server-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 3px solid #e67e22;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(230, 126, 34, 0.4);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            color: #e67e22;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
+        
+        .feature-desc {
+            font-size: 1rem;
+            color: #bdc3c7;
+        }
     </style>
 </head>
 <body>
     <div class="pixel-art creeper"></div>
     <div class="pixel-art steve"></div>
     
+    <!-- 顶部导航栏 -->
+    <nav class="top-nav">
+        <div class="logo">
+            <i class="fas fa-server"></i>
+            <span>MC服务器</span>
+        </div>
+        <div class="nav-buttons">
+            <a href="https://2b2t.us.kg" class="nav-btn">
+                <i class="fas fa-home"></i> 返回主站
+            </a>
+            <a href="#" class="nav-btn">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+        </div>
+    </nav>
+    
     <div class="container">
         <header>
-            <div class="title-box">
-                <h1><span class="minecraft-text">只能开67天的服务器</span></h1>
-                <p class="subtitle">限时体验 · 独特玩法 · 永久回忆</p>
-                
-                <div class="server-ip-box">
-                    <div class="server-ip" id="serverIp">
-                        3c3u.us.kg
-                    </div>
+            <h1><span class="minecraft-text">只能开67天的服务器</span></h1>
+            <p class="subtitle">限时体验 · 独特玩法 · 永久回忆</p>
+            
+            <div class="server-ip-box">
+                <div class="server-ip" id="serverIp">
+                    3c3u.us.kg
                 </div>
             </div>
         </header>
@@ -459,6 +566,37 @@
             </div>
         </div>
         
+        <div class="server-features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-medal"></i>
+                </div>
+                <h3 class="feature-title">限时成就</h3>
+                <p class="feature-desc">完成特殊成就获取永久纪念勋章</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">活跃社区</h3>
+                <p class="feature-desc">与数百名玩家共同创造独特回忆</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="feature-title">每日奖励</h3>
+                <p class="feature-desc">每日登录获取专属奖励和道具</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">公平环境</h3>
+                <p class="feature-desc">无付费项目，完全公平的游戏环境</p>
+            </div>
+        </div>
+        
         <div class="server-info">
             <div class="info-card">
                 <h3><i class="fas fa-info-circle"></i> 服务器简介</h3>
@@ -494,7 +632,7 @@
     <footer>
         <p>「只能开67天的服务器」—— 创造短暂但永恒的回忆</p>
         <p>服务器IP: 3c3u.us.kg | 倒计时结束后服务器将永久关闭</p>
-        <p>© 2025 限时Minecraft体验项目 | 支持版本: 1.8.8 - 1.21.7</p>
+        <p>© 2023 限时Minecraft体验项目 | 支持版本: 1.8.8 - 1.21.7</p>
     </footer>
 
     <script>
