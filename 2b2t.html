@@ -26,6 +26,8 @@
             --player-count: #FF9800;
             --poor: #9e9e9e;
             --poor-dark: #616161;
+            --qq-blue: #12b7f5;
+            --qq-blue-dark: #0d8cb4;
         }
 
         body {
@@ -197,6 +199,45 @@
         }
         
         .poor-server-btn:hover::before {
+            left: 150%;
+        }
+        
+        /* QQ群按钮 */
+        .qq-group-btn {
+            background: var(--qq-blue);
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qq-group-btn:hover {
+            background: var(--qq-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .qq-group-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.5s;
+            transform: rotate(45deg);
+        }
+        
+        .qq-group-btn:hover::before {
             left: 150%;
         }
 
@@ -399,6 +440,32 @@
         .poor-ip i {
             color: var(--poor);
         }
+        
+        .qq-group-ip {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: 1px solid var(--qq-blue);
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ddd;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qq-group-ip:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(18, 183, 245, 0.4);
+        }
+        
+        .qq-group-ip i {
+            color: var(--qq-blue);
+        }
 
         .cta-buttons {
             display: flex;
@@ -450,6 +517,18 @@
         
         .btn-poor:hover {
             background-color: var(--poor-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-qq {
+            background-color: var(--qq-blue);
+            color: white;
+            border: 2px solid var(--qq-blue-dark);
+        }
+        
+        .btn-qq:hover {
+            background-color: var(--qq-blue-dark);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -639,6 +718,43 @@
             color: #bbb;
             line-height: 1.6;
         }
+        
+        /* QQ群卡片 */
+        .qq-group-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            border: 1px solid var(--qq-blue);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qq-group-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--qq-blue);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .qq-group-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .qq-group-card p {
+            margin-bottom: 20px;
+            color: #bbb;
+            line-height: 1.6;
+        }
 
         /* 内容区域 */
         .content-section {
@@ -765,6 +881,52 @@
             background: #9a6b3d;
             transform: scale(1.05);
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* QQ群推广区 */
+        .qq-promo {
+            background: linear-gradient(135deg, #0a0a1a, #0d1a2a);
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 2px solid var(--qq-blue);
+            border-bottom: 2px solid var(--qq-blue);
+            margin: 60px 0;
+        }
+
+        .qq-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .qq-content h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .qq-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #bbb;
+        }
+
+        .qq-link {
+            display: inline-block;
+            font-size: 1.5rem;
+            color: white;
+            background: var(--qq-blue);
+            padding: 15px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid var(--qq-blue-dark);
+        }
+
+        .qq-link:hover {
+            background: var(--qq-blue-dark);
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(18, 183, 245, 0.4);
         }
 
         /* 容量指示器 */
@@ -1018,7 +1180,7 @@
                 margin-top: 15px;
             }
             
-            .poor-server-btn {
+            .poor-server-btn, .qq-group-btn {
                 margin-top: 10px;
                 margin-left: auto;
                 margin-right: auto;
@@ -1054,7 +1216,7 @@
                 padding: 10px 20px;
             }
             
-            .poor-ip {
+            .poor-ip, .qq-group-ip {
                 font-size: 1rem;
                 padding: 8px 15px;
             }
@@ -1092,7 +1254,7 @@
                 font-size: 1.2rem;
             }
             
-            .poor-ip {
+            .poor-ip, .qq-group-ip {
                 font-size: 0.9rem;
                 padding: 6px 12px;
             }
@@ -1176,7 +1338,11 @@
                 </div>
             </div>
         </div>
-        <!-- 修改：添加跳转到Poor服务器的功能 -->
+        <!-- QQ群按钮 -->
+        <button class="qq-group-btn" onclick="showQQGroup()">
+            <i class="fab fa-qq"></i> QQ群
+        </button>
+        <!-- Poor服务器按钮 -->
         <button class="poor-server-btn" onclick="window.location.href='https://2b2t.us.kg/poor'">
             <i class="fas fa-server"></i> Poor服务器
         </button>
@@ -1190,11 +1356,14 @@
         <div class="poor-ip" onclick="copyPoorToClipboard()">
             <i class="fas fa-server"></i> Poor服务器: 2b2t.us.kg/poor
         </div>
+        <div class="qq-group-ip" onclick="copyQQToClipboard()">
+            <i class="fab fa-qq"></i> QQ群号: 604308082
+        </div>
         <div class="cta-buttons">
             <a href="#" class="btn btn-primary">立即加入</a>
             <a href="http://bbs.2b2t.us.kg" class="btn btn-secondary" target="_blank">访问论坛</a>
-            <!-- 修改：添加跳转到Poor服务器的功能 -->
             <a href="https://2b2t.us.kg/poor" class="btn btn-poor">连接Poor服务器</a>
+            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="btn btn-qq" target="_blank">加入QQ群</a>
         </div>
     </section>
 
@@ -1228,7 +1397,6 @@
             <div class="poor-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyPoorToClipboard()">
                 <i class="fas fa-server"></i> IP地址: 2b2t.us.kg/poor
             </div>
-            <!-- 修改：添加跳转到Poor服务器的功能 -->
             <a href="https://2b2t.us.kg/poor" class="btn btn-poor" style="font-size: 1.2rem; display: inline-block; text-decoration: none;">
                 <i class="fas fa-plug"></i> 连接Poor服务器
             </a>
@@ -1239,6 +1407,27 @@
                     <li><i class="fas fa-check" style="color: #4CAF50;"></i> 优化区块加载</li>
                     <li><i class="fas fa-check" style="color: #4CAF50;"></i> 简化游戏机制</li>
                     <li><i class="fas fa-check" style="color: #4CAF50;"></i> 支持旧版本客户端</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- QQ群卡片 -->
+        <div class="qq-group-card">
+            <h3 class="minecraft-font">加入官方QQ群</h3>
+            <p>与数千名玩家实时交流，获取最新服务器资讯，分享你的冒险故事，参与社区活动！</p>
+            <div class="qq-group-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyQQToClipboard()">
+                <i class="fab fa-qq"></i> QQ群号: 604308082
+            </div>
+            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="btn btn-qq" style="font-size: 1.2rem; display: inline-block; text-decoration: none;" target="_blank">
+                <i class="fab fa-qq"></i> 立即加入QQ群
+            </a>
+            <div style="margin-top: 20px;">
+                <p>群内福利：</p>
+                <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 最新服务器动态通知</li>
+                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 独家游戏技巧分享</li>
+                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 玩家组队合作平台</li>
+                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 问题解答和技术支持</li>
                 </ul>
             </div>
         </div>
@@ -1319,6 +1508,17 @@
             <a href="http://bbs.2b2t.us.kg" class="forum-link minecraft-font" target="_blank">BBS.2B2T.US.KG</a>
         </div>
     </section>
+    
+    <!-- QQ群推广区 -->
+    <section class="qq-promo">
+        <div class="qq-content">
+            <h3>加入官方QQ群</h3>
+            <p>实时交流，组队合作，获取第一手服务器资讯，与管理员直接沟通！</p>
+            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="qq-link minecraft-font" target="_blank">
+                <i class="fab fa-qq"></i> QQ群号: 604308082
+            </a>
+        </div>
+    </section>
 
     <!-- 页脚 -->
     <footer class="footer">
@@ -1331,6 +1531,7 @@
                     <a href="#"><i class="fab fa-youtube"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-reddit"></i></a>
+                    <a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank"><i class="fab fa-qq"></i></a>
                 </div>
             </div>
             <div class="footer-column">
@@ -1341,14 +1542,15 @@
                     <li><a href="#">服务器规则</a></li>
                     <li><a href="#">在线地图</a></li>
                     <li><a href="#">玩家商店</a></li>
-                    <!-- 修改：添加跳转到Poor服务器的链接 -->
                     <li><a href="https://2b2t.us.kg/poor" style="color: var(--poor);">Poor服务器</a></li>
+                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank" style="color: var(--qq-blue);">官方QQ群</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h4>社区</h4>
                 <ul class="footer-links">
                     <li><a href="http://bbs.2b2t.us.kg" target="_blank">官方论坛</a></li>
+                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank">官方QQ群</a></li>
                     <li><a href="#">玩家指南</a></li>
                     <li><a href="#">新手教程</a></li>
                     <li><a href="#">玩家创作</a></li>
@@ -1362,11 +1564,12 @@
                     <li><a href="#">问题反馈</a></li>
                     <li><a href="#">捐赠服务器</a></li>
                     <li><a href="#">联系我们</a></li>
+                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank">QQ群支持</a></li>
                 </ul>
             </div>
         </div>
         <div class="copyright">
-            &copy; 2025 2B2T.US.KG 服务器 | 域名: 2b2t.us.kg | 论坛: bbs.2b2t.us.kg | 本网站仅为粉丝创作，与Mojang无关
+            &copy; 2025 2B2T.US.KG 服务器 | 域名: 2b2t.us.kg | 论坛: bbs.2b2t.us.kg | QQ群: 604308082 | 本网站仅为粉丝创作，与Mojang无关
         </div>
     </footer>
 
@@ -1411,6 +1614,37 @@
                     el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
                 }, 1500);
             });
+        }
+        
+        // 复制QQ群号
+        function copyQQToClipboard() {
+            const textArea = document.createElement('textarea');
+            textArea.value = '604308082';
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const qqIps = document.querySelectorAll('.qq-group-ip');
+            qqIps.forEach(el => {
+                const originalText = el.innerHTML;
+                el.innerHTML = '<i class="fab fa-qq"></i> QQ群号已复制!';
+                el.style.backgroundColor = 'rgba(13, 140, 180, 0.8)';
+                
+                setTimeout(() => {
+                    el.innerHTML = originalText;
+                    el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                }, 1500);
+            });
+            
+            // 显示提示
+            alert('QQ群号 604308082 已复制到剪贴板！');
+        }
+        
+        // 显示QQ群提示
+        function showQQGroup() {
+            alert('欢迎加入官方QQ群：604308082\n点击确定将跳转到加群页面');
+            window.open('https://qm.qq.com/q/OAn7qGEhIQ', '_blank');
         }
 
         // 添加滚动动画效果
