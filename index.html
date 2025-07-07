@@ -1176,7 +1176,8 @@
                 </div>
             </div>
         </div>
-        <button class="poor-server-btn" onclick="showPoorServer()">
+        <!-- 修改：添加跳转到Poor服务器的功能 -->
+        <button class="poor-server-btn" onclick="window.location.href='https://2b2t.us.kg/poor'">
             <i class="fas fa-server"></i> Poor服务器
         </button>
     </nav>
@@ -1192,7 +1193,8 @@
         <div class="cta-buttons">
             <a href="#" class="btn btn-primary">立即加入</a>
             <a href="http://bbs.2b2t.us.kg" class="btn btn-secondary" target="_blank">访问论坛</a>
-            <a href="#" class="btn btn-poor" onclick="connectPoorServer()">连接Poor服务器</a>
+            <!-- 修改：添加跳转到Poor服务器的功能 -->
+            <a href="https://2b2t.us.kg/poor" class="btn btn-poor">连接Poor服务器</a>
         </div>
     </section>
 
@@ -1226,9 +1228,10 @@
             <div class="poor-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyPoorToClipboard()">
                 <i class="fas fa-server"></i> IP地址: 2b2t.us.kg/poor
             </div>
-            <button class="btn btn-poor" style="font-size: 1.2rem;" onclick="connectPoorServer()">
+            <!-- 修改：添加跳转到Poor服务器的功能 -->
+            <a href="https://2b2t.us.kg/poor" class="btn btn-poor" style="font-size: 1.2rem; display: inline-block; text-decoration: none;">
                 <i class="fas fa-plug"></i> 连接Poor服务器
-            </button>
+            </a>
             <div style="margin-top: 20px;">
                 <p>特点：</p>
                 <ul style="list-style: none; padding: 0; margin-top: 10px;">
@@ -1338,7 +1341,8 @@
                     <li><a href="#">服务器规则</a></li>
                     <li><a href="#">在线地图</a></li>
                     <li><a href="#">玩家商店</a></li>
-                    <li><a href="#" style="color: var(--poor);">Poor服务器</a></li>
+                    <!-- 修改：添加跳转到Poor服务器的链接 -->
+                    <li><a href="https://2b2t.us.kg/poor" style="color: var(--poor);">Poor服务器</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -1407,24 +1411,6 @@
                     el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
                 }, 1500);
             });
-        }
-        
-        // 连接Poor服务器
-        function connectPoorServer() {
-            alert('正在连接到 Poor 服务器: 2b2t.us.kg/poor\n此功能在实际服务器中会直接启动Minecraft客户端');
-            // 实际应用中这里会启动Minecraft客户端
-        }
-        
-        // 显示Poor服务器信息
-        function showPoorServer() {
-            const poorCard = document.querySelector('.poor-server-card');
-            poorCard.scrollIntoView({ behavior: 'smooth' });
-            
-            // 添加视觉反馈
-            poorCard.style.boxShadow = '0 0 20px rgba(158, 158, 158, 0.5)';
-            setTimeout(() => {
-                poorCard.style.boxShadow = 'none';
-            }, 1500);
         }
 
         // 添加滚动动画效果
