@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key管理系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71, #22c1c3);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            box-shadow: 0 5px 20px rgba(229, 46, 113, 0.4);
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .panel {
+            background: rgba(20, 25, 45, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease;
+        }
+        
+        .panel h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ff6b6b;
+        }
+        
+        .panel h2 i {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .key-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .key-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71, #22c1c3);
+        }
+        
+        .key-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: monospace;
+            letter-spacing: 2px;
+            word-break: break-all;
+            color: #4dabf7;
+            text-shadow: 0 0 10px rgba(77, 171, 247, 0.5);
+            margin: 15px 0;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 5px;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            box-shadow: 0 5px 15px rgba(229, 46, 113, 0.4);
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(229, 46, 113, 0.6);
+        }
+        
+        .view-btn {
+            background: linear-gradient(45deg, #22c1c3, #1a2a6c);
+            color: white;
+            box-shadow: 0 5px 15px rgba(26, 42, 108, 0.4);
+        }
+        
+        .view-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 42, 108, 0.6);
+        }
+        
+        .key-list {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .key-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .key-list::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        
+        .key-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(#ff8a00, #e52e71);
+            border-radius: 4px;
+        }
+        
+        .key-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+            border-left: 4px solid #ff8a00;
+        }
+        
+        .key-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .key-text {
+            font-family: monospace;
+            font-size: 1.1rem;
+            color: #a9e34b;
+            word-break: break-all;
+            flex: 1;
+            padding-right: 15px;
+        }
+        
+        .key-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+        }
+        
+        .copy-btn:hover {
+            background: #22c1c3;
+            transform: scale(1.1);
+        }
+        
+        .delete-btn:hover {
+            background: #e52e71;
+            transform: scale(1.1);
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+        
+        .counter {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(229, 46, 113, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(229, 46, 113, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(229, 46, 113, 0); }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: rgba(20, 25, 45, 0.95);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #4dabf7;
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .panel {
+                max-width: 100%;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .key-value {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-key"></i> Key 管理系统</h1>
+            <p>生成、存储和管理以 "xiaomaqaq-" 开头的唯一密钥</p>
+            
+            <div class="tabs">
+                <button class="tab-btn active" id="generateTab"><i class="fas fa-plus-circle"></i> 生成 Key</button>
+                <button class="tab-btn" id="viewTab"><i class="fas fa-list"></i> 查看 Key</button>
+            </div>
+        </header>
+        
+        <div class="content">
+            <!-- 生成 Key 面板 -->
+            <div class="panel" id="generatePanel">
+                <h2><i class="fas fa-key"></i> 生成新 Key</h2>
+                <div class="key-display">
+                    <p>点击下方按钮生成新密钥</p>
+                    <div class="key-value" id="generatedKey">xiaomaqaq-**********</div>
+                    <button class="btn generate-btn pulse" id="generateBtn">
+                        <i class="fas fa-bolt"></i> 生成 Key
+                    </button>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn view-btn" id="goToViewBtn">
+                        <i class="fas fa-eye"></i> 查看所有 Key
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 查看 Key 面板 -->
+            <div class="panel" id="viewPanel" style="display: none;">
+                <h2><i class="fas fa-database"></i> 存储的 Key</h2>
+                
+                <div class="key-list" id="keyListContainer">
+                    <!-- Key列表将在这里动态生成 -->
+                    <div class="empty-message">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                        <p>尚未生成或存储任何 Key</p>
+                    </div>
+                </div>
+                
+                <div class="counter">
+                    <span>密钥总数: <span id="keyCount">0</span></span>
+                    <button class="btn view-btn" id="clearAllBtn">
+                        <i class="fas fa-trash-alt"></i> 清空所有
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notificationText">操作成功！</span>
+    </div>
+    
+    <script>
+        // 页面元素
+        const generateTab = document.getElementById('generateTab');
+        const viewTab = document.getElementById('viewTab');
+        const generatePanel = document.getElementById('generatePanel');
+        const viewPanel = document.getElementById('viewPanel');
+        const generateBtn = document.getElementById('generateBtn');
+        const generatedKey = document.getElementById('generatedKey');
+        const keyListContainer = document.getElementById('keyListContainer');
+        const keyCount = document.getElementById('keyCount');
+        const goToViewBtn = document.getElementById('goToViewBtn');
+        const clearAllBtn = document.getElementById('clearAllBtn');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        
+        // 切换标签页
+        generateTab.addEventListener('click', () => {
+            generatePanel.style.display = 'block';
+            viewPanel.style.display = 'none';
+            generateTab.classList.add('active');
+            viewTab.classList.remove('active');
+        });
+        
+        viewTab.addEventListener('click', () => {
+            generatePanel.style.display = 'none';
+            viewPanel.style.display = 'block';
+            viewTab.classList.add('active');
+            generateTab.classList.remove('active');
+            loadKeys();
+        });
+        
+        goToViewBtn.addEventListener('click', () => {
+            generatePanel.style.display = 'none';
+            viewPanel.style.display = 'block';
+            viewTab.classList.add('active');
+            generateTab.classList.remove('active');
+            loadKeys();
+        });
+        
+        // 生成随机Key
+        generateBtn.addEventListener('click', () => {
+            const key = generateRandomKey();
+            generatedKey.textContent = key;
+            generatedKey.style.color = '#4dabf7';
+            
+            // 保存到localStorage
+            saveKey(key);
+            
+            // 显示通知
+            showNotification('Key已生成并保存！');
+            
+            // 添加动画效果
+            generateBtn.classList.remove('pulse');
+            void generateBtn.offsetWidth; // 触发重排
+            generateBtn.classList.add('pulse');
+        });
+        
+        // 生成随机Key的函数
+        function generateRandomKey() {
+            const prefix = 'xiaomaqaq-';
+            const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = prefix;
+            
+            for (let i = 0; i < 12; i++) {
+                key += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            
+            return key;
+        }
+        
+        // 保存Key到localStorage
+        function saveKey(key) {
+            let keys = JSON.parse(localStorage.getItem('xiaomaqaqKeys')) || [];
+            
+            // 避免重复
+            if (!keys.includes(key)) {
+                keys.unshift(key); // 添加到数组开头
+                localStorage.setItem('xiaomaqaqKeys', JSON.stringify(keys));
+            }
+        }
+        
+        // 加载并显示所有Key
+        function loadKeys() {
+            const keys = JSON.parse(localStorage.getItem('xiaomaqaqKeys')) || [];
+            keyCount.textContent = keys.length;
+            
+            if (keys.length === 0) {
+                keyListContainer.innerHTML = `
+                    <div class="empty-message">
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                        <p>尚未生成或存储任何 Key</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            keyListContainer.innerHTML = '';
+            
+            keys.forEach(key => {
+                const keyItem = document.createElement('div');
+                keyItem.className = 'key-item';
+                keyItem.innerHTML = `
+                    <div class="key-text">${key}</div>
+                    <div class="key-actions">
+                        <button class="action-btn copy-btn" data-key="${key}">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-key="${key}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                
+                keyListContainer.appendChild(keyItem);
+            });
+            
+            // 添加复制事件
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const key = e.currentTarget.getAttribute('data-key');
+                    copyToClipboard(key);
+                    showNotification('Key已复制到剪贴板！');
+                });
+            });
+            
+            // 添加删除事件
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const key = e.currentTarget.getAttribute('data-key');
+                    deleteKey(key);
+                    loadKeys();
+                    showNotification('Key已删除！');
+                });
+            });
+        }
+        
+        // 删除Key
+        function deleteKey(keyToDelete) {
+            let keys = JSON.parse(localStorage.getItem('xiaomaqaqKeys')) || [];
+            keys = keys.filter(key => key !== keyToDelete);
+            localStorage.setItem('xiaomaqaqKeys', JSON.stringify(keys));
+        }
+        
+        // 清空所有Key
+        clearAllBtn.addEventListener('click', () => {
+            if (confirm('确定要删除所有Key吗？此操作不可恢复！')) {
+                localStorage.removeItem('xiaomaqaqKeys');
+                loadKeys();
+                showNotification('所有Key已删除！');
+            }
+        });
+        
+        // 复制到剪贴板
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+        
+        // 显示通知
+        function showNotification(message) {
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 检查是否有存储的Key并更新显示
+            const keys = JSON.parse(localStorage.getItem('xiaomaqaqKeys')) || [];
+            keyCount.textContent = keys.length;
+        });
+    </script>
+</body>
+</html>
