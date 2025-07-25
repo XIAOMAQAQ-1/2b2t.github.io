@@ -1,1791 +1,2189 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2B2T.US.KG - 新兴的Minecraft无政府服务器</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Minecraft&display=swap" rel="stylesheet">
+    <title>2b2t.gg - 无规则，无限制 | 无政府主义Minecraft服务器</title>
+    <meta name="description" content="2b2t.gg - 中国最古老的无政府主义Minecraft服务器，没有规则，没有限制，只有纯粹的生存体验。">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <!-- MDI Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #42c990;
+            --primary-dark: #369870;
+            --secondary: #6366f1;
+            --accent: #f59e0b;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --surface-light: #f1f5f9;
+            --text: #1f2937;
+            --text-muted: #6b7280;
+            --border: #e5e7eb;
+            --border-radius: 12px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --background: #0a0a0a;
+            --surface: #1a1a1a;
+            --surface-light: #2a2a2a;
+            --text: #ffffff;
+            --text-muted: #a1a1aa;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #2a7a2a;
-            --primary-dark: #1e5a1e;
-            --secondary: #8b5a2b;
-            --dark: #121212;
-            --darker: #0a0a0a;
-            --light: #e0e0e0;
-            --gray: #444;
-            --online: #4CAF50;
-            --offline: #F44336;
-            --player-count: #FF9800;
-            --poor: #9e9e9e;
-            --poor-dark: #616161;
-            --qq-blue: #12b7f5;
-            --qq-blue-dark: #0d8cb4;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--darker);
-            color: var(--light);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(40, 100, 40, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(139, 90, 43, 0.1) 0%, transparent 20%);
-            background-attachment: fixed;
+            font-family: var(--font-body);
+            background: var(--background);
+            color: var(--text);
             line-height: 1.6;
-            transition: background-color 0.5s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
+            transition: var(--transition);
         }
 
-        /* 主题样式 */
-        body.classic {
-            --primary: #2a7a2a;
-            --primary-dark: #1e5a1e;
-            --secondary: #8b5a2b;
+        /* Particles background */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, rgba(66, 201, 144, 0.1) 0%, transparent 70%);
         }
 
-        body.nether {
-            --primary: #b02e26;
-            --primary-dark: #8c221b;
-            --secondary: #5a3926;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(176, 46, 38, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(90, 57, 38, 0.1) 0%, transparent 20%);
+        .particle {
+            position: absolute;
+            background: rgba(66, 201, 144, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
         }
 
-        body.end {
-            --primary: #7d3fb2;
-            --primary-dark: #5d2d8c;
-            --secondary: #2c1b47;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(125, 63, 178, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(44, 27, 71, 0.1) 0%, transparent 20%);
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
         }
 
-        body.ocean {
-            --primary: #3a96dd;
-            --primary-dark: #2a75b0;
-            --secondary: #1a5a8a;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(58, 150, 221, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(26, 90, 138, 0.1) 0%, transparent 20%);
-        }
-        
-        body.poor {
-            --primary: #9e9e9e;
-            --primary-dark: #616161;
-            --secondary: #757575;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(158, 158, 158, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(97, 97, 97, 0.1) 0%, transparent 20%);
+        [data-theme="dark"] .header {
+            background: rgba(10, 10, 10, 0.95);
         }
 
-        .minecraft-font {
-            font-family: 'Minecraft', sans-serif;
-            letter-spacing: 1px;
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow);
         }
 
-        /* 导航栏样式 */
-        .navbar {
-            background-color: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 15px 5%;
+        [data-theme="dark"] .header.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
 
-        .logo {
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text);
         }
 
-        .logo img {
-            height: 50px;
-            width: auto;
+        .logo-placeholder {
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
 
-        .logo h1 {
-            font-size: 1.8rem;
-            color: var(--light);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .logo-text {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            align-items: center;
+            gap: 2rem;
         }
 
-        .nav-links a {
-            color: var(--light);
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             text-decoration: none;
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            position: relative;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
         }
 
-        .nav-links a:hover {
-            background-color: var(--primary);
-            color: white;
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(66, 201, 144, 0.1);
         }
 
-        .nav-links a.active {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Poor服务器按钮 */
-        .poor-server-btn {
-            background: var(--poor);
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 1rem;
+        .theme-toggle,
+        .mobile-menu-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.5rem;
+            border-radius: var(--border-radius);
             cursor: pointer;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .poor-server-btn:hover {
-            background: var(--poor-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        
-        .poor-server-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: all 0.5s;
-            transform: rotate(45deg);
-        }
-        
-        .poor-server-btn:hover::before {
-            left: 150%;
-        }
-        
-        /* QQ群按钮 */
-        .qq-group-btn {
-            background: var(--qq-blue);
-            color: #fff;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .qq-group-btn:hover {
-            background: var(--qq-blue-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-        
-        .qq-group-btn::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.5s;
-            transform: rotate(45deg);
-        }
-        
-        .qq-group-btn:hover::before {
-            left: 150%;
-        }
-
-        /* 服务器状态指示器 */
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .status-dot {
-            height: 12px;
-            width: 12px;
-            border-radius: 50%;
-            background-color: var(--online);
-            animation: pulse 2s infinite;
-        }
-
-        .status-dot.offline {
-            background-color: var(--offline);
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* 自定义控制栏 */
-        .custom-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .control-btn {
-            background: rgba(30, 30, 30, 0.8);
-            border: 1px solid var(--gray);
-            color: var(--light);
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .control-btn:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(30, 30, 30, 0.95);
-            min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            z-index: 1;
-            border-radius: 8px;
-            overflow: hidden;
-            right: 0;
-            margin-top: 5px;
-            backdrop-filter: blur(10px);
-        }
-
-        .dropdown-content a {
-            color: var(--light);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            transition: background 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background: var(--primary);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .theme-selector {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 15px;
-        }
-
-        .theme-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .theme-option:hover {
-            transform: scale(1.2);
-        }
-
-        .theme-option.active {
-            border-color: white;
-            transform: scale(1.1);
-        }
-
-        .theme-option.classic { background: linear-gradient(135deg, #2a7a2a 50%, #8b5a2b 50%); }
-        .theme-option.nether { background: linear-gradient(135deg, #b02e26 50%, #5a3926 50%); }
-        .theme-option.end { background: linear-gradient(135deg, #7d3fb2 50%, #2c1b47 50%); }
-        .theme-option.ocean { background: linear-gradient(135deg, #3a96dd 50%, #1a5a8a 50%); }
-        .theme-option.poor { background: linear-gradient(135deg, #9e9e9e 50%, #616161 50%); }
-
-        /* 英雄区域样式 */
-        .hero {
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
+        }
+
+        .theme-toggle:hover,
+        .mobile-menu-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Mobile navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            transform: translateY(0);
+        }
+
+        .mobile-nav .nav-link {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+        }
+
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
             align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover no-repeat;
+            justify-content: center;
             position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, rgba(66, 201, 144, 0.1) 0%, transparent 50%, rgba(99, 102, 241, 0.1) 100%);
+            padding: 6rem 2rem 2rem;
         }
 
-        .hero h2 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            animation: fadeInDown 1s ease;
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            z-index: 2;
         }
 
-        .hero p {
-            font-size: 1.4rem;
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-muted);
+            margin-bottom: 3rem;
             max-width: 800px;
-            margin-bottom: 40px;
-            color: #ddd;
-            animation: fadeInUp 1s ease;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .ip-address {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px 30px;
-            border-radius: 8px;
-            border: 2px solid var(--primary);
-            font-size: 1.8rem;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 40px;
-            animation: fadeIn 1.5s ease;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
         }
 
-        .ip-address:hover {
-            background: rgba(0, 0, 0, 0.9);
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(42, 122, 42, 0.5);
-        }
-
-        .ip-address:active {
-            transform: scale(0.98);
-        }
-        
-        .poor-ip {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: 1px solid var(--poor);
-            font-size: 1.2rem;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #ccc;
+        .hero-buttons {
             display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .poor-ip:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: scale(1.03);
-            box-shadow: 0 0 10px rgba(158, 158, 158, 0.3);
-        }
-        
-        .poor-ip i {
-            color: var(--poor);
-        }
-        
-        .qq-group-ip {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 20px;
-            border-radius: 6px;
-            border: 1px solid var(--qq-blue);
-            font-size: 1.2rem;
-            font-family: 'Courier New', monospace;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #ddd;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .qq-group-ip:hover {
-            background: rgba(0, 0, 0, 0.8);
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(18, 183, 245, 0.4);
-        }
-        
-        .qq-group-ip i {
-            color: var(--qq-blue);
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            animation: fadeInUp 1s ease;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
         }
 
         .btn {
-            padding: 15px 35px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            white-space: nowrap;
         }
 
         .btn-primary {
-            background-color: var(--primary);
+            background: var(--primary);
             color: white;
-            border: 2px solid var(--primary-dark);
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--light);
-            border: 2px solid var(--secondary);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-poor {
-            background-color: var(--poor);
-            color: #fff;
-            border: 2px solid var(--poor-dark);
-        }
-        
-        .btn-poor:hover {
-            background-color: var(--poor-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-qq {
-            background-color: var(--qq-blue);
+        .btn-blue {
+            background: var(--secondary);
             color: white;
-            border: 2px solid var(--qq-blue-dark);
-        }
-        
-        .btn-qq:hover {
-            background-color: var(--qq-blue-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* 统计区域 */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 40px 5%;
-            background: rgba(20, 20, 20, 0.8);
-            border-top: 2px solid var(--gray);
-            border-bottom: 2px solid var(--gray);
+        .btn-blue:hover {
+            background: #5856eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
-        .stat-box {
+        .btn-green {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-green:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-purple {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
             text-align: center;
-            padding: 20px;
-            min-width: 200px;
-            background: rgba(30, 30, 30, 0.6);
-            border-radius: 8px;
-            border: 1px solid var(--gray);
-            transition: transform 0.3s ease;
+            transition: var(--transition);
         }
 
-        .stat-box:hover {
-            transform: translateY(-10px);
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
             border-color: var(--primary);
+        }
+
+        .stat-icon {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
         }
 
         .stat-value {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--player-count);
-            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.25rem;
         }
 
         .stat-label {
-            font-size: 1.1rem;
-            color: #aaa;
-        }
-
-        /* 服务器状态卡片 */
-        .server-status-card {
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-            padding: 30px;
-            max-width: 500px;
-            margin: 0 auto 60px;
-            border: 1px solid var(--gray);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .server-status-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-        }
-
-        .server-status-card.loading::before {
-            background: #FF9800;
-            animation: loadingBar 2s infinite;
-        }
-
-        .server-status-card.online::before {
-            background: var(--online);
-            transform: scaleX(1);
-        }
-
-        .server-status-card.offline::before {
-            background: var(--offline);
-            transform: scaleX(1);
-        }
-        
-        .server-status-card.poor::before {
-            background: var(--poor);
-            transform: scaleX(1);
-        }
-
-        @keyframes loadingBar {
-            0% { transform: scaleX(0); transform-origin: left; }
-            50% { transform: scaleX(1); transform-origin: left; }
-            51% { transform-origin: right; }
-            100% { transform: scaleX(0); transform-origin: right; }
-        }
-
-        .status-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .status-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .status-item {
-            text-align: center;
-        }
-
-        .status-value {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .status-label {
-            color: #aaa;
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        .online-count {
-            color: var(--player-count);
-        }
-
-        .status-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .online-icon {
-            color: var(--online);
-        }
-
-        .offline-icon {
-            color: var(--offline);
-        }
-        
-        .poor-icon {
-            color: var(--poor);
-        }
-
-        .loading-icon {
-            color: #FF9800;
-            animation: spin 1s infinite linear;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Poor服务器卡片 */
-        .poor-server-card {
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto 60px;
-            border: 1px solid var(--poor);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .poor-server-card::before {
-            content: '';
+        /* Creeper element */
+        .creeper {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--poor);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-        }
-        
-        .poor-server-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-        
-        .poor-server-card p {
-            margin-bottom: 20px;
-            color: #bbb;
-            line-height: 1.6;
-        }
-        
-        /* QQ群卡片 */
-        .qq-group-card {
-            background: rgba(30, 30, 30, 0.8);
-            border-radius: 10px;
-            padding: 30px;
-            max-width: 600px;
-            margin: 0 auto 60px;
-            border: 1px solid var(--qq-blue);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .qq-group-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--qq-blue);
-            transform-origin: left;
-            transition: transform 0.5s ease;
-        }
-        
-        .qq-group-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-        
-        .qq-group-card p {
-            margin-bottom: 20px;
-            color: #bbb;
-            line-height: 1.6;
+            bottom: 10%;
+            right: 5%;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 3;
         }
 
-        /* 内容区域 */
-        .content-section {
-            padding: 80px 5%;
+        .creeper:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .creeper.active {
+            animation: creeperBounce 0.5s ease;
+        }
+
+        @keyframes creeperBounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.2) rotate(-5deg); }
+            50% { transform: scale(1.3) rotate(5deg); }
+            75% { transform: scale(1.1) rotate(-2deg); }
+        }
+
+        .creeper-svg {
+            filter: drop-shadow(0 0 20px rgba(66, 201, 144, 0.5));
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: var(--text-muted);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator-text {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Main content */
+        .main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 6rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: var(--light);
-            position: relative;
-            padding-bottom: 15px;
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .feature-card {
-            background: rgba(30, 30, 30, 0.6);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid var(--gray);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        /* 论坛推广区 */
-        .forum-promo {
-            background: linear-gradient(135deg, var(--darker), #1a1a2e);
-            padding: 60px 5%;
-            text-align: center;
-            border-top: 2px solid var(--gray);
-            border-bottom: 2px solid var(--gray);
-            margin: 60px 0;
-        }
-
-        .forum-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .forum-content h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .forum-content p {
+        .section-subtitle {
             font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #bbb;
-        }
-
-        .forum-link {
-            display: inline-block;
-            font-size: 1.5rem;
-            color: var(--light);
-            background: var(--secondary);
-            padding: 15px 40px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid #6d4c2e;
-        }
-
-        .forum-link:hover {
-            background: #9a6b3d;
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* QQ群推广区 */
-        .qq-promo {
-            background: linear-gradient(135deg, #0a0a1a, #0d1a2a);
-            padding: 60px 5%;
-            text-align: center;
-            border-top: 2px solid var(--qq-blue);
-            border-bottom: 2px solid var(--qq-blue);
-            margin: 60px 0;
-        }
-
-        .qq-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .qq-content h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .qq-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: #bbb;
-        }
-
-        .qq-link {
-            display: inline-block;
-            font-size: 1.5rem;
-            color: white;
-            background: var(--qq-blue);
-            padding: 15px 40px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid var(--qq-blue-dark);
-        }
-
-        .qq-link:hover {
-            background: var(--qq-blue-dark);
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(18, 183, 245, 0.4);
-        }
-
-        /* 容量指示器 */
-        .capacity-indicator {
-            margin: 40px auto;
+            color: var(--text-muted);
             max-width: 600px;
-            background: rgba(30, 30, 30, 0.6);
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid var(--gray);
-            text-align: center;
+            margin: 0 auto;
         }
 
-        .capacity-title {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: white;
+        /* Card styles */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
         }
 
-        .capacity-value {
-            font-size: 3.5rem;
-            font-weight: bold;
-            color: var(--player-count);
-            margin-bottom: 20px;
-            font-family: 'Minecraft', sans-serif;
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
         }
 
-        .capacity-bar {
-            height: 30px;
-            background: #333;
-            border-radius: 15px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            position: relative;
-            border: 2px solid #555;
-        }
-
-        .capacity-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), #FF9800);
-            width: 28%;
-            transition: width 1s ease;
-            position: relative;
-        }
-
-        .capacity-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(0,0,0,0.7);
-        }
-
-        .capacity-note {
-            color: #bbb;
-            font-style: italic;
-        }
-
-        /* 页脚样式 */
-        .footer {
-            background-color: rgba(10, 10, 10, 0.95);
-            padding: 50px 5% 30px;
-            border-top: 3px solid var(--primary);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto 40px;
-        }
-
-        .footer-column h4 {
-            font-size: 1.4rem;
-            color: white;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h4::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-
-        .social-links {
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text);
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .social-links a {
-            display: inline-flex;
+        .card-content {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .card-footer {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Grid layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Server status */
+        .status-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+
+        .server-load {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .server-pulse {
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(66, 201, 144, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(66, 201, 144, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(66, 201, 144, 0);
+            }
+        }
+
+        .server-name {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .server-status {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.online {
+            background: var(--primary);
+            box-shadow: 0 0 10px rgba(66, 201, 144, 0.5);
+        }
+
+        .status-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(66, 201, 144, 0.05);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(66, 201, 144, 0.2);
+        }
+
+        .status-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .status-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Ping status colors */
+        .good-ping {
+            color: #10b981 !important;
+        }
+
+        .normal-ping {
+            color: #f59e0b !important;
+        }
+
+        .bad-ping {
+            color: #ef4444 !important;
+        }
+
+        .server-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .detail-icon {
+            color: var(--primary);
+        }
+
+        .tag {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Rankings styles */
+        .rankings-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            padding: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .ranking-tab {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: calc(var(--border-radius) - 4px);
+            font-weight: 600;
+            display: flex;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .ranking-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(66, 201, 144, 0.3);
+        }
+
+        .ranking-tab:hover:not(.active) {
+            background: rgba(66, 201, 144, 0.1);
+            color: var(--primary);
+        }
+
+        .rankings-list {
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .rankings-header {
+            display: grid;
+            grid-template-columns: 60px 60px 1fr 120px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--surface-light);
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .ranking-item {
+            display: grid;
+            grid-template-columns: 60px 60px 1fr 120px;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+            align-items: center;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-item:hover {
+            background: rgba(66, 201, 144, 0.05);
+            transform: translateX(4px);
+        }
+
+        .ranking-position {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .ranking-position.top-1 {
+            color: #ffd700;
+            font-size: 1.4rem;
+        }
+
+        .ranking-position.top-2 {
+            color: #c0c0c0;
+            font-size: 1.3rem;
+        }
+
+        .ranking-position.top-3 {
+            color: #cd7f32;
+            font-size: 1.3rem;
+        }
+
+        .ranking-avatar {
             width: 40px;
             height: 40px;
-            background: var(--gray);
-            border-radius: 50%;
-            color: white;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+            transition: var(--transition);
         }
 
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
+        .ranking-avatar:hover {
+            border-color: var(--primary);
+            transform: scale(1.1);
         }
 
-        .copyright {
+        .ranking-player {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .ranking-player-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .ranking-player-uuid {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            opacity: 0.7;
+        }
+
+        .ranking-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        .loading {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid var(--gray);
-            color: #777;
+            padding: 3rem;
+            color: var(--text-muted);
+        }
+
+        .loading .mdi-spin {
+            animation: spin 1s linear infinite;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        /* Command list */
+        .command-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(66, 201, 144, 0.05);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--primary);
+        }
+
+        .command-code {
+            font-family: 'Courier New', monospace;
+            background: var(--surface-light);
+            padding: 0.5rem;
+            border-radius: 4px;
+            color: var(--primary);
+            font-weight: 600;
+            min-width: 200px;
+        }
+
+        .command-desc {
+            color: var(--text-muted);
+        }
+
+        /* FAQ */
+        .faq-container {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--surface-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: rgba(66, 201, 144, 0.1);
+        }
+
+        .faq-question.active {
+            background: rgba(66, 201, 144, 0.1);
+        }
+
+        .faq-icon {
+            color: var(--primary);
+        }
+
+        .faq-text {
+            flex: 1;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .faq-toggle {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--surface);
+        }
+
+        .faq-answer.active {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Player Search */
+        .player-search {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            background: var(--background);
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .search-result {
+            margin-top: 1rem;
+        }
+
+        .player-info {
+            background: var(--surface-light);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .player-info h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: var(--font-heading);
+        }
+
+        .player-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .player-stat {
+            background: var(--background);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .player-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .player-stat-label {
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        /* 语言切换面板 */
-        .language-panel {
-            position: fixed;
-            top: 50%;
-            right: -300px;
-            transform: translateY(-50%);
-            background: rgba(30, 30, 30, 0.95);
-            width: 280px;
-            padding: 20px;
-            border-radius: 10px 0 0 10px;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
-            z-index: 1000;
-            transition: right 0.4s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .language-panel.open {
-            right: 0;
-        }
-
-        .language-panel h3 {
-            color: var(--light);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .language-options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .lang-option {
-            padding: 12px;
-            background: rgba(50, 50, 50, 0.7);
-            border-radius: 8px;
+        /* Footer */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 2rem;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
+            color: var(--text-muted);
         }
 
-        .lang-option:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .lang-option.active {
-            background: var(--primary);
-            border: 2px solid var(--light);
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1s ease forwards;
         }
 
-        .toggle-language {
-            position: absolute;
-            left: -40px;
-            top: 20px;
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 8px 0 0 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: -3px 0 5px rgba(0,0,0,0.2);
+        .fade-in-delay-1 {
+            animation-delay: 0.2s;
         }
 
-        /* 动画效果 */
+        .fade-in-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-in-delay-3 {
+            animation-delay: 0.6s;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .navbar {
-                flex-wrap: wrap;
-            }
-            
-            .custom-controls {
-                order: 3;
-                width: 100%;
-                justify-content: center;
-                margin-top: 15px;
-            }
-            
-            .poor-server-btn, .qq-group-btn {
-                margin-top: 10px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
+        /* Responsive design */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 15px;
-            }
-
-            .logo {
-                margin-bottom: 15px;
-            }
-
             .nav-links {
-                flex-wrap: wrap;
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
                 justify-content: center;
-                margin-bottom: 15px;
             }
 
-            .hero h2 {
-                font-size: 2.5rem;
+            .grid {
+                grid-template-columns: 1fr;
             }
 
-            .hero p {
-                font-size: 1.1rem;
+            .status-box {
+                grid-template-columns: 1fr;
             }
 
-            .ip-address {
-                font-size: 1.4rem;
-                padding: 10px 20px;
+            .server-details {
+                flex-direction: column;
             }
-            
-            .poor-ip, .qq-group-ip {
+
+            .command-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .command-code {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .rankings-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.5rem;
+            }
+
+            .ranking-tab {
+                padding: 0.75rem 1rem;
+            }
+
+            .rankings-header {
+                grid-template-columns: 50px 50px 1fr 100px;
+                gap: 0.5rem;
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+
+            .ranking-item {
+                grid-template-columns: 50px 50px 1fr 100px;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .ranking-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .ranking-player-name {
+                font-size: 0.9rem;
+            }
+
+            .ranking-player-uuid {
+                font-size: 0.7rem;
+            }
+
+            .ranking-value {
                 font-size: 1rem;
-                padding: 8px 15px;
             }
 
-            .stats {
-                flex-wrap: wrap;
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .status-info {
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .header-content {
+                padding: 1rem;
+            }
+
+            .search-form {
                 flex-direction: column;
-                gap: 15px;
             }
 
-            .cta-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .dropdown-content {
-                left: 0;
-                right: auto;
-            }
-            
-            .capacity-value {
-                font-size: 2.8rem;
+            .player-stats {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .hero h2 {
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
                 font-size: 2rem;
             }
 
-            .ip-address {
-                font-size: 1.2rem;
-            }
-            
-            .poor-ip, .qq-group-ip {
-                font-size: 0.9rem;
-                padding: 6px 12px;
+            .hero-subtitle {
+                font-size: 1rem;
             }
 
-            .stat-box {
-                min-width: 140px;
-                padding: 15px 10px;
+            .rankings-header {
+                grid-template-columns: 40px 40px 1fr 80px;
+                gap: 0.25rem;
+                padding: 0.75rem;
             }
 
-            .stat-value {
-                font-size: 2rem;
+            .ranking-item {
+                grid-template-columns: 40px 40px 1fr 80px;
+                gap: 0.25rem;
+                padding: 0.75rem;
             }
-            
-            .capacity-value {
-                font-size: 2.2rem;
+
+            .ranking-avatar {
+                width: 28px;
+                height: 28px;
             }
-            
-            .capacity-title {
-                font-size: 1.5rem;
-            }
+        }
+
+        /* Code styles */
+        code {
+            background: var(--surface-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            color: var(--primary);
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+
+        /* List styles */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        /* Tip box styles */
+        .tip-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .tip-box h4 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-family: var(--font-heading);
+        }
+
+        /* Particle animations */
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(10px, 10px); }
+            50% { transform: translate(0, 20px); }
+            75% { transform: translate(-10px, 10px); }
+            100% { transform: translate(0, 0); }
         }
     </style>
 </head>
-<body class="classic">
-    <!-- 语言切换面板 -->
-    <div class="language-panel" id="languagePanel">
-        <div class="toggle-language" onclick="toggleLanguagePanel()">
-            <i class="fas fa-globe"></i>
-        </div>
-        <h3>选择语言</h3>
-        <div class="language-options">
-            <div class="lang-option active" onclick="changeLanguage('zh')">简体中文</div>
-            <div class="lang-option" onclick="changeLanguage('en')">English</div>
-            <div class="lang-option" onclick="changeLanguage('es')">Español</div>
-            <div class="lang-option" onclick="changeLanguage('de')">Deutsch</div>
-            <div class="lang-option" onclick="changeLanguage('fr')">Français</div>
-            <div class="lang-option" onclick="changeLanguage('ru')">Русский</div>
-            <div class="lang-option" onclick="changeLanguage('ja')">日本語</div>
-            <div class="lang-option" onclick="changeLanguage('ko')">한국어</div>
-        </div>
-    </div>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="logo">
-            <div class="status-indicator">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">正在检测服务器状态...</span>
-            </div>
-            <h1 class="minecraft-font">2B2T.US.KG</h1>
-        </div>
-        <div class="nav-links">
-            <a href="#" class="active">首页</a>
-            <a href="#">加入游戏</a>
-            <a href="#">规则</a>
-            <a href="#">地图</a>
-            <a href="#">商店</a>
-            <a href="http://bbs.2b2t.us.kg" target="_blank">论坛</a>
-            <a href="#">支持</a>
-        </div>
-        <div class="custom-controls">
-            <div class="control-btn" onclick="toggleLanguagePanel()">
-                <i class="fas fa-globe"></i>
-                <span>中文</span>
-            </div>
-            <div class="dropdown">
-                <div class="control-btn">
-                    <i class="fas fa-palette"></i>
-                    <span>主题风格</span>
+<body>
+    <!-- 粒子容器 -->
+    <div class="particles-container" id="particles-container"></div>
+    
+    <!-- 顶部导航栏 -->
+    <header class="header" id="header">
+        <div class="header-content">
+            <a href="#" class="logo-container">
+                <span class="logo-text">2b2t.gg</span>
+            </a>
+            
+            <nav>
+                <div class="nav-links">
+                    <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
+                    <a href="#rankings" class="nav-link"><i class="mdi mdi-trophy"></i> 排行榜</a>
+                    <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
+                    <a href="#commands" class="nav-link"><i class="mdi mdi-console"></i> 服务器指令</a>
+                    <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
+                    <a href="player.html" class="nav-link"><i class="mdi mdi-account-search"></i> 玩家查询</a>
                 </div>
-                <div class="dropdown-content">
-                    <div class="theme-selector">
-                        <div class="theme-option classic active" onclick="changeTheme('classic')" title="经典主题"></div>
-                        <div class="theme-option nether" onclick="changeTheme('nether')" title="下界主题"></div>
-                        <div class="theme-option end" onclick="changeTheme('end')" title="末地主题"></div>
-                        <div class="theme-option ocean" onclick="changeTheme('ocean')" title="海洋主题"></div>
-                        <div class="theme-option poor" onclick="changeTheme('poor')" title="Poor服务器"></div>
-                    </div>
-                    <a href="#"><i class="fas fa-moon"></i> 暗黑模式</a>
-                    <a href="#"><i class="fas fa-sun"></i> 明亮模式</a>
-                </div>
-            </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                    <i class="mdi mdi-weather-night"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开菜单">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+            </nav>
         </div>
-        <!-- QQ群按钮 -->
-        <button class="qq-group-btn" onclick="showQQGroup()">
-            <i class="fab fa-qq"></i> QQ群
-        </button>
-        <!-- Poor服务器按钮 -->
-        <button class="poor-server-btn" onclick="window.location.href='https://2b2t.us.kg/poor'">
-            <i class="fas fa-server"></i> Poor服务器
-        </button>
+    </header>
+    
+    <!-- 移动端导航 -->
+    <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="移动端导航">
+        <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
+        <a href="#rankings" class="nav-link"><i class="mdi mdi-trophy"></i> 排行榜</a>
+        <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
+        <a href="#commands" class="nav-link"><i class="mdi mdi-console"></i> 服务器指令</a>
+        <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
+        <a href="player.html" class="nav-link"><i class="mdi mdi-account-search"></i> 玩家查询</a>
     </nav>
-
+    
     <!-- 英雄区域 -->
-    <section class="hero">
-        <h2 class="minecraft-font">欢迎来到 2B2T.US.KG</h2>
-        <p>新兴的Minecraft无政府服务器，成立一个月，支持114514名玩家同时在线</p>
-        <div class="ip-address minecraft-font" onclick="copyToClipboard()">play.2b2t.us.kg</div>
-        <div class="poor-ip" onclick="copyPoorToClipboard()">
-            <i class="fas fa-server"></i> Poor服务器: 2b2t.us.kg/poor
-        </div>
-        <div class="qq-group-ip" onclick="copyQQToClipboard()">
-            <i class="fab fa-qq"></i> QQ群号: 604308082
-        </div>
-        <div class="cta-buttons">
-            <a href="#" class="btn btn-primary">立即加入</a>
-            <a href="http://bbs.2b2t.us.kg" class="btn btn-secondary" target="_blank">访问论坛</a>
-            <a href="https://2b2t.us.kg/poor" class="btn btn-poor">连接Poor服务器</a>
-            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="btn btn-qq" target="_blank">加入QQ群</a>
-        </div>
-    </section>
-
-    <!-- 服务器状态卡片 -->
-    <div class="content-section">
-        <div class="server-status-card loading" id="serverStatusCard">
-            <div class="status-icon loading-icon">
-                <i class="fas fa-sync-alt"></i>
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">无规则，无限制，纯粹生存</h1>
+            <p class="hero-subtitle fade-in fade-in-delay-1">欢迎来到 <span class="highlight">2b2t.gg</span> - 中国最古老的无政府主义Minecraft服务器。在这里，<span class="highlight">没有规则，没有限制</span>，只有纯粹的生存体验。</p>
+            
+            <div class="hero-buttons fade-in fade-in-delay-2">
+                <a href="#connect" class="btn btn-primary"><i class="mdi mdi-server"></i> 立即加入</a>
+                <a href="#status" class="btn btn-blue"><i class="mdi mdi-pulse"></i> 实时服务器状态</a>
+                <a href="#community" class="btn btn-green"><i class="mdi mdi-account-group"></i> 加入玩家社区</a>
+                <a href="#rankings" class="btn btn-purple"><i class="mdi mdi-trophy"></i> 查看排行榜</a>
             </div>
-            <h3 class="status-title" id="serverStatusTitle">正在检测服务器状态...</h3>
-            <div class="status-info">
-                <div class="status-item">
-                    <div class="status-value" id="onlinePlayers">--</div>
-                    <div class="status-label">在线玩家</div>
+            
+            <div class="hero-stats fade-in fade-in-delay-3">
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="mdi mdi-account-group"></i></div>
+                    <div class="stat-value" id="player-count-hero">-</div>
+                    <div class="stat-label">在线玩家</div>
                 </div>
-                <div class="status-item">
-                    <div class="status-value" id="maxPlayers">--</div>
-                    <div class="status-label">最大玩家数</div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="mdi mdi-clock"></i></div>
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">全天候在线</div>
                 </div>
-                <div class="status-item">
-                    <div class="status-value" id="serverVersion">--</div>
-                    <div class="status-label">服务器版本</div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="mdi mdi-earth"></i></div>
+                    <div class="stat-value">1.21.4</div>
+                    <div class="stat-label">推荐版本</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i class="mdi mdi-calendar"></i></div>
+                    <div class="stat-value">3年+</div>
+                    <div class="stat-label">运营历史</div>
                 </div>
             </div>
         </div>
         
-        <!-- Poor服务器卡片 -->
-        <div class="poor-server-card">
-            <h3 class="minecraft-font">Poor服务器选项</h3>
-            <p>为低配置玩家特别优化的服务器版本，使用轻量级服务端，降低资源消耗，让更多玩家可以流畅游戏。</p>
-            <div class="poor-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyPoorToClipboard()">
-                <i class="fas fa-server"></i> IP地址: 2b2t.us.kg/poor
-            </div>
-            <a href="https://2b2t.us.kg/poor" class="btn btn-poor" style="font-size: 1.2rem; display: inline-block; text-decoration: none;">
-                <i class="fas fa-plug"></i> 连接Poor服务器
-            </a>
-            <div style="margin-top: 20px;">
-                <p>特点：</p>
-                <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 低内存占用</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 优化区块加载</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 简化游戏机制</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> 支持旧版本客户端</li>
-                </ul>
-            </div>
+        <!-- 苦力怕元素 -->
+        <div class="creeper" id="creeper" aria-label="苦力怕互动">
+            <svg class="creeper-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+                <path d="M204.8 309.475556v104.675555h210.261333l-2.730666 10.012445c-1.365333 5.916444-2.730667 28.216889-2.730667 50.062222v40.049778H359.992889c-47.331556 0-49.607111 0.455111-52.337778 10.012444-1.365333 5.916444-2.730667 74.638222-2.730667 152.462222V819.2h109.226667v-100.124444h200.248889v100.124444h104.675556v-304.924444h-100.124445v-40.049778c0-21.845333-1.365333-44.145778-2.730667-50.062222l-2.730666-10.012445H819.2V204.8h-204.8v204.8H414.151111V204.8H204.8v104.675556z" fill="#42c990"/>
+            </svg>
         </div>
         
-        <!-- QQ群卡片 -->
-        <div class="qq-group-card">
-            <h3 class="minecraft-font">加入官方QQ群</h3>
-            <p>与数千名玩家实时交流，获取最新服务器资讯，分享你的冒险故事，参与社区活动！</p>
-            <div class="qq-group-ip" style="margin: 20px auto; font-size: 1.5rem;" onclick="copyQQToClipboard()">
-                <i class="fab fa-qq"></i> QQ群号: 604308082
-            </div>
-            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="btn btn-qq" style="font-size: 1.2rem; display: inline-block; text-decoration: none;" target="_blank">
-                <i class="fab fa-qq"></i> 立即加入QQ群
-            </a>
-            <div style="margin-top: 20px;">
-                <p>群内福利：</p>
-                <ul style="list-style: none; padding: 0; margin-top: 10px;">
-                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 最新服务器动态通知</li>
-                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 独家游戏技巧分享</li>
-                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 玩家组队合作平台</li>
-                    <li><i class="fas fa-star" style="color: #FFD700;"></i> 问题解答和技术支持</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- 服务器容量指示器 -->
-    <div class="capacity-indicator">
-        <h3 class="capacity-title">服务器超大容量</h3>
-        <div class="capacity-value">114,514</div>
-        <div class="capacity-bar">
-            <div class="capacity-fill" id="capacityFill">
-                <div class="capacity-text">28%</div>
-            </div>
-        </div>
-        <p class="capacity-note">支持114,514名玩家同时在线 - 永远不用担心服务器满员！</p>
-    </div>
-
-    <!-- 统计区域 -->
-    <div class="stats">
-        <div class="stat-box">
-            <div class="stat-value">128</div>
-            <div class="stat-label">当前在线玩家</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value">114,514</div>
-            <div class="stat-label">最大玩家数</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value">5,436</div>
-            <div class="stat-label">总玩家数</div>
-        </div>
-        <div class="stat-box">
-            <div class="stat-value">1个月</div>
-            <div class="stat-label">运行时间</div>
-        </div>
-    </div>
-
-    <!-- 特性区域 -->
-    <section class="content-section">
-        <h2 class="section-title minecraft-font">服务器特性</h2>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-gavel"></i>
-                </div>
-                <h3 class="feature-title">无政府状态</h3>
-                <p>没有规则，没有限制，没有管理干预。真正的自由游戏体验。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-server"></i>
-                </div>
-                <h3 class="feature-title">超大容量</h3>
-                <p>支持114,514名玩家同时在线，提供流畅的游戏体验。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-expand"></i>
-                </div>
-                <h3 class="feature-title">无限世界</h3>
-                <p>完全未删减的世界，探索从未被触及的遥远土地。</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3 class="feature-title">活跃社区</h3>
-                <p>加入数千名玩家组成的社区，共同创造新的传奇。</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 论坛推广区 -->
-    <section class="forum-promo">
-        <div class="forum-content">
-            <h3>加入我们的社区论坛</h3>
-            <p>与数千名玩家交流，获取最新服务器资讯，分享你的冒险故事，参与社区活动！</p>
-            <a href="http://bbs.2b2t.us.kg" class="forum-link minecraft-font" target="_blank">BBS.2B2T.US.KG</a>
+        <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-indicator-text">探索更多</div>
+            <div class="scroll-indicator-icon"><i class="mdi mdi-chevron-down"></i></div>
         </div>
     </section>
     
-    <!-- QQ群推广区 -->
-    <section class="qq-promo">
-        <div class="qq-content">
-            <h3>加入官方QQ群</h3>
-            <p>实时交流，组队合作，获取第一手服务器资讯，与管理员直接沟通！</p>
-            <a href="https://qm.qq.com/q/OAn7qGEhIQ" class="qq-link minecraft-font" target="_blank">
-                <i class="fab fa-qq"></i> QQ群号: 604308082
-            </a>
-        </div>
-    </section>
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 服务器状态 -->
+        <section class="section" id="status">
+            <div class="section-header">
+                <h2 class="section-title">实时服务器状态</h2>
+                <p class="section-subtitle">查看2b2t.gg服务器的实时状态、在线人数和网络延迟</p>
+            </div>
+            
+            <div class="status-card">
+                <div class="server-load">
+                    <div class="server-pulse"></div>
+                    <div class="server-info">
+                        <div class="server-name">2b2t.gg</div>
+                        <div class="server-status"><span class="status-dot online"></span> 运行中 | 无限制 | 无规则</div>
+                    </div>
+                </div>
+                
+                <div class="status-box">
+                    <div class="status-item">
+                        <div class="status-icon"><i class="mdi mdi-account-group"></i></div>
+                        <div class="status-content">
+                            <div class="status-value" id="player-count">-</div>
+                            <div class="status-label">在线玩家数量</div>
+                        </div>
+                    </div>
+                
+                <div class="server-details">
+                    <div class="detail-item">
+                        <div class="detail-icon"><i class="mdi mdi-gamepad-variant"></i></div>
+                        <div class="detail-text">推荐版本: <span class="tag">1.21.4</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon"><i class="mdi mdi-seed"></i></div>
+                        <div class="detail-text">地图种子: <span class="tag">1145141919810</span></div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-icon"><i class="mdi mdi-harddisk"></i></div>
+                        <div class="detail-text">地图大小: <span class="tag">1.2 TB</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- 排行榜 -->
+        <section class="section" id="rankings">
+            <div class="section-header">
+                <h2 class="section-title">玩家排行榜</h2>
+                <p class="section-subtitle">查看服务器中的顶级玩家排名</p>
+            </div>
+            
+            <div class="card">
+                <div class="rankings-tabs" role="tablist">
+                    <button class="ranking-tab active" data-type="kills" role="tab" aria-selected="true">
+                        <i class="mdi mdi-sword"></i> 击杀榜
+                    </button>
+                    <button class="ranking-tab" data-type="deaths" role="tab" aria-selected="false">
+                        <i class="mdi mdi-skull"></i> 死亡榜
+                    </button>
+                    <button class="ranking-tab" data-type="playtime" role="tab" aria-selected="false">
+                        <i class="mdi mdi-clock"></i> 在线榜
+                    </button>
+                </div>
+                
+                <div id="rankings-content" role="tabpanel">
+                    <div class="rankings-list">
+                        <div class="rankings-header">
+                            <div>排名</div>
+                            <div>头像</div>
+                            <div>玩家</div>
+                            <div>击杀数</div>
+                        </div>
+                        <!-- 示例数据 -->
+                        <div class="ranking-item">
+                            <div class="ranking-position top-1">#1</div>
+                            <img class="ranking-avatar" src="https://mineskin.eu/avatar/Notch/40" alt="Notch">
+                            <div class="ranking-player">
+                                <div class="ranking-player-name">Notch</div>
+                                <div class="ranking-player-uuid">069a79f4...</div>
+                            </div>
+                            <div class="ranking-value">999,999</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-position top-2">#2</div>
+                            <img class="ranking-avatar" src="https://mineskin.eu/avatar/jeb_/40" alt="jeb_">
+                            <div class="ranking-player">
+                                <div class="ranking-player-name">jeb_</div>
+                                <div class="ranking-player-uuid">853c80ef...</div>
+                            </div>
+                            <div class="ranking-value">888,888</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-position top-3">#3</div>
+                            <img class="ranking-avatar" src="https://mineskin.eu/avatar/Dinnerbone/40" alt="Dinnerbone">
+                            <div class="ranking-player">
+                                <div class="ranking-player-name">Dinnerbone</div>
+                                <div class="ranking-player-uuid">61699b2e...</div>
+                            </div>
+                            <div class="ranking-value">777,777</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-position">#4</div>
+                            <img class="ranking-avatar" src="https://mineskin.eu/avatar/steve/40" alt="离线玩家">
+                            <div class="ranking-player">
+                                <div class="ranking-player-name">中文玩家123</div>
+                                <div class="ranking-player-uuid">offline...</div>
+                            </div>
+                            <div class="ranking-value">666,666</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-position">#5</div>
+                            <img class="ranking-avatar" src="https://mineskin.eu/avatar/Grumm/40" alt="Grumm">
+                            <div class="ranking-player">
+                                <div class="ranking-player-name">Grumm</div>
+                                <div class="ranking-player-uuid">e6b5c05a...</div>
+                            </div>
+                            <div class="ranking-value">555,555</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        
+        <!-- 服务器指令 -->
+        <section class="section" id="commands">
+            <div class="section-header">
+                <h2 class="section-title">服务器常用指令</h2>
+                <p class="section-subtitle">掌握这些指令，让你的游戏体验更加顺畅</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="mdi mdi-console"></i> 常用指令列表</h3>
+                <div class="card-content">
+                    <div class="command-list">
+                        <div class="command-item">
+                            <div class="command-code">/help</div>
+                            <div class="command-desc">查找可用命令</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-code">1056361206</div>
+                            <div class="command-desc">服务器交易群</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-code">商店大管理yeeAM</div>
+                            <div class="command-desc">QQ:624615666</div>
+                        </div>
+                        <div class="command-item">
+                            <div class="command-code">找腐竹QQ</div>
+                            <div class="command-desc">3548300539</div>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 2rem;">掌握这些指令可以帮助你更好地在2b2t.gg服务器中生存。记住，在无政府主义服务器中，保护自己的信息和资源至关重要。</p>
+                    
+                    <div class="tip-box">
+                        <h4>提示</h4>
+                        <p>建议去挖方块领取vip，在群里看详细内容</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 连接指南和服务器特色 -->
+        <section class="section" id="connect">
+            <div class="section-header">
+                <h2 class="section-title">连接指南</h2>
+                <p class="section-subtitle">选择最适合你的线路加入服务器，开始你的生存之旅</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="mdi mdi-server"></i> 连接指南</h3>
+                    <div class="card-content">
+                        <p>选择最适合你的线路加入服务器：</p>
+                        <ul>
+                            <li>默认IP: <code>play.2b2t.us.kg</code> (cn专用)</li>
+                            <li>海外线路: <code>hw.play.2b2t.us.kg</code> (国际专线)</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">选择合适的线路可以显著提升游戏体验，减少延迟和卡顿。</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#connect-details" class="btn btn-primary"><i class="mdi mdi-server"></i> 查看完整指南</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="mdi mdi-star"></i> 服务器特色</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li>完全无政府主义 - 零管理干预，纯粹的生存体验</li>
+                            <li>支持生电特性与大型红石机械 - 无限制创造</li>
+                            <li>优化视距与服务器性能 - 流畅游戏体验</li>
+                            <li>永久存档，数据永不重置 - 留下你的传奇</li>
+                            <li>多线路接入 - 全球玩家低延迟体验</li>
+                            <li>无边界世界 - 探索无尽可能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 公告 -->
+        <section class="section" id="announcements">
+            <div class="section-header">
+                <h2 class="section-title">最新公告</h2>
+                <p class="section-subtitle">了解服务器的最新动态和更新信息</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="mdi mdi-bullhorn"></i> qqbot因为一些原因被迫下线</h3>
+                <div class="card-content">
+                    <p>2b2t.us.kg 官方qqbot现已关闭，由于tx的问题</p>
+                    <p>同时，我们也完成了服务器硬件升级，现在支持更多玩家同时在线，延迟更低，稳定性更高！</p>
+                    <time style="color: var(--text-muted); font-size: 0.9rem;">2025-06-05</time>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 详细连接指南 -->
+        <section class="section" id="connect-details">
+            <div class="section-header">
+                <h2 class="section-title">详细连接指南</h2>
+                <p class="section-subtitle">按照以下步骤连接到2b2t.us.kg服务器，开始你的生存之旅</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="mdi mdi-format-list-numbered"></i> 步骤说明</h3>
+                <div class="card-content">
+                    <ol>
+                        <li>启动Minecraft客户端 (推荐1.21.5版本)</li>
+                        <li>点击"多人游戏"</li>
+                        <li>点击"添加服务器"</li>
+                        <li>输入服务器地址: <code>play.2b2t.us.kg</code> 或选择适合你的专线IP</li>
+                        <li>点击"完成"并连接</li>
+                        <li>首次进入需要注册，使用 <code>/reg 你的密码 再次确认你的密码</code></li>
+                        <li>之后在新设备上登录使用 <code>/l 你的密码</code></li>
+                        <li>然后右键下界之心，点击TNT，基岩版将把他移动到任何位置，再次注册，后面就可不登录
+                    </ol>
+                    
+                    <h4 style="margin-top: 2rem; margin-bottom: 1rem; font-family: var(--font-heading); color: var(--primary);">专线IP一览表</h4>
+                    <div style="overflow-x: auto;">
+
+                    <div class="tip-box">
+                        <h4>新手提示</h4>
+                        <p>2b2t.us.kg是一个无政府主义服务器，没有任何规则和限制。这意味着你需要自己保护自己的安全。以下是一些生存建议：</p>
+                        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                            <li>远离出生点，至少前进10000格</li>
+                            <li>不要轻易相信其他玩家</li>
+                            <li>使用复杂密码并定期更改</li>
+                            <li>建造隐蔽的基地，避免被发现</li>
+                            <li>备份重要物品，分散存放</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 社区信息 -->
+        <section class="section" id="community">
+            <div class="section-header">
+                <h2 class="section-title">社区</h2>
+                <p class="section-subtitle">加入2b2t.gg社区，与其他玩家交流</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="mdi mdi-account-group"></i> 加入我们</h3>
+                    <div class="card-content">
+                        <p>加入我们的QQ群，与其他玩家交流经验，结交盟友，或者发现你的敌人：</p>
+                        <p style="margin-top: 1rem;">在这个群组中，你可以：</p>
+                        <ul>
+                            <li>寻找组队伙伴</li>
+                            <li>交流生存技巧</li>
+                            <li>分享你的建筑和成就</li>
+                            <li>了解服务器最新动态</li>
+                            <li>参与社区活动和挑战</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="https://qm.qq.com/q/A49Md8EfxA?from=tim" class="btn btn-primary"><i class="mdi mdi-message"></i> 点击加入QQ群</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="mdi mdi-account-search"></i> 玩家查询</h3>
+                    <div class="card-content">
+                        <p>想了解其他玩家的信息？使用我们的玩家查询系统：</p>
+                        <ul>
+                            <li>查看玩家在线状态</li>
+                            <li>了解玩家的游戏时长</li>
+                            <li>查询玩家的击杀/死亡数据</li>
+                            <li>检查玩家的首次加入时间</li>
+                            <li>查看玩家的优先队列状态</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <a href="player.html" class="btn btn-primary"><i class="mdi mdi-account-circle"></i> 点击查询玩家信息</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
     <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-column">
-                <h4>关于我们</h4>
-                <p>2B2T.US.KG 是新兴的Minecraft无政府服务器，自2025年5月运行至今，提供真正的无限制游戏体验。</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-reddit"></i></a>
-                    <a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank"><i class="fab fa-qq"></i></a>
-                </div>
-            </div>
-            <div class="footer-column">
-                <h4>快速链接</h4>
-                <ul class="footer-links">
-                    <li><a href="#">首页</a></li>
-                    <li><a href="#">加入服务器</a></li>
-                    <li><a href="#">服务器规则</a></li>
-                    <li><a href="#">在线地图</a></li>
-                    <li><a href="#">玩家商店</a></li>
-                    <li><a href="https://2b2t.us.kg/poor" style="color: var(--poor);">Poor服务器</a></li>
-                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank" style="color: var(--qq-blue);">官方QQ群</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>社区</h4>
-                <ul class="footer-links">
-                    <li><a href="http://bbs.2b2t.us.kg" target="_blank">官方论坛</a></li>
-                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank">官方QQ群</a></li>
-                    <li><a href="#">玩家指南</a></li>
-                    <li><a href="#">新手教程</a></li>
-                    <li><a href="#">玩家创作</a></li>
-                    <li><a href="#">活动日历</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>支持</h4>
-                <ul class="footer-links">
-                    <li><a href="#">常见问题</a></li>
-                    <li><a href="#">问题反馈</a></li>
-                    <li><a href="#">捐赠服务器</a></li>
-                    <li><a href="#">联系我们</a></li>
-                    <li><a href="https://qm.qq.com/q/OAn7qGEhIQ" target="_blank">QQ群支持</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copyright">
-            &copy; 2025 2B2T.US.KG 服务器 | 域名: 2b2t.us.kg | 论坛: bbs.2b2t.us.kg | QQ群: 604308082 | 本网站仅为粉丝创作，与Mojang无关
+            <p>&copy; ©2025 2b2t.us.kg - 版权所有</p>
+            <p>2b2t.us.kg 不隶属于 Minecraft 或 Mojang AB</p>
         </div>
     </footer>
 
     <script>
-        // 复制IP地址功能
-        function copyToClipboard() {
-            const ipElement = document.querySelector('.ip-address');
-            const textArea = document.createElement('textarea');
-            textArea.value = ipElement.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            const originalText = ipElement.textContent;
-            ipElement.textContent = 'IP已复制!';
-            ipElement.style.backgroundColor = 'rgba(42, 122, 42, 0.8)';
-            
-            setTimeout(() => {
-                ipElement.textContent = originalText;
-                ipElement.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-            }, 1500);
+    // 服务器状态更新 - 使用真实API
+        const endpoints = {
+          main: "paly.2b2t.us.kg",
+          mobile: "yd.2b2t.gg", 
+          telecom: "dx.2b2t.gg",
+          unicom: "lt.2b2t.gg",
+          overseas: "hw.plya.2b2t.us.kg",
         }
+
         
-        // 复制Poor服务器IP
-        function copyPoorToClipboard() {
-            const textArea = document.createElement('textarea');
-            textArea.value = '2b2t.us.kg/poor';
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            const poorIps = document.querySelectorAll('.poor-ip');
-            poorIps.forEach(el => {
-                const originalText = el.innerHTML;
-                el.innerHTML = '<i class="fas fa-check"></i> IP已复制!';
-                el.style.backgroundColor = 'rgba(97, 97, 97, 0.8)';
-                
-                setTimeout(() => {
-                    el.innerHTML = originalText;
-                    el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-                }, 1500);
-            });
-        }
+        // 初始化
+        document.addEventListener("DOMContentLoaded", () => {
+            // 移动端菜单切换
+            document.getElementById("mobileMenuBtn").addEventListener("click", function () {
+                const mobileNav = document.getElementById("mobileNav")
+                mobileNav.classList.toggle("active")
         
-        // 复制QQ群号
-        function copyQQToClipboard() {
-            const textArea = document.createElement('textarea');
-            textArea.value = '604308082';
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            const qqIps = document.querySelectorAll('.qq-group-ip');
-            qqIps.forEach(el => {
-                const originalText = el.innerHTML;
-                el.innerHTML = '<i class="fab fa-qq"></i> QQ群号已复制!';
-                el.style.backgroundColor = 'rgba(13, 140, 180, 0.8)';
-                
-                setTimeout(() => {
-                    el.innerHTML = originalText;
-                    el.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-                }, 1500);
-            });
-            
-            // 显示提示
-            alert('QQ群号 604308082 已复制到剪贴板！');
-        }
-        
-        // 显示QQ群提示
-        function showQQGroup() {
-            alert('欢迎加入官方QQ群：604308082\n点击确定将跳转到加群页面');
-            window.open('https://qm.qq.com/q/OAn7qGEhIQ', '_blank');
-        }
-
-        // 添加滚动动画效果
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                    }
-                });
-            }, observerOptions);
-
-            // 观察所有需要动画的元素
-            document.querySelectorAll('.feature-card, .stat-box').forEach(el => {
-                observer.observe(el);
-            });
-
-            // 检测服务器状态
-            checkServerStatus();
-            
-            // 初始化容量指示器动画
-            animateCapacityBar();
-        });
-
-        // 语言面板切换
-        function toggleLanguagePanel() {
-            const panel = document.getElementById('languagePanel');
-            panel.classList.toggle('open');
-        }
-
-        // 更改语言
-        function changeLanguage(lang) {
-            const langBtns = document.querySelectorAll('.lang-option');
-            langBtns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // 更新导航栏语言显示
-            document.querySelector('.control-btn span').textContent = 
-                lang === 'zh' ? '中文' : 
-                lang === 'en' ? 'English' : 
-                lang === 'es' ? 'Español' : 
-                lang === 'de' ? 'Deutsch' : 
-                lang === 'fr' ? 'Français' : 
-                lang === 'ru' ? 'Русский' : 
-                lang === 'ja' ? '日本語' : '한국어';
-            
-            // 在实际应用中，这里应该加载对应的语言包并更新所有文本
-            alert(`语言已切换到: ${lang.toUpperCase()}！在实际应用中，这里会加载对应的语言包`);
-        }
-
-        // 更改主题
-        function changeTheme(theme) {
-            document.body.className = theme;
-            
-            // 更新主题选择器状态
-            const themeOptions = document.querySelectorAll('.theme-option');
-            themeOptions.forEach(option => option.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            // 更新导航栏主题显示
-            document.querySelector('.control-btn span').textContent = 
-                theme === 'classic' ? '经典主题' : 
-                theme === 'nether' ? '下界主题' : 
-                theme === 'end' ? '末地主题' : 
-                theme === 'ocean' ? '海洋主题' : 'Poor服务器';
-        }
-
-        // 服务器状态检测
-        function checkServerStatus() {
-            const statusCard = document.getElementById('serverStatusCard');
-            const statusTitle = document.getElementById('serverStatusTitle');
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
-            const onlinePlayers = document.getElementById('onlinePlayers');
-            const maxPlayers = document.getElementById('maxPlayers');
-            const serverVersion = document.getElementById('serverVersion');
-            const statusIcon = statusCard.querySelector('.status-icon');
-            
-            // 显示加载状态
-            statusCard.className = 'server-status-card loading';
-            statusTitle.textContent = '正在检测服务器状态...';
-            statusIcon.innerHTML = '<i class="fas fa-sync-alt"></i>';
-            statusIcon.className = 'status-icon loading-icon';
-            statusDot.className = 'status-dot';
-            statusText.textContent = '正在检测服务器状态...';
-            
-            // 模拟API请求（实际中应替换为真实API）
-            setTimeout(() => {
-                // 模拟成功响应
-                const success = Math.random() > 0.2; // 80%成功率
-                
-                if (success) {
-                    // 模拟在线状态
-                    const playersOnline = Math.floor(Math.random() * 150) + 30;
-                    const playersMax = 114514;
-                    const version = "1.20.1";
-                    
-                    // 更新UI
-                    statusCard.className = 'server-status-card online';
-                    statusTitle.textContent = '服务器在线';
-                    statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
-                    statusIcon.className = 'status-icon online-icon';
-                    statusDot.className = 'status-dot';
-                    statusText.textContent = `服务器在线 | ${playersOnline} 玩家`;
-                    
-                    onlinePlayers.textContent = playersOnline;
-                    onlinePlayers.className = 'status-value online-count';
-                    maxPlayers.textContent = playersMax.toLocaleString();
-                    serverVersion.textContent = version;
+                // 切换图标
+                const icon = this.querySelector("i")
+                if (mobileNav.classList.contains("active")) {
+                    icon.className = "mdi mdi-close"
                 } else {
-                    // 服务器离线
-                    statusCard.className = 'server-status-card offline';
-                    statusTitle.textContent = '服务器离线';
-                    statusIcon.innerHTML = '<i class="fas fa-times-circle"></i>';
-                    statusIcon.className = 'status-icon offline-icon';
-                    statusDot.className = 'status-dot offline';
-                    statusText.textContent = '服务器关闭';
-                    
-                    onlinePlayers.textContent = '0';
-                    onlinePlayers.className = 'status-value';
-                    maxPlayers.textContent = '0';
-                    serverVersion.textContent = 'N/A';
+                    icon.className = "mdi mdi-menu"
                 }
-            }, 2000);
+            })
+        
+            // 导航链接点击关闭移动菜单
+            document.querySelectorAll(".mobile-nav .nav-link").forEach((link) => {
+                link.addEventListener("click", () => {
+                    const mobileNav = document.getElementById("mobileNav")
+                    const mobileMenuBtn = document.getElementById("mobileMenuBtn")
+                    mobileNav.classList.remove("active")
+                    mobileMenuBtn.querySelector("i").className = "mdi mdi-menu"
+                })
+            })
+        
+            // 滚动时改变导航栏样式
+            window.addEventListener("scroll", () => {
+                const header = document.getElementById("header")
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled")
+                } else {
+                    header.classList.remove("scrolled")
+                }
+            })
+        
+            // 粒子效果
+            createParticles()
+        
+            // 初始化服务器状态
+            updateAllPings()
+            // 每30秒更新一次状态
+            setInterval(updateAllPings, 30000)
+        
+            // 初始化FAQ - 使用事件委托
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.faq-question')) {
+                    const question = e.target.closest('.faq-question')
+                    toggleFAQ(question)
+                }
+            })
+        
+            // 添加页面滚动动画
+            initScrollAnimations()
+        
+            // 初始化苦力怕彩蛋
+            initCreeperEasterEgg()
+        
+            // 暗色模式切换
+            initThemeToggle()
+        
+            // 滚动指示器点击事件
+            document.getElementById("scrollIndicator").addEventListener("click", () => {
+                const statusSection = document.getElementById("status")
+                statusSection.scrollIntoView({ behavior: "smooth" })
+            })
+        
+            // 初始化排行榜
+            initRankings()
+        
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault()
+                    const target = document.querySelector(this.getAttribute("href"))
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        })
+                    }
+                })
+            })
+        })
+        
+        // 主题切换功能
+        function initThemeToggle() {
+            const themeToggle = document.getElementById("themeToggle")
+            const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)")
+        
+            // 检查本地存储中的主题设置
+            const savedTheme = localStorage.getItem("theme")
+        
+            // 如果有保存的主题设置，应用它
+            if (savedTheme === "dark") {
+                document.documentElement.setAttribute("data-theme", "dark")
+                themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
+            } else if (savedTheme === "light") {
+                document.documentElement.setAttribute("data-theme", "light")
+                themeToggle.querySelector("i").className = "mdi mdi-weather-night"
+            } else {
+                // 如果没有保存的设置，根据系统偏好设置
+                if (prefersDarkScheme.matches) {
+                    document.documentElement.setAttribute("data-theme", "dark")
+                    themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
+                } else {
+                    document.documentElement.setAttribute("data-theme", "light")
+                    themeToggle.querySelector("i").className = "mdi mdi-weather-night"
+                }
+            }
+        
+            // 主题切换按钮点击事件
+            themeToggle.addEventListener("click", () => {
+                const currentTheme = document.documentElement.getAttribute("data-theme")
+                if (currentTheme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "light")
+                    localStorage.setItem("theme", "light")
+                    themeToggle.querySelector("i").className = "mdi mdi-weather-night"
+                } else {
+                    document.documentElement.setAttribute("data-theme", "dark")
+                    localStorage.setItem("theme", "dark")
+                    themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
+                }
+            })
+        
+            // 监听系统主题变化
+            prefersDarkScheme.addEventListener("change", (e) => {
+                // 只有在用户没有手动设置主题时才跟随系统
+                if (!localStorage.getItem("theme")) {
+                    if (e.matches) {
+                        document.documentElement.setAttribute("data-theme", "dark")
+                        themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
+                    } else {
+                        document.documentElement.setAttribute("data-theme", "light")
+                        themeToggle.querySelector("i").className = "mdi mdi-weather-night"
+                    }
+                }
+            })
         }
         
-        // 容量指示器动画
-        function animateCapacityBar() {
-            const capacityFill = document.getElementById('capacityFill');
-            // 模拟服务器使用率
-            const usagePercentage = 28;
+        // 粒子效果
+        function createParticles() {
+            const container = document.getElementById("particles-container")
+            const particleCount = window.innerWidth < 768 ? 30 : 60
+        
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement("div")
+                particle.classList.add("particle")
+        
+                // 随机大小
+                const size = Math.random() * 4 + 1
+                particle.style.width = `${size}px`
+                particle.style.height = `${size}px`
+        
+                // 随机位置
+                const posX = Math.random() * 100
+                const posY = Math.random() * 100
+                particle.style.left = `${posX}%`
+                particle.style.top = `${posY}%`
+        
+                // 随机透明度
+                particle.style.opacity = Math.random() * 0.5 + 0.1
+        
+                // 随机动画
+                const duration = Math.random() * 20 + 10
+                const delay = Math.random() * 5
+        
+                particle.style.animation = `float ${duration}s ${delay}s infinite linear`
+        
+                // 添加到容器
+                container.appendChild(particle)
+            }
+        }
+        
+        // FAQ切换功能 - 修复版
+        function toggleFAQ(element) {
+            // 获取回答元素
+            const answer = element.nextElementSibling
+            const toggle = element.querySelector('.faq-toggle i')
+        
+            // 检查当前是否已经是激活状态
+            const isActive = element.classList.contains("active")
+        
+            // 关闭所有其他FAQ
+            document.querySelectorAll('.faq-question').forEach(q => {
+                if (q !== element) {
+                    q.classList.remove('active')
+                    q.nextElementSibling.classList.remove('active')
+                    q.querySelector('.faq-toggle i').className = 'mdi mdi-chevron-down'
+                }
+            })
+        
+            // 切换当前FAQ状态
+            if (isActive) {
+                element.classList.remove("active")
+                answer.classList.remove("active")
+                toggle.className = 'mdi mdi-chevron-down'
+            } else {
+                element.classList.add("active")
+                answer.classList.add("active")
+                toggle.className = 'mdi mdi-chevron-up'
+            }
+        }
+        
+        // 服务器状态更新部分
+        async function fetchPingData(url) {
+            try {
+                const response = await fetch(`https://list.mczfw.cn/api/${url}`)
+                if (!response.ok) throw new Error("Network response was not ok")
+                const data = await response.json()
+        
+                return {
+                    value: data.ping || "-",
+                    status: getPingStatus(data.ping),
+                }
+            } catch (error) {
+                console.error("获取延迟数据失败:", error)
+                return {
+                    value: "超时",
+                    status: "offline",
+                }
+            }
+        }
+        
+        async function fetchPlayerCount(url) {
+            try {
+                const response = await fetch(`https://list.mczfw.cn/api/${url}`)
+                if (!response.ok) throw new Error("Network response was not ok")
+                const data = await response.json()
+        
+                return data.p || "-"
+            } catch (error) {
+                console.error("获取玩家数量失败:", error)
+                return "-"
+            }
+        }
+        
+        async function updateAllPings() {
+            document.getElementById("player-count").textContent = await fetchPlayerCount(endpoints.main)
+            document.getElementById("player-count-hero").textContent = await fetchPlayerCount(endpoints.main)
+        
+            const pingMain = await fetchPingData(endpoints.main)
+            const pingMobile = await fetchPingData(endpoints.mobile)
+            const pingTelecom = await fetchPingData(endpoints.telecom)
+            const pingUnicom = await fetchPingData(endpoints.unicom)
+            const pingOverseas = await fetchPingData(endpoints.overseas)
+        
+            updatePingElement("ping-main", pingMain)
+            updatePingElement("ping-mobile", pingMobile)
+            updatePingElement("ping-telecom", pingTelecom)
+            updatePingElement("ping-unicom", pingUnicom)
+            updatePingElement("ping-overseas", pingOverseas)
+        }
+        
+        // 更新延迟DOM元素并添加状态标识
+        function updatePingElement(elementId, pingData) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
             
-            // 设置动画
-            setTimeout(() => {
-                capacityFill.style.width = `${usagePercentage}%`;
-                capacityFill.querySelector('.capacity-text').textContent = `${usagePercentage}%`;
-            }, 500);
+            element.textContent = pingData.value;
+            element.title = pingData.value === "超时" ? "服务器离线" : `延迟: ${pingData.value}`;
+        
+            // 移除所有状态类
+            element.classList.remove("good-ping", "normal-ping", "bad-ping", "offline-ping", "unknown-ping");
+            
+            // 添加当前状态类
+            element.classList.add(`${pingData.status}-ping`);
+        }
+        
+        // 判断延迟状态
+        function getPingStatus(ping) {
+            if (!ping || ping === "-") return "unknown";
+            if (ping < 100) return "good";
+            if (ping < 200) return "normal";
+            return "bad";
+        }
+        
+        // 初始化滚动动画
+        function initScrollAnimations() {
+            const animateElements = document.querySelectorAll(".card, .status-item");
+        
+            // 优化滚动性能
+            function debounce(func, wait) {
+                let timeout;
+                return function () {
+                    const args = arguments;
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+        
+            const checkIfInView = debounce(() => {
+                requestAnimationFrame(() => {
+                    document.querySelectorAll(".card, .status-item").forEach((element) => {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top < window.innerHeight - rect.height / 3) {
+                            element.style.opacity = "1";
+                            element.style.transform = "translateY(0)";
+                        }
+                    });
+                });
+            }, 16);
+        
+            // 初始设置
+            animateElements.forEach((element) => {
+                element.style.opacity = "0";
+                element.style.transform = "translateY(30px)";
+                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+            });
+        
+            // 滚动时检查
+            window.addEventListener("scroll", checkIfInView);
+            // 初始检查
+            checkIfInView();
+        }
+        
+        // 苦力怕互动效果
+        function initCreeperEasterEgg() {
+            const creeper = document.getElementById("creeper");
+            let lastInteractionTime = 0;
+            const cooldownTime = 2000; // 2秒冷却时间
+        
+            // 颜文字和文案数组
+            const kaomojis = [
+                "( ´･ω･)ﾉ(._.`)",
+                "(っ °Д °;)っ",
+                "(╯°□°）╯︵ ┻━┻",
+                "┬─┬ノ( º _ ºノ)",
+                "(｡･ω･｡)",
+                "ヽ(°〇°)ﾉ",
+                "ヽ(´▽`)/",
+                "ヾ(≧▽≦*)o",
+                "o(≧口≦)o",
+                "(*￣3￣)╭",
+                "OwO",
+                "UwU",
+                "^_^",
+                "¯\\_(ツ)_/¯",
+                "(づ｡◕‿‿◕｡)づ",
+                "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
+                "(⊙_⊙;)",
+                "(✿◠‿◠)",
+                "(◕‿◕✿)",
+                "(◡‿◡✿)",
+                "(≧◡≦)",
+                "(>ω<)",
+                "(´• ω •`)",
+                "(ง •̀_•́)ง",
+                "ʕ•ᴥ•ʔ",
+                "ʕ￫ᴥ￩ʔ",
+                "ʕ•̫͡•ʔ",
+                "ᕙ(⇀‸↼‶)ᕗ",
+                "ᕦ(ò_óˇ)ᕤ",
+                "(｡♥‿♥｡)",
+                "(◍•ᴗ•◍)❤",
+            ];
+        
+            const messages = [
+                "苦力怕想和你做朋友！",
+                "嘘！小心爆炸！",
+                "2b2t.gg - 无规则，无限制！",
+                "远离出生点，保护自己！",
+                "你知道吗？苦力怕害怕猫！",
+                "挖矿时请注意安全！",
+                "记得保存你的坐标！",
+                "不要轻易相信其他玩家！",
+                "末影箱是你最好的朋友！",
+                "记得定期更换密码！",
+                "Ssssssss...",
+                "今天也是美好的一天！",
+                "你已经挖了多少钻石了？",
+                "记得远离出生点建家！",
+                "苦力怕正在偷看你...",
+                "你的基地安全吗？",
+                "有人在跟踪你吗？",
+                "小心岩浆！",
+                "不要在夜间独自旅行！",
+                "记得带足食物！",
+                "你的装备耐久还够吗？",
+                "有备无患，多准备几套装备！",
+                "找到下界要塞了吗？",
+                "末地龙已经被击败了多少次？",
+                "你知道吗？钻石在Y=-58层最常见",
+                "试试在下界挖黑曜石吧！",
+                "记得在基地周围放火把！",
+                "小心苦力怕从背后偷袭！",
+                "你的红石机器运行正常吗？",
+                "试试建造自动农场吧！",
+                "村民交易可以获得很好的装备！",
+                "记得收集经验修复装备！",
+                "在下界搭建冰道可以快速移动！",
+                "末影珍珠是逃生的好工具！",
+                "不要挖你脚下的方块！",
+                "记得备份重要物品！",
+                "试试建造刷怪塔获取资源！",
+                "找到古代残骸了吗？",
+                "下界合金装备是最强的！",
+                "记得在重要位置放置重生锚！",
+                "你收集了多少唱片？",
+                "试试建造自动熔炉系统！",
+                "记得定期整理物品栏！",
+                "在海底神殿可以找到海绵！",
+                "试试建造红石电梯吧！",
+                "记得在基地周围种植花朵！",
+                "你有多少只宠物？",
+                "尝试驯服一匹马吧！",
+                "记得给你的动物命名！",
+                "试试建造自动分类系统！",
+            ];
+        
+            // 创建消息气泡元素
+            const messageBubble = document.createElement("div");
+            messageBubble.style.position = "fixed";
+            messageBubble.style.bottom = "80px";
+            messageBubble.style.right = "20px";
+            messageBubble.style.backgroundColor = "var(--surface)";
+            messageBubble.style.color = "var(--text)";
+            messageBubble.style.padding = "12px 18px";
+            messageBubble.style.borderRadius = "12px";
+            messageBubble.style.maxWidth = "250px";
+            messageBubble.style.boxShadow = "var(--shadow)";
+            messageBubble.style.zIndex = "99";
+            messageBubble.style.transform = "scale(0)";
+            messageBubble.style.transition = "transform 0.3s ease";
+            messageBubble.style.transformOrigin = "bottom right";
+            messageBubble.style.fontFamily = "'Inter', sans-serif";
+            messageBubble.style.fontSize = "14px";
+            messageBubble.style.textAlign = "center";
+            messageBubble.style.lineHeight = "1.5";
+            messageBubble.style.border = "1px solid var(--border)";
+            document.body.appendChild(messageBubble);
+        
+            // 点击事件
+            creeper.addEventListener("click", () => {
+                const now = Date.now();
+                if (now - lastInteractionTime < cooldownTime) return;
+                lastInteractionTime = now;
+        
+                // 随机选择颜文字和消息
+                const randomKaomoji = kaomojis[Math.floor(Math.random() * kaomojis.length)];
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        
+                // 显示消息
+                messageBubble.innerHTML = `<div style="font-size: 18px; margin-bottom: 8px;">${randomKaomoji}</div><div>${randomMessage}</div>`;
+                messageBubble.style.transform = "scale(1)";
+        
+                // 添加苦力怕动画
+                creeper.classList.add("active");
+        
+                // 3秒后隐藏消息
+                setTimeout(() => {
+                    messageBubble.style.transform = "scale(0)";
+                    creeper.classList.remove("active");
+                }, 3000);
+            });
+        }
+        
+        // 排行榜功能
+        async function fetchRankings(type) {
+            const content = document.getElementById('rankings-content')
+            content.innerHTML = '<div class="loading"><i class="mdi mdi-loading mdi-spin"></i><div>加载排行榜数据中...</div></div>'
+        
+            try {
+                const response = await fetch(`./player_rankings.php?type=${type}`)
+                if (!response.ok) throw new Error("Network response was not ok")
+                const data = await response.json()
+                
+                if (data.success && data.data) {
+                    renderRankings(data.data, type)
+                } else {
+                    content.innerHTML = '<div class="error">加载排行榜失败: ' + (data.message || '未知错误') + '</div>'
+                }
+            } catch (error) {
+                console.error('Error fetching rankings:', error)
+                content.innerHTML = '<div class="error">网络错误，无法加载排行榜数据</div>'
+            }
+        }
+        
+        function renderRankings(rankings, type) {
+            const content = document.getElementById('rankings-content')
+            
+            let html = '<div class="rankings-list"><div class="rankings-header"><div>排名</div><div>头像</div><div>玩家</div><div>' + 
+                (type === 'kills' ? '击杀数' : type === 'deaths' ? '死亡数' : '在线时长') + '</div></div>'
+        
+            rankings.forEach((player, index) => {
+                const position = index + 1
+                const positionClass = position <= 3 ? `top-${position}` : ''
+                
+                let valueDisplay = player.value
+                if (type === 'playtime') {
+                    const hours = Math.floor(player.value)
+                    const days = Math.floor(hours / 24)
+                    if (days > 0) {
+                        valueDisplay = `${days}天 ${hours % 24}小时`
+                    } else {
+                        valueDisplay = `${hours}小时`
+                    }
+                } else {
+                    valueDisplay = player.value.toLocaleString()
+                }
+                
+                const avatarUrl = `https://mineskin.eu/avatar/${player.player_name}/40`
+                
+                html += `
+                    <div class="ranking-item">
+                        <div class="ranking-position ${positionClass}">#${position}</div>
+                        <img class="ranking-avatar" src="${avatarUrl}" alt="${player.player_name}" 
+                             onerror="this.src='https://mineskin.eu/avatar/steve/40'" />
+                        <div class="ranking-player">
+                            <div class="ranking-player-name">${player.player_name}</div>
+                            <div class="ranking-player-uuid">${player.player_uuid ? player.player_uuid.substring(0, 8) + '...' : 'offline...'}</div>
+                        </div>
+                        <div class="ranking-value">${valueDisplay}</div>
+                    </div>
+                `
+            })
+        
+            html += '</div>'
+            content.innerHTML = html
+        }
+        
+        function initRankings() {
+            // 排行榜标签切换
+            document.querySelectorAll('.ranking-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 移除所有活动状态
+                    document.querySelectorAll('.ranking-tab').forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    
+                    // 设置当前标签为活动状态
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                    
+                    const type = tab.dataset.type;
+                    currentRankingType = type
+                    fetchRankings(type)
+                });
+            });
+        
+            // 初始加载击杀榜
+            fetchRankings(currentRankingType)
         }
     </script>
 </body>
