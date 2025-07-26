@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2b2t.us.kg - 无规则，无限制 | 无政府主义Minecraft服务器</title>
+    <title>2b2t.us.kg - 无政府主义Minecraft服务器</title>
     <meta name="description" content="2b2t.us.kg - 中国最古老的无政府主义Minecraft服务器，没有规则，没有限制，只有纯粹的生存体验。">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
     
     <!-- MDI Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
@@ -120,19 +120,6 @@
             color: var(--text);
         }
 
-        .logo-placeholder {
-            width: 80px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
         .logo-text {
             font-family: var(--font-heading);
             font-size: 1.5rem;
@@ -191,6 +178,187 @@
 
         .mobile-menu-btn {
             display: none;
+        }
+
+        /* User login */
+        .user-login {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            gap: 0.5rem;
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-name {
+            font-weight: 500;
+            color: var(--text);
+            margin-left: 0.5rem;
+        }
+
+        /* Login modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .login-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-container {
+            background: var(--surface);
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            transform: translateY(-30px);
+            transition: all 0.3s ease;
+        }
+
+        .login-modal.active .login-container {
+            transform: translateY(0);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            background: var(--background);
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(66, 201, 144, 0.2);
+        }
+
+        .login-btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+        }
+
+        .login-btn-submit:hover {
+            background: var(--primary-dark);
+        }
+
+        .login-error {
+            color: #e53e3e;
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .register-link a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
         }
 
         /* Mobile navigation */
@@ -511,13 +679,13 @@
             gap: 2rem;
         }
 
-        /* Command list */
-        .command-list {
+        /* Notice list */
+        .notice-list {
             display: grid;
             gap: 1rem;
         }
 
-        .command-item {
+        .notice-item {
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -527,7 +695,17 @@
             border-left: 4px solid var(--primary);
         }
 
-        .command-code {
+        .notice-icon {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .notice-text {
+            flex: 1;
+            color: var(--text);
+        }
+
+        .notice-code {
             font-family: 'Courier New', monospace;
             background: var(--surface-light);
             padding: 0.5rem;
@@ -535,10 +713,6 @@
             color: var(--primary);
             font-weight: 600;
             min-width: 200px;
-        }
-
-        .command-desc {
-            color: var(--text-muted);
         }
 
         /* FAQ */
@@ -599,86 +773,75 @@
             max-height: 500px;
         }
 
-        /* Player Search */
-        .player-search {
+        /* Server Status */
+        .server-status {
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--border-radius);
             padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: var(--border-radius);
-            background: var(--background);
-            color: var(--text);
-            font-size: 1rem;
-        }
-
-        .search-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .search-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .search-result {
-            margin-top: 1rem;
-        }
-
-        .player-info {
-            background: var(--surface-light);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-        }
-
-        .player-info h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-family: var(--font-heading);
-        }
-
-        .player-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .player-stat {
-            background: var(--background);
-            padding: 1rem;
-            border-radius: var(--border-radius);
+            margin: 2rem auto;
+            max-width: 800px;
             text-align: center;
         }
 
-        .player-stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
+        .status-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
             color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        .player-stat-label {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        .status-image {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 1rem;
+        }
+
+        /* MySQL Info Section */
+        .mysql-info {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .mysql-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .mysql-details {
+            background: rgba(66, 201, 144, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .mysql-details p {
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        .mysql-details span {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* Footer */
@@ -746,13 +909,13 @@
                 grid-template-columns: 1fr;
             }
 
-            .command-item {
+            .notice-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
 
-            .command-code {
+            .notice-code {
                 min-width: auto;
                 width: 100%;
             }
@@ -765,12 +928,8 @@
                 padding: 1rem;
             }
 
-            .search-form {
-                flex-direction: column;
-            }
-
-            .player-stats {
-                grid-template-columns: 1fr;
+            .user-login {
+                display: none;
             }
         }
 
@@ -828,14 +987,14 @@
         .tip-box {
             margin-top: 2rem;
             padding: 1.5rem;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(66, 201, 144, 0.1);
             border-radius: var(--border-radius);
-            border-left: 4px solid var(--secondary);
+            border-left: 4px solid var(--primary);
         }
 
         .tip-box h4 {
             margin-bottom: 0.5rem;
-            color: var(--secondary);
+            color: var(--primary);
             font-family: var(--font-heading);
         }
 
@@ -853,6 +1012,36 @@
     <!-- 粒子容器 -->
     <div class="particles-container" id="particles-container"></div>
     
+    <!-- 登录模态框 -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <button class="login-close" id="loginClose">&times;</button>
+            <div class="login-header">
+                <h2 class="login-title">小马账号登录</h2>
+                <p>使用您的小马账号登录服务器网站</p>
+            </div>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="username" class="form-label">用户名</label>
+                    <input type="text" id="username" class="form-input" placeholder="输入您的小马账号" required>
+                    <div class="login-error" id="usernameError">用户名不能为空</div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">密码</label>
+                    <input type="password" id="password" class="form-input" placeholder="输入您的密码" required>
+                    <div class="login-error" id="passwordError">密码不能为空</div>
+                </div>
+                <button type="submit" class="login-btn-submit">
+                    <i class="mdi mdi-login"></i> 登录账户
+                </button>
+                
+                <div class="register-link">
+                    没有小马账号？<a href="https://2b2t.us.kg/reg" target="_blank">点击注册</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <!-- 顶部导航栏 -->
     <header class="header" id="header">
         <div class="header-content">
@@ -864,10 +1053,20 @@
                 <div class="nav-links">
                     <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
                     <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
-                    <a href="#commands" class="nav-link"><i class="mdi mdi-console"></i> 服务器指令</a>
-                    <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
-                    <a href="player.html" class="nav-link"><i class="mdi mdi-account-search"></i> 玩家查询</a>
+                    <a href="#notices" class="nav-link"><i class="mdi mdi-alert-circle"></i> 注意事项</a>
+                    <a href="#mysql" class="nav-link"><i class="mdi mdi-database"></i> MySQL信息</a>
                 </div>
+                
+                <div class="user-login" id="userLogin">
+                    <div id="userInfo" style="display: none;">
+                        <div class="user-avatar" id="userAvatar">A</div>
+                        <span class="user-name" id="userName">Admin</span>
+                    </div>
+                    <button class="login-btn" id="loginBtn">
+                        <i class="mdi mdi-account"></i> 登录
+                    </button>
+                </div>
+                
                 <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
                     <i class="mdi mdi-weather-night"></i>
                 </button>
@@ -882,9 +1081,9 @@
     <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="移动端导航">
         <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
         <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
-        <a href="#commands" class="nav-link"><i class="mdi mdi-console"></i> 服务器指令</a>
-        <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
-        <a href="player.html" class="nav-link"><i class="mdi mdi-account-search"></i> 玩家查询</a>
+        <a href="#notices" class="nav-link"><i class="mdi mdi-alert-circle"></i> 注意事项</a>
+        <a href="#mysql" class="nav-link"><i class="mdi mdi-database"></i> MySQL信息</a>
+        <a href="#" class="nav-link" id="mobileLoginBtn"><i class="mdi mdi-account"></i> 登录账户</a>
     </nav>
     
     <!-- 英雄区域 -->
@@ -932,44 +1131,70 @@
     
     <!-- 主要内容 -->
     <main class="main-content">
-        <!-- 服务器指令 -->
-        <section class="section" id="commands">
+        <!-- 注意事项 -->
+        <section class="section" id="notices">
             <div class="section-header">
-                <h2 class="section-title">服务器常用指令</h2>
-                <p class="section-subtitle">掌握这些指令，让你的游戏体验更加顺畅</p>
+                <h2 class="section-title">玩家注意事项</h2>
+                <p class="section-subtitle">了解这些重要事项，确保你的游戏体验安全顺畅</p>
             </div>
             
             <div class="card">
-                <h3 class="card-title"><i class="mdi mdi-console"></i> 常用指令列表</h3>
+                <h3 class="card-title"><i class="mdi mdi-alert"></i> 安全与注意事项</h3>
                 <div class="card-content">
-                    <div class="command-list">
-                        <div class="command-item">
-                            <div class="command-code">/help</div>
-                            <div class="command-desc">查找可用命令</div>
+                    <div class="notice-list">
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-lock"></i></div>
+                            <div class="notice-text">使用强密码保护账号，定期更换密码</div>
                         </div>
-                        <div class="command-item">
-                            <div class="command-code">1056361206</div>
-                            <div class="command-desc">服务器交易群</div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-account-off"></i></div>
+                            <div class="notice-text">不要轻易相信其他玩家，保护个人隐私</div>
                         </div>
-                        <div class="command-item">
-                            <div class="command-code">商店大管理yeeAM</div>
-                            <div class="command-desc">QQ:624615666</div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-map-marker-distance"></i></div>
+                            <div class="notice-text">远离出生点（至少5000格以外）建立基地</div>
                         </div>
-                        <div class="command-item">
-                            <div class="command-code">找腐竹QQ</div>
-                            <div class="command-desc">3548300539</div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-map"></i></div>
+                            <div class="notice-text">备份重要坐标，避免迷路</div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-account-group"></i></div>
+                            <div class="notice-text">加入官方QQ群获取帮助：
+                                <span class="notice-code">1056361206</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-store"></i></div>
+                            <div class="notice-text">商店管理联系方式：
+                                <span class="notice-code">QQ:624615666 (yeeAM)</span>
+                            </div>
+                        </div>
+                        <div class="notice-item">
+                            <div class="notice-icon"><i class="mdi mdi-account-cog"></i></div>
+                            <div class="notice-text">腐竹联系方式：
+                                <span class="notice-code">QQ:3548300539</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <p style="margin-top: 2rem;">掌握这些指令可以帮助你更好地在2b2t.us.kg服务器中生存。记住，在无政府主义服务器中，保护自己的信息和资源至关重要。</p>
+                    <p style="margin-top: 2rem;">在2b2t.us.kg无政府主义服务器中，保护自己的信息和资源至关重要。遵循以上注意事项可以大大提升你的生存几率。</p>
                     
                     <div class="tip-box">
-                        <h4>提示</h4>
-                        <p>建议去挖方块领取vip，在群里看详细内容</p>
+                        <h4>重要提示</h4>
+                        <p>建议去挖方块领取VIP，在群里查看详细内容。VIP玩家享有更多特权和优先权。</p>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <!-- 服务器状态 -->
+        <div class="server-status">
+            <h3 class="status-title"><i class="mdi mdi-server-network"></i> 服务器实时状态</h3>
+            <p>当前服务器运行状态和玩家数量：</p>
+            <img src="https://list.mczfw.cn/mc/38370.png" alt="2b2t.us.kg服务器状态" class="status-image">
+            <p style="margin-top: 1rem; color: var(--primary);">服务器正常运行中 | 24/7全天候开放</p>
+        </div>
         
         <!-- 连接指南和服务器特色 -->
         <section class="section" id="connect">
@@ -984,8 +1209,8 @@
                     <div class="card-content">
                         <p>选择最适合你的线路加入服务器：</p>
                         <ul>
-                            <li>默认IP: <code>play.2b2t.us.kg</code> (cn专用)</li>
-                            <li>海外线路: <code>hw.play.2b2t.us.kg</code> (国际专线)</li>
+                            <li>默认IP: <code>2b2t.us.kg</code> (cn专用)</li>
+                            <li>海外线路: <code>hw.2b2t.us.kg</code> (国际专线)</li>
                         </ul>
                         <p style="margin-top: 1rem;">选择合适的线路可以显著提升游戏体验，减少延迟和卡顿。</p>
                     </div>
@@ -1007,6 +1232,27 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </section>
+        
+        <!-- MySQL信息部分 -->
+        <section class="section" id="mysql">
+            <div class="section-header">
+                <h2 class="section-title">数据库信息</h2>
+                <p class="section-subtitle">服务器MySQL数据库配置详情</p>
+            </div>
+            
+            <div class="mysql-info">
+                <h3><i class="mdi mdi-database"></i> MySQL数据库配置</h3>
+                <div class="mysql-details">
+                    <p><strong>数据库名称:</strong> <span>fr3t_38379431_mima</span></p>
+                    <p><strong>用户名:</strong> <span>fr3t_38379431</span></p>
+                    <p><strong>密码:</strong> <span>520zizmm</span></p>
+                    <p><strong>主机名:</strong> <span>sql209.tttttttttt.top</span></p>
+                </div>
+                <p style="margin-top: 1.5rem; color: var(--primary);">
+                    <i class="mdi mdi-alert"></i> 重要提示：这些信息仅限服务器管理员使用
+                </p>
             </div>
         </section>
         
@@ -1037,25 +1283,25 @@
             <div class="card">
                 <h3 class="card-title"><i class="mdi mdi-format-list-numbered"></i> 步骤说明</h3>
                 <div class="card-content">
-                    <ol>
-                        <li>启动Minecraft客户端 (推荐1.21.5版本)</li>
-                        <li>点击"多人游戏"</li>
-                        <li>点击"添加服务器"</li>
-                        <li>输入服务器地址: <code>play.2b2t.us.kg</code> 或选择适合你的专线IP</li>
-                        <li>点击"完成"并连接</li>
-                        <li>首次进入需要注册，使用 <code>/reg 你的密码 再次确认你的密码</code></li>
-                        <li>之后在新设备上登录使用 <code>/l 你的密码</code></li>
-                        <li>然后右键下界之心，点击TNT，基岩版将把他移动到任何位置，再次注册，后面就可不登录
-                    </ol>
+                    <div class="tip-box">
+                        <h4>连接服务器步骤</h4>
+                        <ol>
+                            <li>启动Minecraft客户端 (推荐1.21.5版本)</li>
+                            <li>点击"多人游戏"</li>
+                            <li>点击"添加服务器"</li>
+                            <li>输入服务器地址: <code>2b2t.us.kg</code> 或选择适合你的专线IP</li>
+                            <li>点击"完成"并连接</li>
+                            <li>首次进入需要注册，使用 <code>/reg 你的密码 再次确认你的密码</code></li>
+                            <li>之后在新设备上登录使用 <code>/l 你的密码</code></li>
+                            <li>然后右键下界之心，点击TNT，基岩版将把他移动到任何位置，再次注册，后面就可不登录</li>
+                        </ol>
+                    </div>
                     
-                    <h4 style="margin-top: 2rem; margin-bottom: 1rem; font-family: var(--font-heading); color: var(--primary);">专线IP一览表</h4>
-                    <div style="overflow-x: auto;">
-
                     <div class="tip-box">
                         <h4>新手提示</h4>
                         <p>2b2t.us.kg是一个无政府主义服务器，没有任何规则和限制。这意味着你需要自己保护自己的安全。以下是一些生存建议：</p>
                         <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                            <li>远离出生点，至少前进10000格</li>
+                            <li>远离出生点，至少前进5000格</li>
                             <li>不要轻易相信其他玩家</li>
                             <li>使用复杂密码并定期更改</li>
                             <li>建造隐蔽的基地，避免被发现</li>
@@ -1073,40 +1319,21 @@
                 <p class="section-subtitle">加入2b2t.us.kg社区，与其他玩家交流</p>
             </div>
             
-            <div class="grid">
-                <div class="card">
-                    <h3 class="card-title"><i class="mdi mdi-account-group"></i> 加入我们</h3>
-                    <div class="card-content">
-                        <p>加入我们的QQ群，与其他玩家交流经验，结交盟友，或者发现你的敌人：</p>
-                        <p style="margin-top: 1rem;">在这个群组中，你可以：</p>
-                        <ul>
-                            <li>寻找组队伙伴</li>
-                            <li>交流生存技巧</li>
-                            <li>分享你的建筑和成就</li>
-                            <li>了解服务器最新动态</li>
-                            <li>参与社区活动和挑战</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="https://qm.qq.com/q/a4E7hDukMw" class="btn btn-primary"><i class="mdi mdi-message"></i> 点击加入QQ群</a>
-                    </div>
+            <div class="card">
+                <h3 class="card-title"><i class="mdi mdi-account-group"></i> 加入我们</h3>
+                <div class="card-content">
+                    <p>加入我们的QQ群，与其他玩家交流经验，结交盟友，或者发现你的敌人：</p>
+                    <p style="margin-top: 1rem;">在这个群组中，你可以：</p>
+                    <ul>
+                        <li>寻找组队伙伴</li>
+                        <li>交流生存技巧</li>
+                        <li>分享你的建筑和成就</li>
+                        <li>了解服务器最新动态</li>
+                        <li>参与社区活动和挑战</li>
+                    </ul>
                 </div>
-                
-                <div class="card">
-                    <h3 class="card-title"><i class="mdi mdi-account-search"></i> 玩家查询</h3>
-                    <div class="card-content">
-                        <p>想了解其他玩家的信息？使用我们的玩家查询系统：</p>
-                        <ul>
-                            <li>查看玩家在线状态</li>
-                            <li>了解玩家的游戏时长</li>
-                            <li>查询玩家的击杀/死亡数据</li>
-                            <li>检查玩家的首次加入时间</li>
-                            <li>查看玩家的优先队列状态</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="player.html" class="btn btn-primary"><i class="mdi mdi-account-circle"></i> 点击查询玩家信息</a>
-                    </div>
+                <div class="card-footer">
+                    <a href="https://qm.qq.com/q/a4E7hDukMw" class="btn btn-primary"><i class="mdi mdi-message"></i> 点击加入QQ群</a>
                 </div>
             </div>
         </section>
@@ -1179,7 +1406,7 @@
         
             // 滚动指示器点击事件
             document.getElementById("scrollIndicator").addEventListener("click", () => {
-                const commandsSection = document.getElementById("commands")
+                const commandsSection = document.getElementById("notices")
                 commandsSection.scrollIntoView({ behavior: "smooth" })
             })
         
@@ -1196,6 +1423,9 @@
                     }
                 })
             })
+            
+            // 登录系统
+            initLoginSystem()
         })
         
         // 主题切换功能
@@ -1495,6 +1725,109 @@
                     creeper.classList.remove("active");
                 }, 3000);
             });
+        }
+        
+        // 登录系统
+        function initLoginSystem() {
+            const loginModal = document.getElementById('loginModal');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginClose = document.getElementById('loginClose');
+            const loginForm = document.getElementById('loginForm');
+            const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            
+            // 显示登录模态框
+            function showLoginModal() {
+                loginModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // 隐藏登录模态框
+            function hideLoginModal() {
+                loginModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            // 登录按钮事件
+            loginBtn.addEventListener('click', showLoginModal);
+            if (mobileLoginBtn) {
+                mobileLoginBtn.addEventListener('click', showLoginModal);
+            }
+            
+            // 关闭按钮事件
+            loginClose.addEventListener('click', hideLoginModal);
+            
+            // 点击模态框外部关闭
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) {
+                    hideLoginModal();
+                }
+            });
+            
+            // 表单提交事件
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // 简单验证
+                if (!username.trim()) {
+                    document.getElementById('usernameError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('usernameError').style.display = 'none';
+                }
+                
+                if (!password) {
+                    document.getElementById('passwordError').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('passwordError').style.display = 'none';
+                }
+                
+                try {
+                    // 在实际应用中，这里应该发送请求到后端API
+                    // 以下是模拟的登录验证逻辑
+                    
+                    // 模拟API响应延迟
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    // 模拟登录成功
+                    if (username === "admin" && password === "520zizmm") {
+                        // 设置用户信息
+                        userAvatar.textContent = username.charAt(0).toUpperCase();
+                        userName.textContent = username;
+                        userInfo.style.display = 'flex';
+                        loginBtn.style.display = 'none';
+                        
+                        // 保存登录状态到sessionStorage
+                        sessionStorage.setItem('isLoggedIn', 'true');
+                        sessionStorage.setItem('username', username);
+                        
+                        hideLoginModal();
+                    } else {
+                        // 模拟登录失败
+                        alert("登录失败：用户名或密码错误");
+                    }
+                } catch (error) {
+                    console.error("登录错误:", error);
+                    alert("登录过程中发生错误，请稍后重试");
+                }
+            });
+            
+            // 检查是否已登录
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                const savedUsername = sessionStorage.getItem('username');
+                if (savedUsername) {
+                    userAvatar.textContent = savedUsername.charAt(0).toUpperCase();
+                    userName.textContent = savedUsername;
+                    userInfo.style.display = 'flex';
+                    loginBtn.style.display = 'none';
+                }
+            }
         }
     </script>
 </body>
