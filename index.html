@@ -5,14 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2B2T.US.KG - 无政府主义Minecraft服务器</title>
     <meta name="description" content="2B2T.US.KG - 中国最古老的无政府主义Minecraft服务器，没有规则，没有限制，只有纯粹的生存体验。">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔️</text></svg>">
-    
-    <!-- MDI Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
-    
-    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --primary: #42c990;
@@ -32,7 +26,6 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Dark mode variables */
         [data-theme="dark"] {
             --background: #0a0a0a;
             --surface: #1a1a1a;
@@ -59,7 +52,6 @@
             transition: var(--transition);
         }
 
-        /* Particles background */
         .particles-container {
             position: fixed;
             top: 0;
@@ -77,7 +69,6 @@
             pointer-events: none;
         }
 
-        /* Header */
         .header {
             position: fixed;
             top: 0;
@@ -118,6 +109,11 @@
             gap: 0.75rem;
             text-decoration: none;
             color: var(--text);
+        }
+
+        .logo-img {
+            height: 40px;
+            transition: var(--transition);
         }
 
         .logo-text {
@@ -180,7 +176,6 @@
             display: none;
         }
 
-        /* Hero section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -331,7 +326,6 @@
             font-size: 0.9rem;
         }
 
-        /* Creeper element */
         .creeper {
             position: absolute;
             bottom: 10%;
@@ -360,7 +354,6 @@
             filter: drop-shadow(0 0 20px rgba(66, 201, 144, 0.5));
         }
 
-        /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
             bottom: 2rem;
@@ -389,7 +382,6 @@
             }
         }
 
-        /* Main content */
         .main-content {
             position: relative;
             z-index: 1;
@@ -421,7 +413,6 @@
             margin: 0 auto;
         }
 
-        /* Card styles */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -459,14 +450,12 @@
             border-top: 1px solid var(--border);
         }
 
-        /* Grid layout */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
         }
 
-        /* Notice list */
         .notice-list {
             display: grid;
             gap: 1rem;
@@ -502,7 +491,6 @@
             min-width: 200px;
         }
 
-        /* FAQ */
         .faq-container {
             display: grid;
             gap: 1rem;
@@ -560,7 +548,6 @@
             max-height: 500px;
         }
 
-        /* Server Status */
         .server-status {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -589,7 +576,6 @@
             margin-top: 1rem;
         }
 
-        /* Footer */
         .footer {
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -603,7 +589,6 @@
             margin: 0 auto;
         }
 
-        /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -629,7 +614,27 @@
             }
         }
 
-        /* Responsive design */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: var(--surface);
+            z-index: 2000;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            padding-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 6rem 1rem 2rem;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -672,6 +677,10 @@
             .header-content {
                 padding: 1rem;
             }
+            
+            .logo-img {
+                height: 32px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -682,9 +691,12 @@
             .hero-subtitle {
                 font-size: 1rem;
             }
+            
+            .logo-img {
+                height: 28px;
+            }
         }
 
-        /* Code styles */
         code {
             background: var(--surface-light);
             padding: 0.25rem 0.5rem;
@@ -694,7 +706,6 @@
             font-size: 0.9rem;
         }
 
-        /* Table styles */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -713,18 +724,6 @@
             font-weight: 600;
         }
 
-        /* List styles */
-        ul, ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        li {
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-        }
-
-        /* Tip box styles */
         .tip-box {
             margin-top: 2rem;
             padding: 1.5rem;
@@ -739,7 +738,6 @@
             font-family: var(--font-heading);
         }
 
-        /* Particle animations */
         @keyframes float {
             0% { transform: translate(0, 0); }
             25% { transform: translate(10px, 10px); }
@@ -750,88 +748,84 @@
     </style>
 </head>
 <body>
-    <!-- 粒子容器 -->
     <div class="particles-container" id="particles-container"></div>
     
-    <!-- 顶部导航栏 -->
     <header class="header" id="header">
         <div class="header-content">
             <a href="#" class="logo-container">
-                <span class="logo-text">2b2t.us.kg</span>
+                <svg class="logo-img" viewBox="0 0 24 24" width="40" height="40">
+                    <path fill="#42c990" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M7.07,18.28C7.5,17.38 10.12,16.5 12,16.5C13.88,16.5 16.5,17.38 16.93,18.28C15.57,19.36 13.86,20 12,20C10.14,20 8.43,19.36 7.07,18.28M18.36,16.83C16.93,15.09 13.46,14.5 12,14.5C10.54,14.5 7.07,15.09 5.64,16.83C4.62,15.5 4,13.82 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,13.82 19.38,15.5 18.36,16.83M12,6C10.06,6 8.5,7.56 8.5,9.5C8.5,11.44 10.06,13 12,13C13.94,13 15.5,11.44 15.5,9.5C15.5,7.56 13.94,6 12,6M12,11A1.5,1.5 0 0,1 10.5,9.5A1.5,1.5 0 0,1 12,8A1.5,1.5 0 0,1 13.5,9.5A1.5,1.5 0 0,1 12,11Z" />
+                </svg>
+                <span class="logo-text">2B2T.US.KG</span>
             </a>
             
             <nav>
                 <div class="nav-links">
-                    <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
-                    <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
-                    <a href="#notices" class="nav-link"><i class="mdi mdi-alert-circle"></i> 注意事项</a>
-                    <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
+                    <a href="#home" class="nav-link"><i class="fas fa-home"></i> 首页</a>
+                    <a href="#connect" class="nav-link"><i class="fas fa-server"></i> 连接指南</a>
+                    <a href="#notices" class="nav-link"><i class="fas fa-exclamation-circle"></i> 注意事项</a>
+                    <a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> 常见问题</a>
                 </div>
                 
                 <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
-                    <i class="mdi mdi-weather-night"></i>
+                    <i class="fas fa-moon"></i>
                 </button>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="打开菜单">
-                    <i class="mdi mdi-menu"></i>
+                    <i class="fas fa-bars"></i>
                 </button>
             </nav>
         </div>
     </header>
     
-    <!-- 移动端导航 -->
     <nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="移动端导航">
-        <a href="#home" class="nav-link"><i class="mdi mdi-home"></i> 首页</a>
-        <a href="#connect" class="nav-link"><i class="mdi mdi-server"></i> 连接指南</a>
-        <a href="#notices" class="nav-link"><i class="mdi mdi-alert-circle"></i> 注意事项</a>
-        <a href="#faq" class="nav-link"><i class="mdi mdi-help-circle"></i> 常见问题</a>
+        <a href="#home" class="nav-link"><i class="fas fa-home"></i> 首页</a>
+        <a href="#connect" class="nav-link"><i class="fas fa-server"></i> 连接指南</a>
+        <a href="#notices" class="nav-link"><i class="fas fa-exclamation-circle"></i> 注意事项</a>
+        <a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> 常见问题</a>
     </nav>
     
-    <!-- 英雄区域 -->
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title fade-in">无规则，无限制，纯粹生存</h1>
-            <p class="hero-subtitle fade-in fade-in-delay-1">欢迎来到 <span class="highlight">2b2t.us.kg</span> - 中国最古老的无政府主义Minecraft服务器。在这里，<span class="highlight">没有规则，没有限制</span>，只有纯粹的生存体验。</p>
+            <p class="hero-subtitle fade-in fade-in-delay-1">欢迎来到 <span class="highlight">2B2T.US.KG</span> - 中国最古老的无政府主义Minecraft服务器。在这里，<span class="highlight">没有规则，没有限制</span>，只有纯粹的生存体验。</p>
             
             <div class="hero-buttons fade-in fade-in-delay-2">
-                <a href="#connect" class="btn btn-primary"><i class="mdi mdi-server"></i> 立即加入</a>
-                <a href="#community" class="btn btn-green"><i class="mdi mdi-account-group"></i> 加入玩家社区</a>
+                <a href="#connect" class="btn btn-primary"><i class="fas fa-server"></i> 立即加入</a>
+                <a href="#community" class="btn btn-green"><i class="fas fa-users"></i> 加入玩家社区</a>
             </div>
             
             <div class="hero-stats fade-in fade-in-delay-3">
                 <div class="stat-item">
-                    <div class="stat-icon"><i class="mdi mdi-clock"></i></div>
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
                     <div class="stat-value">24/7</div>
                     <div class="stat-label">全天候在线</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-icon"><i class="mdi mdi-earth"></i></div>
+                    <div class="stat-icon"><i class="fas fa-globe"></i></div>
                     <div class="stat-value">1.21.5</div>
                     <div class="stat-label">推荐版本</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-icon"><i class="mdi mdi-calendar"></i></div>
+                    <div class="stat-icon"><i class="fas fa-calendar"></i></div>
                     <div class="stat-value">新服务器</div>
                     <div class="stat-label">新服务器，新前程</div>
                 </div>
             </div>
         </div>
         
-        <!-- 苦力怕元素 -->
         <div class="creeper" id="creeper" aria-label="苦力怕互动">
-            <svg class="creeper-svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="30" height="30">
+            <svg class="creeper-svg" viewBox="0 0 1024 1024" width="50" height="50">
                 <path d="M204.8 309.475556v104.675555h210.261333l-2.730666 10.012445c-1.365333 5.916444-2.730667 28.216889-2.730667 50.062222v40.049778H359.992889c-47.331556 0-49.607111 0.455111-52.337778 10.012444-1.365333 5.916444-2.730667 74.638222-2.730667 152.462222V819.2h109.226667v-100.124444h200.248889v100.124444h104.675556v-304.924444h-100.124445v-40.049778c0-21.845333-1.365333-44.145778-2.730667-50.062222l-2.730666-10.012445H819.2V204.8h-204.8v204.8H414.151111V204.8H204.8v104.675556z" fill="#42c990"/>
             </svg>
         </div>
         
         <div class="scroll-indicator" id="scrollIndicator">
             <div class="scroll-indicator-text">探索更多</div>
-            <div class="scroll-indicator-icon"><i class="mdi mdi-chevron-down"></i></div>
+            <div class="scroll-indicator-icon"><i class="fas fa-chevron-down"></i></div>
         </div>
     </section>
     
-    <!-- 主要内容 -->
     <main class="main-content">
-        <!-- 注意事项 -->
         <section class="section" id="notices">
             <div class="section-header">
                 <h2 class="section-title">玩家注意事项</h2>
@@ -839,46 +833,46 @@
             </div>
             
             <div class="card">
-                <h3 class="card-title"><i class="mdi mdi-alert"></i> 安全与注意事项</h3>
+                <h3 class="card-title"><i class="fas fa-exclamation-triangle"></i> 安全与注意事项</h3>
                 <div class="card-content">
                     <div class="notice-list">
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-lock"></i></div>
+                            <div class="notice-icon"><i class="fas fa-lock"></i></div>
                             <div class="notice-text">使用强密码保护账号，定期更换密码</div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-account-off"></i></div>
+                            <div class="notice-icon"><i class="fas fa-user-shield"></i></div>
                             <div class="notice-text">不要轻易相信其他玩家，保护个人隐私</div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-map-marker-distance"></i></div>
+                            <div class="notice-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="notice-text">远离出生点（至少5000格以外）建立基地</div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-map"></i></div>
+                            <div class="notice-icon"><i class="fas fa-map"></i></div>
                             <div class="notice-text">备份重要坐标，避免迷路</div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-account-group"></i></div>
+                            <div class="notice-icon"><i class="fas fa-users"></i></div>
                             <div class="notice-text">加入官方QQ群获取帮助：
                                 <span class="notice-code">1056361206</span>
                             </div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-store"></i></div>
+                            <div class="notice-icon"><i class="fas fa-store"></i></div>
                             <div class="notice-text">商店管理联系方式：
                                 <span class="notice-code">QQ:624615666 (yeeAM)</span>
                             </div>
                         </div>
                         <div class="notice-item">
-                            <div class="notice-icon"><i class="mdi mdi-account-cog"></i></div>
+                            <div class="notice-icon"><i class="fas fa-crown"></i></div>
                             <div class="notice-text">腐竹联系方式：
                                 <span class="notice-code">QQ:3548300539</span>
                             </div>
                         </div>
                     </div>
                     
-                    <p style="margin-top: 2rem;">在2b2t.us.kg无政府主义服务器中，保护自己的信息和资源至关重要。遵循以上注意事项可以大大提升你的生存几率。</p>
+                    <p style="margin-top: 2rem;">在2B2T.US.KG无政府主义服务器中，保护自己的信息和资源至关重要。遵循以上注意事项可以大大提升你的生存几率。</p>
                     
                     <div class="tip-box">
                         <h4>重要提示</h4>
@@ -888,15 +882,13 @@
             </div>
         </section>
         
-        <!-- 服务器状态 -->
         <div class="server-status">
-            <h3 class="status-title"><i class="mdi mdi-server-network"></i> 服务器实时状态</h3>
+            <h3 class="status-title"><i class="fas fa-server"></i> 服务器实时状态</h3>
             <p>当前服务器运行状态和玩家数量：</p>
-            <api src="https://list.mczfw.cn/api/2b2t.us.kg" alt="2b2t.us.kg服务器状态" class="status-image">
+            <img src="https://list.mczfw.cn/api/2b2t.us.kg" alt="2B2T.US.KG服务器状态" class="status-image">
             <p style="margin-top: 1rem; color: var(--primary);">服务器正常运行中 | 24/7全天候开放</p>
         </div>
         
-        <!-- 连接指南和服务器特色 -->
         <section class="section" id="connect">
             <div class="section-header">
                 <h2 class="section-title">连接指南</h2>
@@ -905,22 +897,22 @@
             
             <div class="grid">
                 <div class="card">
-                    <h3 class="card-title"><i class="mdi mdi-server"></i> 连接指南</h3>
+                    <h3 class="card-title"><i class="fas fa-plug"></i> 连接指南</h3>
                     <div class="card-content">
                         <p>选择最适合你的线路加入服务器：</p>
                         <ul>
-                            <li>默认IP: <code>2b2t.us.kg</code> (中国专用)</li>
+                            <li>默认IP: <code>2B2T.US.KG</code> (中国专用)</li>
                             <li>海外线路: <code>hw.2b2t.us.kg</code> (国际专线)</li>
                         </ul>
                         <p style="margin-top: 1rem;">选择合适的线路可以显著提升游戏体验，减少延迟和卡顿。</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#connect-details" class="btn btn-primary"><i class="mdi mdi-server"></i> 查看完整指南</a>
+                        <a href="#connect-details" class="btn btn-primary"><i class="fas fa-book"></i> 查看完整指南</a>
                     </div>
                 </div>
                 
                 <div class="card">
-                    <h3 class="card-title"><i class="mdi mdi-star"></i> 服务器特色</h3>
+                    <h3 class="card-title"><i class="fas fa-star"></i> 服务器特色</h3>
                     <div class="card-content">
                         <ul>
                             <li>完全无政府主义 - 零管理干预，纯粹的生存体验</li>
@@ -935,7 +927,6 @@
             </div>
         </section>
         
-        <!-- 公告 -->
         <section class="section" id="announcements">
             <div class="section-header">
                 <h2 class="section-title">最新公告</h2>
@@ -943,24 +934,23 @@
             </div>
             
             <div class="card">
-                <h3 class="card-title"><i class="mdi mdi-bullhorn"></i> qqbot因为一些原因被迫下线</h3>
+                <h3 class="card-title"><i class="fas fa-bullhorn"></i> QQBot暂时下线通知</h3>
                 <div class="card-content">
-                    <p>2b2t.us.kg 官方qqbot现已关闭，由于tx的问题</p>
-                    <p>同时，我们也完成了服务器硬件升级，现在支持更多玩家同时在线，延迟更低，稳定性更高！</p>
+                    <p>2B2T.US.KG 官方QQBot现已关闭，由于腾讯平台的技术限制。</p>
+                    <p>同时，我们完成了服务器硬件升级，现在支持更多玩家同时在线，延迟更低，稳定性更高！</p>
                     <time style="color: var(--text-muted); font-size: 0.9rem;">2025-06-05</time>
                 </div>
             </div>
         </section>
         
-        <!-- 详细连接指南 -->
         <section class="section" id="connect-details">
             <div class="section-header">
                 <h2 class="section-title">详细连接指南</h2>
-                <p class="section-subtitle">按照以下步骤连接到2b2t.us.kg服务器，开始你的生存之旅</p>
+                <p class="section-subtitle">按照以下步骤连接到2B2T.US.KG服务器，开始你的生存之旅</p>
             </div>
             
             <div class="card">
-                <h3 class="card-title"><i class="mdi mdi-format-list-numbered"></i> 步骤说明</h3>
+                <h3 class="card-title"><i class="fas fa-list-ol"></i> 步骤说明</h3>
                 <div class="card-content">
                     <div class="tip-box">
                         <h4>连接服务器步骤</h4>
@@ -968,7 +958,7 @@
                             <li>启动Minecraft客户端 (推荐1.21.5版本)</li>
                             <li>点击"多人游戏"</li>
                             <li>点击"添加服务器"</li>
-                            <li>输入服务器地址: <code>2b2t.us.kg</code> 或选择适合你的专线IP</li>
+                            <li>输入服务器地址: <code>2B2T.US.KG</code> 或选择适合你的专线IP</li>
                             <li>点击"完成"并连接</li>
                             <li>首次进入需要注册，使用 <code>/reg 你的密码 再次确认你的密码</code></li>
                             <li>之后在新设备上登录使用 <code>/l 你的密码</code></li>
@@ -978,7 +968,7 @@
                     
                     <div class="tip-box">
                         <h4>新手提示</h4>
-                        <p>2b2t.us.kg是一个无政府主义服务器，没有任何规则和限制。这意味着你需要自己保护自己的安全。以下是一些生存建议：</p>
+                        <p>2B2T.US.KG是一个无政府主义服务器，没有任何规则和限制。这意味着你需要自己保护自己的安全。以下是一些生存建议：</p>
                         <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
                             <li>远离出生点，至少前进5000格</li>
                             <li>不要轻易相信其他玩家</li>
@@ -991,15 +981,14 @@
             </div>
         </section>
         
-        <!-- 社区信息 -->
         <section class="section" id="community">
             <div class="section-header">
                 <h2 class="section-title">社区</h2>
-                <p class="section-subtitle">加入2b2t.us.kg社区，与其他玩家交流</p>
+                <p class="section-subtitle">加入2B2T.US.KG社区，与其他玩家交流</p>
             </div>
             
             <div class="card">
-                <h3 class="card-title"><i class="mdi mdi-account-group"></i> 加入我们</h3>
+                <h3 class="card-title"><i class="fas fa-users"></i> 加入我们</h3>
                 <div class="card-content">
                     <p>加入我们的QQ群，与其他玩家交流经验，结交盟友，或者发现你的敌人：</p>
                     <p style="margin-top: 1rem;">在这个群组中，你可以：</p>
@@ -1012,34 +1001,85 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a href="https://qm.qq.com/q/a4E7hDukMw" class="btn btn-primary"><i class="mdi mdi-message"></i> 点击加入QQ群</a>
+                    <a href="https://qm.qq.com/q/a4E7hDukMw" class="btn btn-primary"><i class="fas fa-comments"></i> 点击加入QQ群</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="faq">
+            <div class="section-header">
+                <h2 class="section-title">常见问题</h2>
+                <p class="section-subtitle">了解玩家最常遇到的问题和解答</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="faq-text">服务器支持哪些Minecraft版本？</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>服务器支持1.21.5版本，这是我们的推荐版本。同时我们也向下兼容1.20.x版本，但为了最佳体验，建议使用最新版本。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="faq-text">服务器有规则吗？</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>2B2T.US.KG是完全无政府主义的服务器，没有任何规则。玩家可以自由进行任何游戏内的活动，包括PVP、破坏、欺骗等。唯一限制是技术限制，如反作弊系统。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="faq-text">如何保护我的基地不被发现？</div>
+                        <div class="faq-toggle"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>以下是一些保护基地的建议：</p>
+                        <ul>
+                            <li>在距离出生点至少5000格以外建立基地</li>
+                            <li>不要将坐标分享给任何人</li>
+                            <li>使用隐蔽入口和伪装技术</li>
+                            <li>建立多个小型基地而不是一个大型基地</li>
+                            <li>定期备份重要物品和坐标</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
     
-    <!-- 页脚 -->
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; ©2025 2b2t.us.kg - 版权所有</p>
-            <p>2b2t.us.kg 不隶属于 Minecraft 或 Mojang AB</p>
+            <p>&copy; 2025 2B2T.US.KG - 版权所有</p>
+            <p>2B2T.US.KG 不隶属于 Minecraft 或 Mojang AB</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" style="color: var(--text-muted);"><i class="fab fa-qq"></i></a>
+                <a href="#" style="color: var(--text-muted);"><i class="fab fa-weixin"></i></a>
+                <a href="#" style="color: var(--text-muted);"><i class="fab fa-github"></i></a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // 初始化
         document.addEventListener("DOMContentLoaded", () => {
             // 移动端菜单切换
             document.getElementById("mobileMenuBtn").addEventListener("click", function () {
                 const mobileNav = document.getElementById("mobileNav")
                 mobileNav.classList.toggle("active")
         
-                // 切换图标
                 const icon = this.querySelector("i")
                 if (mobileNav.classList.contains("active")) {
-                    icon.className = "mdi mdi-close"
+                    icon.className = "fas fa-times"
                 } else {
-                    icon.className = "mdi mdi-menu"
+                    icon.className = "fas fa-bars"
                 }
             })
         
@@ -1049,44 +1089,221 @@
                     const mobileNav = document.getElementById("mobileNav")
                     const mobileMenuBtn = document.getElementById("mobileMenuBtn")
                     mobileNav.classList.remove("active")
-                    mobileMenuBtn.querySelector("i").className = "mdi mdi-menu"
+                    mobileMenuBtn.querySelector("i").className = "fas fa-bars"
                 })
             })
         
             // 滚动时改变导航栏样式
             window.addEventListener("scroll", () => {
                 const header = document.getElementById("header")
-                if (window.scrollY > 50) {
-                    header.classList.add("scrolled")
-                } else {
-                    header.classList.remove("scrolled")
-                }
+                header.classList.toggle("scrolled", window.scrollY > 50)
             })
         
             // 粒子效果
+            function createParticles() {
+                const container = document.getElementById("particles-container")
+                const particleCount = window.innerWidth < 768 ? 30 : 60
+            
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement("div")
+                    particle.classList.add("particle")
+            
+                    const size = Math.random() * 4 + 1
+                    particle.style.width = `${size}px`
+                    particle.style.height = `${size}px`
+            
+                    const posX = Math.random() * 100
+                    const posY = Math.random() * 100
+                    particle.style.left = `${posX}%`
+                    particle.style.top = `${posY}%`
+            
+                    particle.style.opacity = Math.random() * 0.5 + 0.1
+            
+                    const duration = Math.random() * 20 + 10
+                    const delay = Math.random() * 5
+            
+                    particle.style.animation = `float ${duration}s ${delay}s infinite linear`
+                    container.appendChild(particle)
+                }
+            }
             createParticles()
         
-            // 初始化FAQ - 使用事件委托
+            // FAQ功能
             document.addEventListener('click', function(e) {
                 if (e.target.closest('.faq-question')) {
                     const question = e.target.closest('.faq-question')
-                    toggleFAQ(question)
+                    const answer = question.nextElementSibling
+                    const toggle = question.querySelector('.faq-toggle i')
+                    
+                    const isActive = question.classList.contains("active")
+                    
+                    document.querySelectorAll('.faq-question').forEach(q => {
+                        if (q !== question) {
+                            q.classList.remove('active')
+                            q.nextElementSibling.classList.remove('active')
+                            q.querySelector('.faq-toggle i').className = 'fas fa-chevron-down'
+                        }
+                    })
+                    
+                    if (isActive) {
+                        question.classList.remove("active")
+                        answer.classList.remove("active")
+                        toggle.className = 'fas fa-chevron-down'
+                    } else {
+                        question.classList.add("active")
+                        answer.classList.add("active")
+                        toggle.className = 'fas fa-chevron-up'
+                    }
                 }
             })
         
-            // 添加页面滚动动画
+            // 初始化滚动动画
+            function initScrollAnimations() {
+                const animateElements = document.querySelectorAll(".card");
+            
+                function debounce(func, wait) {
+                    let timeout;
+                    return function () {
+                        const args = arguments;
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => func.apply(this, args), wait);
+                    };
+                }
+            
+                const checkIfInView = debounce(() => {
+                    document.querySelectorAll(".card").forEach((element) => {
+                        const rect = element.getBoundingClientRect();
+                        if (rect.top < window.innerHeight - rect.height / 3) {
+                            element.style.opacity = "1";
+                            element.style.transform = "translateY(0)";
+                        }
+                    });
+                }, 16);
+            
+                animateElements.forEach((element) => {
+                    element.style.opacity = "0";
+                    element.style.transform = "translateY(30px)";
+                    element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+                });
+            
+                window.addEventListener("scroll", checkIfInView);
+                checkIfInView();
+            }
             initScrollAnimations()
         
-            // 初始化苦力怕彩蛋
+            // 苦力怕互动效果
+            function initCreeperEasterEgg() {
+                const creeper = document.getElementById("creeper");
+                let lastInteractionTime = 0;
+                const cooldownTime = 2000;
+            
+                const kaomojis = [
+                    "( ´･ω･)ﾉ(._.`)", "(っ °Д °;)っ", "(╯°□°）╯︵ ┻━┻", "┬─┬ノ( º _ ºノ)", 
+                    "(｡･ω･｡)", "ヽ(°〇°)ﾉ", "ヽ(´▽`)/", "ヾ(≧▽≦*)o", "o(≧口≦)o", "(*￣3￣)╭"
+                ];
+            
+                const messages = [
+                    "苦力怕想和你做朋友！", "嘘！小心爆炸！", "2B2T.US.KG - 无规则，无限制！", 
+                    "远离出生点，保护自己！", "你知道吗？苦力怕害怕猫！", "挖矿时请注意安全！",
+                    "记得保存你的坐标！", "不要轻易相信其他玩家！", "末影箱是你最好的朋友！", 
+                    "记得定期更换密码！", "Ssssssss...", "今天也是美好的一天！"
+                ];
+            
+                const messageBubble = document.createElement("div");
+                messageBubble.style.position = "fixed";
+                messageBubble.style.bottom = "80px";
+                messageBubble.style.right = "20px";
+                messageBubble.style.backgroundColor = "var(--surface)";
+                messageBubble.style.color = "var(--text)";
+                messageBubble.style.padding = "12px 18px";
+                messageBubble.style.borderRadius = "12px";
+                messageBubble.style.maxWidth = "250px";
+                messageBubble.style.boxShadow = "var(--shadow)";
+                messageBubble.style.zIndex = "99";
+                messageBubble.style.transform = "scale(0)";
+                messageBubble.style.transition = "transform 0.3s ease";
+                messageBubble.style.transformOrigin = "bottom right";
+                messageBubble.style.fontFamily = "'Inter', sans-serif";
+                messageBubble.style.fontSize = "14px";
+                messageBubble.style.textAlign = "center";
+                messageBubble.style.lineHeight = "1.5";
+                messageBubble.style.border = "1px solid var(--border)";
+                document.body.appendChild(messageBubble);
+            
+                creeper.addEventListener("click", () => {
+                    const now = Date.now();
+                    if (now - lastInteractionTime < cooldownTime) return;
+                    lastInteractionTime = now;
+            
+                    const randomKaomoji = kaomojis[Math.floor(Math.random() * kaomojis.length)];
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+                    messageBubble.innerHTML = `<div style="font-size: 18px; margin-bottom: 8px;">${randomKaomoji}</div><div>${randomMessage}</div>`;
+                    messageBubble.style.transform = "scale(1)";
+            
+                    creeper.classList.add("active");
+            
+                    setTimeout(() => {
+                        messageBubble.style.transform = "scale(0)";
+                        creeper.classList.remove("active");
+                    }, 3000);
+                });
+            }
             initCreeperEasterEgg()
         
             // 暗色模式切换
+            function initThemeToggle() {
+                const themeToggle = document.getElementById("themeToggle")
+                const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)")
+            
+                const savedTheme = localStorage.getItem("theme")
+            
+                if (savedTheme === "dark") {
+                    document.documentElement.setAttribute("data-theme", "dark")
+                    themeToggle.querySelector("i").className = "fas fa-sun"
+                } else if (savedTheme === "light") {
+                    document.documentElement.setAttribute("data-theme", "light")
+                    themeToggle.querySelector("i").className = "fas fa-moon"
+                } else {
+                    if (prefersDarkScheme.matches) {
+                        document.documentElement.setAttribute("data-theme", "dark")
+                        themeToggle.querySelector("i").className = "fas fa-sun"
+                    } else {
+                        document.documentElement.setAttribute("data-theme", "light")
+                        themeToggle.querySelector("i").className = "fas fa-moon"
+                    }
+                }
+            
+                themeToggle.addEventListener("click", () => {
+                    const currentTheme = document.documentElement.getAttribute("data-theme")
+                    if (currentTheme === "dark") {
+                        document.documentElement.setAttribute("data-theme", "light")
+                        localStorage.setItem("theme", "light")
+                        themeToggle.querySelector("i").className = "fas fa-moon"
+                    } else {
+                        document.documentElement.setAttribute("data-theme", "dark")
+                        localStorage.setItem("theme", "dark")
+                        themeToggle.querySelector("i").className = "fas fa-sun"
+                    }
+                })
+            
+                prefersDarkScheme.addEventListener("change", (e) => {
+                    if (!localStorage.getItem("theme")) {
+                        if (e.matches) {
+                            document.documentElement.setAttribute("data-theme", "dark")
+                            themeToggle.querySelector("i").className = "fas fa-sun"
+                        } else {
+                            document.documentElement.setAttribute("data-theme", "light")
+                            themeToggle.querySelector("i").className = "fas fa-moon"
+                        }
+                    }
+                })
+            }
             initThemeToggle()
         
             // 滚动指示器点击事件
             document.getElementById("scrollIndicator").addEventListener("click", () => {
-                const commandsSection = document.getElementById("notices")
-                commandsSection.scrollIntoView({ behavior: "smooth" })
+                document.getElementById("notices").scrollIntoView({ behavior: "smooth" })
             })
         
             // 平滑滚动
@@ -1103,305 +1320,6 @@
                 })
             })
         })
-        
-        // 主题切换功能
-        function initThemeToggle() {
-            const themeToggle = document.getElementById("themeToggle")
-            const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)")
-        
-            // 检查本地存储中的主题设置
-            const savedTheme = localStorage.getItem("theme")
-        
-            // 如果有保存的主题设置，应用它
-            if (savedTheme === "dark") {
-                document.documentElement.setAttribute("data-theme", "dark")
-                themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
-            } else if (savedTheme === "light") {
-                document.documentElement.setAttribute("data-theme", "light")
-                themeToggle.querySelector("i").className = "mdi mdi-weather-night"
-            } else {
-                // 如果没有保存的设置，根据系统偏好设置
-                if (prefersDarkScheme.matches) {
-                    document.documentElement.setAttribute("data-theme", "dark")
-                    themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
-                } else {
-                    document.documentElement.setAttribute("data-theme", "light")
-                    themeToggle.querySelector("i").className = "mdi mdi-weather-night"
-                }
-            }
-        
-            // 主题切换按钮点击事件
-            themeToggle.addEventListener("click", () => {
-                const currentTheme = document.documentElement.getAttribute("data-theme")
-                if (currentTheme === "dark") {
-                    document.documentElement.setAttribute("data-theme", "light")
-                    localStorage.setItem("theme", "light")
-                    themeToggle.querySelector("i").className = "mdi mdi-weather-night"
-                } else {
-                    document.documentElement.setAttribute("data-theme", "dark")
-                    localStorage.setItem("theme", "dark")
-                    themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
-                }
-            })
-        
-            // 监听系统主题变化
-            prefersDarkScheme.addEventListener("change", (e) => {
-                // 只有在用户没有手动设置主题时才跟随系统
-                if (!localStorage.getItem("theme")) {
-                    if (e.matches) {
-                        document.documentElement.setAttribute("data-theme", "dark")
-                        themeToggle.querySelector("i").className = "mdi mdi-weather-sunny"
-                    } else {
-                        document.documentElement.setAttribute("data-theme", "light")
-                        themeToggle.querySelector("i").className = "mdi mdi-weather-night"
-                    }
-                }
-            })
-        }
-        
-        // 粒子效果
-        function createParticles() {
-            const container = document.getElementById("particles-container")
-            const particleCount = window.innerWidth < 768 ? 30 : 60
-        
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement("div")
-                particle.classList.add("particle")
-        
-                // 随机大小
-                const size = Math.random() * 4 + 1
-                particle.style.width = `${size}px`
-                particle.style.height = `${size}px`
-        
-                // 随机位置
-                const posX = Math.random() * 100
-                const posY = Math.random() * 100
-                particle.style.left = `${posX}%`
-                particle.style.top = `${posY}%`
-        
-                // 随机透明度
-                particle.style.opacity = Math.random() * 0.5 + 0.1
-        
-                // 随机动画
-                const duration = Math.random() * 20 + 10
-                const delay = Math.random() * 5
-        
-                particle.style.animation = `float ${duration}s ${delay}s infinite linear`
-        
-                // 添加到容器
-                container.appendChild(particle)
-            }
-        }
-        
-        // FAQ切换功能 - 修复版
-        function toggleFAQ(element) {
-            // 获取回答元素
-            const answer = element.nextElementSibling
-            const toggle = element.querySelector('.faq-toggle i')
-        
-            // 检查当前是否已经是激活状态
-            const isActive = element.classList.contains("active")
-        
-            // 关闭所有其他FAQ
-            document.querySelectorAll('.faq-question').forEach(q => {
-                if (q !== element) {
-                    q.classList.remove('active')
-                    q.nextElementSibling.classList.remove('active')
-                    q.querySelector('.faq-toggle i').className = 'mdi mdi-chevron-down'
-                }
-            })
-        
-            // 切换当前FAQ状态
-            if (isActive) {
-                element.classList.remove("active")
-                answer.classList.remove("active")
-                toggle.className = 'mdi mdi-chevron-down'
-            } else {
-                element.classList.add("active")
-                answer.classList.add("active")
-                toggle.className = 'mdi mdi-chevron-up'
-            }
-        }
-        
-        // 初始化滚动动画
-        function initScrollAnimations() {
-            const animateElements = document.querySelectorAll(".card");
-        
-            // 优化滚动性能
-            function debounce(func, wait) {
-                let timeout;
-                return function () {
-                    const args = arguments;
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => func.apply(this, args), wait);
-                };
-            }
-        
-            const checkIfInView = debounce(() => {
-                requestAnimationFrame(() => {
-                    document.querySelectorAll(".card").forEach((element) => {
-                        const rect = element.getBoundingClientRect();
-                        if (rect.top < window.innerHeight - rect.height / 3) {
-                            element.style.opacity = "1";
-                            element.style.transform = "translateY(0)";
-                        }
-                    });
-                });
-            }, 16);
-        
-            // 初始设置
-            animateElements.forEach((element) => {
-                element.style.opacity = "0";
-                element.style.transform = "translateY(30px)";
-                element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-            });
-        
-            // 滚动时检查
-            window.addEventListener("scroll", checkIfInView);
-            // 初始检查
-            checkIfInView();
-        }
-        
-        // 苦力怕互动效果
-        function initCreeperEasterEgg() {
-            const creeper = document.getElementById("creeper");
-            let lastInteractionTime = 0;
-            const cooldownTime = 2000; // 2秒冷却时间
-        
-            // 颜文字和文案数组
-            const kaomojis = [
-                "( ´･ω･)ﾉ(._.`)",
-                "(っ °Д °;)っ",
-                "(╯°□°）╯︵ ┻━┻",
-                "┬─┬ノ( º _ ºノ)",
-                "(｡･ω･｡)",
-                "ヽ(°〇°)ﾉ",
-                "ヽ(´▽`)/",
-                "ヾ(≧▽≦*)o",
-                "o(≧口≦)o",
-                "(*￣3￣)╭",
-                "OwO",
-                "UwU",
-                "^_^",
-                "¯\\_(ツ)_/¯",
-                "(づ｡◕‿‿◕｡)づ",
-                "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
-                "(⊙_⊙;)",
-                "(✿◠‿◠)",
-                "(◕‿◕✿)",
-                "(◡‿◡✿)",
-                "(≧◡≦)",
-                "(>ω<)",
-                "(´• ω •`)",
-                "(ง •̀_•́)ง",
-                "ʕ•ᴥ•ʔ",
-                "ʕ￫ᴥ￩ʔ",
-                "ʕ•̫͡•ʔ",
-                "ᕙ(⇀‸↼‶)ᕗ",
-                "ᕦ(ò_óˇ)ᕤ",
-                "(｡♥‿♥｡)",
-                "(◍•ᴗ•◍)❤",
-            ];
-        
-            const messages = [
-                "苦力怕想和你做朋友！",
-                "嘘！小心爆炸！",
-                "2b2t.us.kg - 无规则，无限制！",
-                "远离出生点，保护自己！",
-                "你知道吗？苦力怕害怕猫！",
-                "挖矿时请注意安全！",
-                "记得保存你的坐标！",
-                "不要轻易相信其他玩家！",
-                "末影箱是你最好的朋友！",
-                "记得定期更换密码！",
-                "Ssssssss...",
-                "今天也是美好的一天！",
-                "你已经挖了多少钻石了？",
-                "记得远离出生点建家！",
-                "苦力怕正在偷看你...",
-                "你的基地安全吗？",
-                "有人在跟踪你吗？",
-                "小心岩浆！",
-                "不要在夜间独自旅行！",
-                "记得带足食物！",
-                "你的装备耐久还够吗？",
-                "有备无患，多准备几套装备！",
-                "找到下界要塞了吗？",
-                "末地龙已经被击败了多少次？",
-                "你知道吗？钻石在Y=-58层最常见",
-                "试试在下界挖黑曜石吧！",
-                "记得在基地周围放火把！",
-                "小心苦力怕从背后偷袭！",
-                "你的红石机器运行正常吗？",
-                "试试建造自动农场吧！",
-                "村民交易可以获得很好的装备！",
-                "记得收集经验修复装备！",
-                "在下界搭建冰道可以快速移动！",
-                "末影珍珠是逃生的好工具！",
-                "不要挖你脚下的方块！",
-                "记得备份重要物品！",
-                "试试建造刷怪塔获取资源！",
-                "找到古代残骸了吗？",
-                "下界合金装备是最强的！",
-                "记得在重要位置放置重生锚！",
-                "你收集了多少唱片？",
-                "试试建造自动熔炉系统！",
-                "记得定期整理物品栏！",
-                "在海底神殿可以找到海绵！",
-                "试试建造红石电梯吧！",
-                "记得在基地周围种植花朵！",
-                "你有多少只宠物？",
-                "尝试驯服一匹马吧！",
-                "记得给你的动物命名！",
-                "试试建造自动分类系统！",
-            ];
-        
-            // 创建消息气泡元素
-            const messageBubble = document.createElement("div");
-            messageBubble.style.position = "fixed";
-            messageBubble.style.bottom = "80px";
-            messageBubble.style.right = "20px";
-            messageBubble.style.backgroundColor = "var(--surface)";
-            messageBubble.style.color = "var(--text)";
-            messageBubble.style.padding = "12px 18px";
-            messageBubble.style.borderRadius = "12px";
-            messageBubble.style.maxWidth = "250px";
-            messageBubble.style.boxShadow = "var(--shadow)";
-            messageBubble.style.zIndex = "99";
-            messageBubble.style.transform = "scale(0)";
-            messageBubble.style.transition = "transform 0.3s ease";
-            messageBubble.style.transformOrigin = "bottom right";
-            messageBubble.style.fontFamily = "'Inter', sans-serif";
-            messageBubble.style.fontSize = "14px";
-            messageBubble.style.textAlign = "center";
-            messageBubble.style.lineHeight = "1.5";
-            messageBubble.style.border = "1px solid var(--border)";
-            document.body.appendChild(messageBubble);
-        
-            // 点击事件
-            creeper.addEventListener("click", () => {
-                const now = Date.now();
-                if (now - lastInteractionTime < cooldownTime) return;
-                lastInteractionTime = now;
-        
-                // 随机选择颜文字和消息
-                const randomKaomoji = kaomojis[Math.floor(Math.random() * kaomojis.length)];
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-        
-                // 显示消息
-                messageBubble.innerHTML = `<div style="font-size: 18px; margin-bottom: 8px;">${randomKaomoji}</div><div>${randomMessage}</div>`;
-                messageBubble.style.transform = "scale(1)";
-        
-                // 添加苦力怕动画
-                creeper.classList.add("active");
-        
-                // 3秒后隐藏消息
-                setTimeout(() => {
-                    messageBubble.style.transform = "scale(0)";
-                    creeper.classList.remove("active");
-                }, 3000);
-            });
-        }
     </script>
 </body>
 </html>
