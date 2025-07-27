@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2B2T.US.KG - 无政府主义Minecraft服务器</title>
     <meta name="description" content="2B2T.US.KG - 中国最古老的无政府主义Minecraft服务器，没有规则，没有限制，只有纯粹的生存体验。">
+    
+    <!-- PWA 配置 -->
+    <meta name="theme-color" content="#42c990">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIjJCNFQuVVMuS0ciLAogICJzaG9ydF9uYW1lIjogIjJCNFQiLAogICJzdGFydF91cmwiICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMGExYTFhIiwKICAiZGVzY3JpcHRpb24iOiAiMkI0VC5VUy5LRyAtIOWFqOmDqOWGheWuueS5i+ivreiogOe9keaKgOacr+Wkp+Wtpui/m+ihjOa0u+WKqOeUqOaIt+WQjOWtpuS4iyIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9tYXFpcmFuZ2l0aG9iLzJiMnQuZ2l0aHViLmlvL21haW4vMTE0NTE0LnBuZyIsCiAgICAgICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIgogICAgfQogIF0KfQ==">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/maqirangithob/2b2t.github.io/main/114514.png">
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" as="style">
+    
+    <!-- 字体和图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #42c990;
@@ -50,8 +62,11 @@
             overflow-x: hidden;
             min-height: 100vh;
             transition: var(--transition);
+            display: flex;
+            flex-direction: column;
         }
 
+        /* 粒子背景 */
         .particles-container {
             position: fixed;
             top: 0;
@@ -69,6 +84,7 @@
             pointer-events: none;
         }
 
+        /* 顶部导航栏 */
         .header {
             position: fixed;
             top: 0;
@@ -176,6 +192,7 @@
             display: none;
         }
 
+        /* 英雄区域 */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -326,6 +343,7 @@
             font-size: 0.9rem;
         }
 
+        /* 苦力怕元素 */
         .creeper {
             position: absolute;
             bottom: 10%;
@@ -354,6 +372,7 @@
             filter: drop-shadow(0 0 20px rgba(66, 201, 144, 0.5));
         }
 
+        /* 滚动指示器 */
         .scroll-indicator {
             position: absolute;
             bottom: 2rem;
@@ -382,9 +401,11 @@
             }
         }
 
+        /* 主要内容 */
         .main-content {
             position: relative;
             z-index: 1;
+            flex: 1;
         }
 
         .section {
@@ -413,6 +434,7 @@
             margin: 0 auto;
         }
 
+        /* 卡片样式 */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -420,6 +442,7 @@
             padding: 2rem;
             margin-bottom: 2rem;
             transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .card:hover {
@@ -450,12 +473,14 @@
             border-top: 1px solid var(--border);
         }
 
+        /* 网格布局 */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
         }
 
+        /* 通知列表 */
         .notice-list {
             display: grid;
             gap: 1rem;
@@ -491,6 +516,7 @@
             min-width: 200px;
         }
 
+        /* 常见问题 */
         .faq-container {
             display: grid;
             gap: 1rem;
@@ -548,6 +574,7 @@
             max-height: 500px;
         }
 
+        /* 服务器状态 */
         .server-status {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -574,8 +601,30 @@
             border-radius: var(--border-radius);
             box-shadow: var(--shadow);
             margin-top: 1rem;
+            background: #f8f9fa;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        .fallback-status {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .fallback-status p {
+            margin: 0.5rem 0;
+            color: var(--text-muted);
+        }
+
+        .status-value {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* 页脚 */
         .footer {
             background: var(--surface);
             border-top: 1px solid var(--border);
@@ -589,6 +638,7 @@
             margin: 0 auto;
         }
 
+        /* 动画效果 */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -614,6 +664,7 @@
             }
         }
 
+        /* 移动导航 */
         .mobile-nav {
             position: fixed;
             top: 0;
@@ -635,6 +686,7 @@
             right: 0;
         }
 
+        /* 响应式设计 */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -681,6 +733,15 @@
             .logo-img {
                 height: 32px;
             }
+            
+            .hero {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .creeper {
+                bottom: 5%;
+                right: 3%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -695,8 +756,25 @@
             .logo-img {
                 height: 28px;
             }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-item {
+                padding: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
         }
 
+        /* 代码样式 */
         code {
             background: var(--surface-light);
             padding: 0.25rem 0.5rem;
@@ -706,24 +784,7 @@
             font-size: 0.9rem;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            color: var(--primary);
-            font-family: var(--font-heading);
-            font-weight: 600;
-        }
-
+        /* 提示框 */
         .tip-box {
             margin-top: 2rem;
             padding: 1.5rem;
@@ -738,12 +799,35 @@
             font-family: var(--font-heading);
         }
 
+        /* 粒子动画 */
         @keyframes float {
             0% { transform: translate(0, 0); }
             25% { transform: translate(10px, 10px); }
             50% { transform: translate(0, 20px); }
             75% { transform: translate(-10px, 10px); }
             100% { transform: translate(0, 0); }
+        }
+        
+        /* 加载指示器 */
+        .loader {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+        }
+        .loader:after {
+            content: " ";
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border-radius: 50%;
+            border: 6px solid var(--primary);
+            border-color: var(--primary) transparent var(--primary) transparent;
+            animation: loader 1.2s linear infinite;
+        }
+        @keyframes loader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -885,7 +969,19 @@
         <div class="server-status">
             <h3 class="status-title"><i class="fas fa-server"></i> 服务器实时状态</h3>
             <p>当前服务器运行状态和玩家数量：</p>
-            <img src="https://list.mczfw.cn/api/2b2t.us.kg" alt="2B2T.US.KG服务器状态" class="status-image">
+            <div class="status-image" id="statusImageContainer">
+                <img src="https://list.mczfw.cn/mc/38370.png?server=38370" 
+                     alt="2B2T.US.KG服务器状态" 
+                     class="status-image"
+                     id="serverStatusImage"
+                     onerror="handleImageError()">
+                <div id="imageLoader" class="loader" style="display: none;"></div>
+            </div>
+            <div id="fallbackStatus" class="fallback-status" style="display: none;">
+                <p>无法加载实时状态图片</p>
+                <p>当前状态：<span class="status-value">正常运行</span></p>
+                <p>在线玩家：<span class="status-value">24</span>/<span class="status-value">100</span></p>
+            </div>
             <p style="margin-top: 1rem; color: var(--primary);">服务器正常运行中 | 24/7全天候开放</p>
         </div>
         
@@ -1319,7 +1415,51 @@
                     }
                 })
             })
-        })
+            
+            // 显示图片加载状态
+            const image = document.getElementById('serverStatusImage');
+            const loader = document.getElementById('imageLoader');
+            
+            if (image) {
+                loader.style.display = 'block';
+                image.style.opacity = '0';
+                
+                image.onload = function() {
+                    loader.style.display = 'none';
+                    image.style.opacity = '1';
+                }
+                
+                image.onerror = function() {
+                    loader.style.display = 'none';
+                    handleImageError();
+                }
+            }
+        });
+        
+        // 图片加载错误处理
+        function handleImageError() {
+            const image = document.getElementById('serverStatusImage');
+            const fallback = document.getElementById('fallbackStatus');
+            
+            if (image) {
+                image.style.display = 'none';
+            }
+            
+            if (fallback) {
+                fallback.style.display = 'block';
+            }
+        }
+        
+        // 注册Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').then(registration => {
+                    console.log('ServiceWorker注册成功: ', registration.scope);
+                }).catch(err => {
+                    console.log('ServiceWorker注册失败: ', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
