@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /blog/
+Allow: 
+Disallow: /*.jpg$
