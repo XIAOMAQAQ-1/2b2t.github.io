@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站跳转提醒</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(15, 15, 35, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 40px rgba(0, 200, 255, 0.4);
+            border: 1px solid rgba(100, 200, 255, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            border-radius: 2px;
+        }
+        
+        .redirect-info {
+            background: rgba(0, 20, 40, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 100, 255, 0.3);
+        }
+        
+        .redirect-url {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            display: inline-block;
+            color: #00ccff;
+            text-shadow: 0 0 8px rgba(0, 200, 255, 0.6);
+            border: 1px solid rgba(0, 150, 255, 0.4);
+        }
+        
+        .countdown {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #ff3366;
+            text-shadow: 0 0 15px rgba(255, 0, 100, 0.7);
+            animation: pulse 1s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+        
+        .creator-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(30, 30, 60, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(150, 100, 255, 0.3);
+        }
+        
+        .creator-info p {
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+        
+        .creator-name {
+            color: #ffcc00;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+        }
+        
+        .qq-info {
+            color: #00ff99;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 40px;
+            background: linear-gradient(90deg, #ff3366, #ff0066);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 100, 0.4);
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 100, 0.6);
+            background: linear-gradient(90deg, #ff0066, #ff3366);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: rgba(200, 200, 255, 0.7);
+        }
+        
+        .loading-bar {
+            height: 8px;
+            background: rgba(100, 100, 255, 0.2);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
+            border-radius: 4px;
+            transition: width 0.5s linear;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .redirect-url {
+                font-size: 1.3rem;
+                padding: 10px;
+            }
+            
+            .countdown {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-external-link-alt"></i> 网站跳转提醒</h1>
+        
+        <div class="redirect-info">
+            <p>您即将访问以下网站：</p>
+            <div class="redirect-url">2b2t.us.kg/资本做局器</div>
+            <p>页面将在 <span class="countdown">5</span> 秒后自动跳转</p>
+            
+            <div class="loading-bar">
+                <div class="loading-progress" id="progressBar"></div>
+            </div>
+        </div>
+        
+        <a href="http://2b2t.us.kg/资本做局器" class="btn">立即访问</a>
+        
+        <div class="creator-info">
+            <p>本跳转网站由 <span class="creator-name">hjl</span> 制作</p>
+            <p>联系QQ: <span class="qq-info">3389133487</span></p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 网站跳转服务 | 安全提醒：请注意辨别网站安全性</p>
+        </div>
+    </div>
+
+    <script>
+        // 倒计时功能
+        let seconds = 5;
+        const countdownElement = document.querySelector('.countdown');
+        const progressBar = document.getElementById('progressBar');
+        
+        function updateCountdown() {
+            countdownElement.textContent = seconds;
+            progressBar.style.width = `${(5 - seconds) * 20}%`;
+            
+            if (seconds <= 0) {
+                // 跳转到目标网站
+                window.location.href = "http://2b2t.us.kg/资本做局器";
+            } else {
+                seconds--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+        
+        // 启动倒计时
+        setTimeout(updateCountdown, 1000);
+    </script>
+</body>
+</html>
