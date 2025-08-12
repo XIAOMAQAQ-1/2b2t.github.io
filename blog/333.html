@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft矿透资源下载</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --mc-green: #3a8c3a;
+            --mc-dark-green: #2d6d2d;
+            --mc-brown: #8b4513;
+            --mc-dark-brown: #5d2906;
+            --mc-red: #d9534f;
+            --mc-blue: #5bc0de;
+            --mc-yellow: #f0ad4e;
+            --mc-gray: #3c3c3c;
+            --mc-light-gray: #5a5a5a;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.7) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.7) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            color: var(--mc-green);
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(58, 140, 58, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--mc-green), var(--mc-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbb;
+            max-width: 700px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .download-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--mc-green);
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--mc-blue);
+            backdrop-filter: blur(10px);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--mc-green);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title.blue {
+            color: var(--mc-blue);
+        }
+        
+        .download-box {
+            background: rgba(20, 20, 20, 0.7);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--mc-light-gray);
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .file-icon {
+            font-size: 3rem;
+            color: var(--mc-yellow);
+            margin-right: 15px;
+        }
+        
+        .file-details h3 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .file-details p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, var(--mc-green), var(--mc-dark-green));
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(58, 140, 58, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(58, 140, 58, 0.5);
+            background: linear-gradient(to right, var(--mc-dark-green), var(--mc-green));
+        }
+        
+        .download-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .warning-box {
+            background: rgba(139, 0, 0, 0.2);
+            border: 1px solid var(--mc-red);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+        
+        .warning-title {
+            color: var(--mc-red);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .warning-box p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .info-card {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--mc-yellow);
+        }
+        
+        .info-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--mc-yellow);
+        }
+        
+        .info-card ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .info-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .step-number {
+            background: var(--mc-blue);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .feature {
+            background: rgba(50, 50, 50, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(65, 65, 65, 0.7);
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            color: var(--mc-green);
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #888;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 10px rgba(58, 140, 58, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(58, 140, 58, 0.8); }
+            100% { text-shadow: 0 0 10px rgba(58, 140, 58, 0.5); }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+        }
+        
+        .minecraft-block {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .diamond-block {
+            background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/6/64/Block_of_Diamond_JE4_BE3.png');
+            top: 10%;
+            left: 5%;
+        }
+        
+        .grass-block {
+            background-image: url('https://static.wikia.nocookie.net/minecraft_gamepedia/images/5/5a/Grass_Block_JE7.png');
+            bottom: 10%;
+            right: 5%;
+        }
+        
+        .progress-container {
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--mc-green), var(--mc-blue));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰性Minecraft方块 -->
+    <div class="minecraft-block diamond-block"></div>
+    <div class="minecraft-block grass-block"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+            </div>
+            <h1>Minecraft 矿透资源包</h1>
+            <p class="subtitle">
+                专业级资源包，帮助您在地下世界快速定位珍贵矿物资源。安全、高效、易用，专为Minecraft玩家设计。
+            </p>
+        </header>
+        
+        <div class="main-content">
+            <section class="download-section">
+                <h2 class="section-title">
+                    <i class="fas fa-download"></i> 资源下载
+                </h2>
+                
+                <div class="download-box">
+                    <div class="file-info">
+                        <div class="file-icon">
+                            <i class="fas fa-file-archive"></i>
+                        </div>
+                        <div class="file-details">
+                            <h3>矿透资源包 v2.3.5</h3>
+                            <p>ZIP压缩包 | 大小: 4.7MB | 更新: 2023-10-15</p>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    
+                    <a href="http://2b2t.us.kg/blog/333/kt.zip" class="download-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i> 立即下载
+                    </a>
+                </div>
+                
+                <div class="warning-box">
+                    <h3 class="warning-title">
+                        <i class="fas fa-exclamation-triangle"></i> 重要提示
+                    </h3>
+                    <p>• 此资源包仅限单人游戏或获得许可的服务器使用</p>
+                    <p>• 在多人服务器中使用可能导致账号封禁</p>
+                    <p>• 下载前请确保关闭所有安全软件</p>
+                    <p>• 使用前请仔细阅读说明文档</p>
+                </div>
+            </section>
+            
+            <section class="info-section">
+                <h2 class="section-title blue">
+                    <i class="fas fa-info-circle"></i> 使用指南
+                </h2>
+                
+                <div class="info-card">
+                    <h4>主要功能</h4>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-gem"></i>
+                            <p>钻石定位</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-fire"></i>
+                            <p>远古残骸探测</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-cube"></i>
+                            <p>洞穴可视化</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-search"></i>
+                            <p>地下结构扫描</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h4>安装说明</h4>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">下载资源包并解压到任意位置</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">打开Minecraft启动器，进入"选项" → "资源包"</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">点击"打开资源包文件夹"，将解压后的文件放入</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">在游戏中选择该资源包并应用</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h4>注意事项</h4>
+                    <ul>
+                        <li>兼容Minecraft 1.17 - 1.20版本</li>
+                        <li>需要OptiFine或类似模组支持</li>
+                        <li>在部分服务器可能无法正常工作</li>
+                        <li>使用前建议备份世界存档</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>© 2023 Minecraft资源中心 | 此资源包仅供学习交流使用 | 使用前请确认遵守当地法律法规</p>
+            <p style="margin-top: 10px;">免责声明：本资源包与Mojang Studios无关，Minecraft是Mojang Studios的注册商标</p>
+        </footer>
+    </div>
+
+    <script>
+        // 下载按钮交互效果
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const btn = this;
+            const progressBar = document.getElementById('progressBar');
+            const originalText = btn.innerHTML;
+            
+            // 模拟下载进度
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 准备下载...';
+            btn.style.opacity = '0.7';
+            btn.style.cursor = 'not-allowed';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // 完成下载后重定向
+                    setTimeout(() => {
+                        window.location.href = btn.href;
+                    }, 500);
+                }
+                progressBar.style.width = progress + '%';
+            }, 200);
+            
+            // 恢复按钮状态
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                progressBar.style.width = '0%';
+            }, 5000);
+        });
+        
+        // 添加方块动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const blocks = document.querySelectorAll('.minecraft-block');
+            blocks.forEach(block => {
+                // 随机位置和动画延迟
+                block.style.top = Math.random() * 80 + 10 + '%';
+                block.style.left = Math.random() * 80 + 10 + '%';
+                block.style.animation = `float ${5 + Math.random() * 10}s infinite ease-in-out`;
+                block.style.animationDelay = Math.random() * 2 + 's';
+            });
+            
+            // 添加动态样式
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes float {
+                    0%, 100% { transform: translateY(0) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(5deg); }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
