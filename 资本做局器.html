@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="© 2025 hjl - 保留所有权利">
     <title>资本做局器</title>
     <style>
         body {
@@ -15,6 +16,15 @@
             margin: 0;
             background-color: #f5f5f5;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes watermarkMove {
+            0% { transform: rotate(-30deg) translate(-50%, -50%); }
+            25% { transform: rotate(-10deg) translate(20%, 20%); }
+            50% { transform: rotate(10deg) translate(50%, 50%); }
+            75% { transform: rotate(-10deg) translate(20%, -20%); }
+            100% { transform: rotate(-30deg) translate(-50%, -50%); }
         }
         
         .container {
@@ -24,11 +34,25 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             width: 90%;
+            position: relative;
+            z-index: 10;
         }
         
         h1 {
             color: #333;
             margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "© 2025 hjl - 保留所有权利";
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            font-size: 12px;
+            color: #999;
+            font-weight: normal;
         }
         
         button {
@@ -41,10 +65,12 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
         }
         
-        button:hover            {
- background-color: #45a049;
+        button:hover {
+            background-color: #45a049;
         }
         
         .progress-container {
@@ -54,6 +80,7 @@
             overflow: hidden;
             margin-bottom: 15px;
             height: 20px;
+            position: relative;
         }
         
         .progress-bar {
@@ -76,9 +103,40 @@
         .hidden {
             display: none;
         }
+        
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            z-index: 10;
+        }
+        .copy-warning {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            z-index: 2000;
+            display: none;
+        }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false" onselectstart="return false">
+    <!-- 
+        名称：资本做局器
+        作者：hjl
+        制作时间：2025年
+        版权声明：未经许可，禁止复制、转载或用于商业用途
+        =
+    -->
+    
     <div class="container">
         <h1>资本做局器</h1>
         <button id="startButton">开始做局</button>
@@ -87,9 +145,43 @@
         </div>
         <div class="message hidden" id="message"></div>
     </div>
+    
+    <div class="copyright">
+        © 2025 hjl - 保留所有权利 | 本页面内容受版权保护，未经授权禁止复制
+    
+    </div>
+    
+    <div class="copy-warning" id="copyWarning">
+        禁止复制！本页面内容受版权保护
+    </div>
 
     <script>
-        document.getElementById('startButton').addEventListener('click', function() {
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            showWarning('右键菜单已禁用，请尊重原创内容！');
+        });
+        
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            showWarning('复制功能已禁用，请尊重原创内容！');
+        });
+        
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+            showWarning('剪切功能已禁用，请尊重原创内容！');
+        });
+        
+        function showWarning(msg) {
+            const warning = document.getElementById('copyWarning');
+            warning.textContent = msg;
+            warning.style.display = 'block';
+            
+            setTimeout(() => {
+                warning.style.display = 'none';
+            }, 2000);
+        }
+        const startButton = document.getElementById('startButton');
+        startButton.addEventListener('click', function() {
             this.classList.add('hidden');
             document.getElementById('progressContainer').classList.remove('hidden');
             
@@ -115,7 +207,7 @@
                             
                             setTimeout(() => {
                                 document.getElementById('startButton').textContent = '再来一局';
- document                               .getElementById('startButton').classList.remove('hidden');
+                                document.getElementById('startButton').classList.remove('hidden');
                                 progressBar.style.width = '0%';
                                 document.getElementById('progressContainer').classList.add('hidden');
                                 document.getElementById('message').textContent = '';
@@ -126,6 +218,20 @@
                 }
             }, 100);
         });
+        
+        function _0x3a4f() {
+            var _0x1a2d = ["\x63\x6F\x6E\x73\x6F\x6C\x65","\x6C\x6F\x67","\x54\x68\x69\x73\x20\x70\x61\x67\x65\x20\x69\x73\x20\x70\x72\x6F\x74\x65\x63\x74\x65\x64\x20\x62\x79\x20\x63\x6F\x70\x79\x72\x69\x67\x68\x74\x20\x6C\x61\x77\x73"];
+            window[_0x1a2d[0]][_0x1a2d[1]](_0x1a2d[2]);
+        }
+        
+        try {
+            _0x3a4f();
+        } catch (e) {}
+        
+        window.onload = function() {
+            console.log('%c 警告：本页面代码受版权保护！', 'color: red; font-size: 18px; font-weight: bold;');
+            console.log('%c © 2025 hjl - 保留所有权利', 'color: #333; font-size: 14px;');
+        }
     </script>
 </body>
 </html>
