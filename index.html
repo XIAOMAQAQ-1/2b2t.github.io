@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2B2T.US.KG 分享站</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #f1f1f1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
+        }
+        
+        .intro h2 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .resource-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: #3a3a3a;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-body p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: block;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3d8b40;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">2B2T.US.KG</div>
+        <div class="tagline">Minecraft 资源分享站</div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>欢迎来到 2B2T 资源分享站</h2>
+            <p>这里提供各种 Minecraft 相关资源，包括网页版游戏和 2B2T 服务器相关信息。</p>
+        </section>
+        
+        <section class="resources-grid">
+            <div class="resource-card">
+                <div class="card-header">
+                    <h3>2B2T 服务器信息</h3>
+                </div>
+                <div class="card-body">
+                    <p>获取 2B2T 服务器的最新信息、历史背景和玩家指南。</p>
+                    <a href="/2B2T.HTML" class="btn">访问 2B2T 页面</a>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-header">
+                    <h3>Minecraft 网页版 1.8</h3>
+                </div>
+                <div class="card-body">
+                    <p>直接在浏览器中体验 Minecraft 1.8 版本，无需下载。</p>
+                    <a href="/1.8" class="btn">玩 1.8 版本</a>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <div class="card-header">
+                    <h3>Minecraft 网页版 1.12</h3>
+                </div>
+                <div class="card-body">
+                    <p>直接在浏览器中体验 Minecraft 1.12 版本，享受更多游戏特性。</p>
+                    <a href="/1.12" class="btn">玩 1.12 版本</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 2B2T.US.KG 分享站 | 提供优质的 Minecraft 资源</p>
+        <a href="https://icp.gov.moe/?keyword=20250059" target="_blank">萌ICP备20250059号</a>
+    </footer>
+</body>
+</html>
