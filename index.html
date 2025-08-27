@@ -309,26 +309,8 @@
                 </div>
             </div>
             
-            <div class="resource-card">
-                <div class="card-header">
-                    <h3>服务器状态</h3>
-                </div>
-                <div class="card-body">
-                    <p>查看2B2T服务器实时状态和玩家数量：</p>
-                    <div class="server-status">
-                        <p>状态: <span class="status-online">在线</span></p>
-                        <p>玩家数量: 127/300</p>
-                        <p>队列位置: 45</p>
-                    </div>
-                    <a href="http://2b2t.us.kg/status" class="btn">查看详细状态</a>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="pixel-divider">
-        
         <footer>
-            <p>© 2023 2B2T.US.KG 分享站 | 提供优质的 Minecraft 资源</p>
+            <p>© 2025 2B2T.US.KG 分享站 | 提供优质的 Minecraft 资源</p>
             <p>本网站与Mojang AB没有关联，Minecraft是Mojang AB的商标</p>
         </footer>
     </div>
@@ -404,23 +386,7 @@
                 });
             });
             
-            // 模拟服务器状态更新
-            function updateServerStatus() {
-                const statusElement = document.querySelector('.status-online');
-                const playersElement = document.querySelector('.server-status p:nth-child(2)');
-                const queueElement = document.querySelector('.server-status p:nth-child(3)');
-                
-                // 随机生成玩家数量和队列位置（仅用于演示）
-                const players = Math.floor(Math.random() * 100) + 150;
-                const queue = Math.floor(Math.random() * 50) + 1;
-                
-                playersElement.textContent = `玩家数量: ${players}/300`;
-                queueElement.textContent = `队列位置: ${queue}`;
-            }
-            
-            // 每30秒更新一次服务器状态
-            setInterval(updateServerStatus, 30000);
-        });
+
     </script>
 </body>
 </html>
