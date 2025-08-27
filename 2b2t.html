@@ -606,6 +606,20 @@
             transform: translateY(-3px);
         }
 
+        /* ICP备案链接样式 */
+        .icp-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+        
+        .icp-link:hover {
+            color: var(--primary);
+        }
+
         /* 动画效果 */
         .fade-in {
             opacity: 0;
@@ -1063,6 +1077,8 @@
         <div class="footer-content">
             <p>&copy; 2025 2B2T.US.KG - 版权所有</p>
             <p>2B2T.US.KG 不隶属于 Minecraft 或 Mojang AB</p>
+            <!-- 修改后的ICP备案链接 -->
+            <a href="https://icp.gov.moe/?keyword=20250059" target="_blank" class="icp-link">萌ICP备20250059号</a>
             <div class="footer-links">
                 <a href="https://qm.qq.com/q/e3vpy6EYec" target="_blank" aria-label="QQ群"><i class="fab fa-qq"></i></a>
                 <a href="#" aria-label="微信"><i class="fab fa-weixin"></i></a>
