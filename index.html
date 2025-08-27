@@ -17,39 +17,22 @@
             color: #e0e0e0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background-image: 
                 radial-gradient(circle at 25% 25%, #2a2a2a 0%, transparent 20%),
                 radial-gradient(circle at 75% 75%, #2a2a2a 0%, transparent 20%);
             background-size: 50px 50px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
         }
         
-        header {
+        .container {
+            max-width: 800px;
+            width: 100%;
             text-align: center;
-            padding: 30px 0;
-            border-bottom: 4px solid #4CAF50;
-            margin-bottom: 40px;
-            background: linear-gradient(to bottom, #2c2c2c, #222);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(to right, #4CAF50, #8BC34A, #4CAF50);
         }
         
         .logo {
@@ -57,14 +40,107 @@
             font-size: 2.5rem;
             color: #4CAF50;
             text-shadow: 3px 3px 0 #000;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
         }
         
         .tagline {
             font-size: 1.2rem;
             color: #aaa;
-            margin-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .minecraft-character {
+            font-size: 4rem;
+            color: #4CAF50;
+            text-shadow: 3px 3px 0 #000;
+            margin: 30px 0;
+        }
+        
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .main-btn {
+            display: block;
+            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid #1B5E20;
+            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .main-btn:hover {
+            background: linear-gradient(to bottom, #66BB6A, #4CAF50);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.7);
+            transform: translateY(-3px);
+        }
+        
+        .version-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .version-btn {
+            background: #3a3a3a;
+            color: #e0e0e0;
+            border: 2px solid #4CAF50;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .version-btn.active {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .version-btn:hover {
+            background: #66BB6A;
+        }
+        
+        footer {
+            margin-top: 60px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .minecraft-character {
+                font-size: 3rem;
+            }
+            
+            .main-btn {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .version-selector {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .version-btn {
+                width: 100%;
+            }
         }
         
         .pixel-divider {
@@ -76,242 +152,34 @@
                 #2E7D32 10px,
                 #2E7D32 20px
             );
-            margin: 25px 0;
+            margin: 30px auto;
+            width: 80%;
             border: none;
-        }
-        
-        .intro {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(40, 40, 40, 0.8);
-            border-radius: 10px;
-            border: 2px solid #4CAF50;
-        }
-        
-        .intro h2 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-        }
-        
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .resource-card {
-            background: linear-gradient(to bottom, #2c2c2c, #252525);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            border: 2px solid #3a3a3a;
-            position: relative;
-        }
-        
-        .resource-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-            border-color: #4CAF50;
-        }
-        
-        .card-header {
-            background: #3a3a3a;
-            padding: 15px;
-            text-align: center;
-            border-bottom: 2px solid #4CAF50;
-        }
-        
-        .card-header h3 {
-            color: #4CAF50;
-            font-size: 1.4rem;
-        }
-        
-        .version-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #4CAF50;
-            color: white;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transform: rotate(5deg);
-            box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        .card-body {
-            padding: 20px;
-        }
-        
-        .card-body p {
-            margin-bottom: 20px;
-            font-size: 1rem;
-        }
-        
-        .btn {
-            display: block;
-            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 1px solid #1B5E20;
-            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:hover {
-            background: linear-gradient(to bottom, #66BB6A, #4CAF50);
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-        }
-        
-        footer {
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            background: #222;
-            border-radius: 10px;
-            border-top: 4px solid #4CAF50;
-        }
-        
-        .minecraft-character {
-            text-align: center;
-            margin: 30px 0;
-            font-size: 3rem;
-            color: #4CAF50;
-            text-shadow: 3px 3px 0 #000;
-        }
-        
-        .server-info {
-            background: rgba(40, 40, 40, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 2px solid #4CAF50;
-        }
-        
-        .server-info h3 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .ip-address {
-            font-family: 'Courier New', monospace;
-            background: #2c2c2c;
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-            margin: 10px 0;
-            border: 1px solid #4CAF50;
-        }
-        
-        .version-selector {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .version-btn {
-            background: #3a3a3a;
-            color: #e0e0e0;
-            border: 2px solid #4CAF50;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .version-btn.active {
-            background: #4CAF50;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .version-btn:hover {
-            background: #66BB6A;
-        }
-        
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .resources-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .intro h2 {
-                font-size: 1.5rem;
-            }
-            
-            .version-selector {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .version-btn {
-                margin: 5px 0;
-                width: 80%;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1 class="logo">2B2T.US.KG</h1>
-            <p class="tagline">Minecraft 资源分享站 - 探索、分享、游玩</p>
-        </header>
+        <h1 class="logo">2B2T.US.KG</h1>
+        <p class="tagline">Minecraft 资源分享站</p>
         
         <div class="minecraft-character">⛏</div>
         
-        <section class="intro">
-            <h2>欢迎来到 2B2T 资源分享站</h2>
-            <p>这里提供各种 Minecraft 相关资源，包括网页版游戏和 2B2T 服务器相关信息。所有资源均可免费访问！</p>
-        </section>
-        
-        <hr class="pixel-divider">
-        
-        <div class="resources-grid">
-            <div class="resource-card">
-                <div class="card-header">
-                    <h3>2B2T 服务器信息页</h3>
-                </div>
-                <div class="card-body">
-                    <p>获取 2B2T 服务器的详细信息、历史背景、玩家指南和最新动态。</p>
-                    <a href="http://2b2t.us.kg/2b2t" class="btn">访问 2B2T 信息页面</a>
-                </div>
+        <div class="buttons-container">
+            <a href="http://2b2t.us.kg/2b2t" class="main-btn">进入 2B2T 服务器信息页</a>
+            
+            <div class="pixel-divider"></div>
+            
+            <div class="version-selector">
+                <button class="version-btn active" data-version="1.8">1.8版本</button>
+                <button class="version-btn" data-version="1.12">1.12版本</button>
             </div>
             
-            <div class="resource-card">
-                <div class="card-header">
-                    <h3>Minecraft 网页版</h3>
-                </div>
-                <div class="card-body">
-                    <p>直接在浏览器中体验 Minecraft，无需下载。选择您喜欢的版本：</p>
-                    
-                    <div class="version-selector">
-                        <button class="version-btn active" data-version="1.8">1.8版本</button>
-                        <button class="version-btn" data-version="1.12">1.12版本</button>
-                    </div>
-                    
-                    <p id="version-description">经典版本，包含原版游戏的核心功能。</p>
-                    
-                    <a href="http://2b2t.us.kg/mcweb/1.8" class="btn" id="play-btn">玩 1.8 版本</a>
-                </div>
-            </div>
-            
+            <a href="http://2b2t.us.kg/mcweb/1.8" class="main-btn" id="play-btn">进入 Minecraft 1.8 网页版</a>
+        </div>
+        
         <footer>
-            <p>© 2025 2B2T.US.KG 分享站 | 提供优质的 Minecraft 资源</p>
-            <p>本网站与Mojang AB没有关联，Minecraft是Mojang AB的商标</p>
+            <p>© 2023 2B2T.US.KG | 本网站与Mojang AB没有关联</p>
         </footer>
     </div>
     
@@ -320,13 +188,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             const versionButtons = document.querySelectorAll('.version-btn');
             const playBtn = document.getElementById('play-btn');
-            const description = document.getElementById('version-description');
-            
-            // 版本描述文本
-            const descriptions = {
-                '1.8': '经典版本，包含原版游戏的核心功能。',
-                '1.12': '更新版本，享受更多游戏特性和改进。'
-            };
             
             // 版本链接
             const links = {
@@ -336,8 +197,8 @@
             
             // 按钮文本
             const buttonTexts = {
-                '1.8': '玩 1.8 版本',
-                '1.12': '玩 1.12 版本'
+                '1.8': '进入 Minecraft 1.8 网页版',
+                '1.12': '进入 Minecraft 1.12 网页版'
             };
             
             versionButtons.forEach(button => {
@@ -348,33 +209,17 @@
                     versionButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
-                    // 更新描述
-                    description.textContent = descriptions[version];
-                    
                     // 更新链接和按钮文本
                     playBtn.href = links[version];
                     playBtn.textContent = buttonTexts[version];
                 });
             });
             
-            // 添加卡片交互效果
-            const cards = document.querySelectorAll('.resource-card');
-            
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.zIndex = '10';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.zIndex = '1';
-                });
-            });
-            
             // 添加按钮点击效果
-            const buttons = document.querySelectorAll('.btn');
+            const buttons = document.querySelectorAll('.main-btn');
             buttons.forEach(button => {
                 button.addEventListener('mousedown', function() {
-                    this.style.transform = 'scale(0.95)';
+                    this.style.transform = 'scale(0.98)';
                 });
                 
                 button.addEventListener('mouseup', function() {
@@ -385,8 +230,7 @@
                     this.style.transform = 'scale(1)';
                 });
             });
-            
-
+        });
     </script>
 </body>
 </html>
