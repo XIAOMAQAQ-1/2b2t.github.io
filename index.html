@@ -30,7 +30,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
         }
@@ -58,32 +58,56 @@
         }
         
         .buttons-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin: 40px 0;
         }
         
         .main-btn {
-            display: block;
-            background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom, #2c2c2c, #252525);
             color: white;
-            text-align: center;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
             transition: all 0.3s ease;
-            border: 2px solid #1B5E20;
-            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+            border: 2px solid #3a3a3a;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            height: 100%;
         }
         
         .main-btn:hover {
-            background: linear-gradient(to bottom, #66BB6A, #4CAF50);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.7);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+            border-color: #4CAF50;
+        }
+        
+        .btn-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .btn-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+        
+        .btn-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .external-indicator {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 0.8rem;
         }
         
         .version-selector {
@@ -119,30 +143,6 @@
             font-size: 0.9rem;
         }
         
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .minecraft-character {
-                font-size: 3rem;
-            }
-            
-            .main-btn {
-                padding: 15px;
-                font-size: 1rem;
-            }
-            
-            .version-selector {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .version-btn {
-                width: 100%;
-            }
-        }
-        
         .pixel-divider {
             height: 4px;
             background: repeating-linear-gradient(
@@ -156,6 +156,29 @@
             width: 80%;
             border: none;
         }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .minecraft-character {
+                font-size: 3rem;
+            }
+            
+            .buttons-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .version-selector {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .version-btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -166,20 +189,35 @@
         <div class="minecraft-character">⛏</div>
         
         <div class="buttons-container">
-            <a href="http://2b2t.us.kg/2b2t" class="main-btn">进入 2B2T 服务器信息页</a>
+            <a href="http://2b2t.us.kg/2b2t" target="_blank" class="main-btn">
+                <div class="btn-icon">🔗</div>
+                <div class="btn-title">2B2T 服务器信息<span class="external-indicator">↗</span></div>
+                <div class="btn-desc">访问2B2T服务器信息和指南</div>
+            </a>
             
-            <div class="pixel-divider"></div>
+            <a href="http://2b2t.us.kg/blog" target="_blank" class="main-btn">
+                <div class="btn-icon">📝</div>
+                <div class="btn-title">博客<span class="external-indicator">↗</span></div>
+                <div class="btn-desc">阅读最新的Minecraft相关文章</div>
+            </a>
             
-            <div class="version-selector">
-                <button class="version-btn active" data-version="1.8">1.8版本</button>
-                <button class="version-btn" data-version="1.12">1.12版本</button>
-            </div>
-            
-            <a href="http://2b2t.us.kg/mcweb/1.8" class="main-btn" id="play-btn">进入 Minecraft 1.8 网页版</a>
+            <a href="#" id="minecraft-btn" class="main-btn">
+                <div class="btn-icon">🎮</div>
+                <div class="btn-title">Minecraft 网页版</div>
+                <div class="btn-desc">选择版本开始游戏</div>
+                
+                <div class="version-selector">
+                    <button class="version-btn active" data-version="1.8">1.8</button>
+                    <button class="version-btn" data-version="1.12">1.12</button>
+                </div>
+            </a>
         </div>
+        
+        <div class="pixel-divider"></div>
         
         <footer>
             <p>© 2023 2B2T.US.KG | 本网站与Mojang AB没有关联</p>
+            <p>所有链接将在新窗口中打开</p>
         </footer>
     </div>
     
@@ -187,7 +225,7 @@
         // 版本选择功能
         document.addEventListener('DOMContentLoaded', function() {
             const versionButtons = document.querySelectorAll('.version-btn');
-            const playBtn = document.getElementById('play-btn');
+            const minecraftBtn = document.getElementById('minecraft-btn');
             
             // 版本链接
             const links = {
@@ -195,24 +233,25 @@
                 '1.12': 'http://2b2t.us.kg/mcweb/1.12'
             };
             
-            // 按钮文本
-            const buttonTexts = {
-                '1.8': '进入 Minecraft 1.8 网页版',
-                '1.12': '进入 Minecraft 1.12 网页版'
-            };
+            let currentVersion = '1.8';
             
             versionButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // 防止事件冒泡
+                    
                     const version = this.getAttribute('data-version');
+                    currentVersion = version;
                     
                     // 更新活动按钮状态
                     versionButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
-                    
-                    // 更新链接和按钮文本
-                    playBtn.href = links[version];
-                    playBtn.textContent = buttonTexts[version];
                 });
+            });
+            
+            // Minecraft按钮点击事件
+            minecraftBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(links[currentVersion], '_blank');
             });
             
             // 添加按钮点击效果
@@ -223,11 +262,11 @@
                 });
                 
                 button.addEventListener('mouseup', function() {
-                    this.style.transform = 'scale(1)';
+                    this.style.transform = '';
                 });
                 
                 button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'scale(1)';
+                    this.style.transform = '';
                 });
             });
         });
