@@ -1,11 +1,32 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2B2T.US.KG | Minecraft资源分享站</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap">
     <style>
+        :root {
+            --primary: #42c990;
+            --primary-dark: #369870;
+            --secondary: #6366f1;
+            --accent: #f59e0b;
+            --background: #0a1a15;
+            --surface: #152b24;
+            --surface-light: #1e3c33;
+            --text: #e0f0e9;
+            --text-muted: #8a9e96;
+            --border: #2a4d41;
+            --border-radius: 12px;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-pixel: 'Press Start 2P', cursive;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,9 +34,9 @@
         }
         
         body {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-body);
+            background: var(--background);
+            color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
             display: flex;
@@ -23,38 +44,63 @@
             justify-content: center;
             align-items: center;
             background-image: 
-                radial-gradient(circle at 25% 25%, #2a2a2a 0%, transparent 20%),
-                radial-gradient(circle at 75% 75%, #2a2a2a 0%, transparent 20%);
-            background-size: 50px 50px;
+                radial-gradient(circle at 10% 20%, rgba(66, 201, 144, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 20%),
+                linear-gradient(to bottom, #0a1a15, #081710);
             padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 900px;
             width: 100%;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
         
         .logo {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 2.5rem;
-            color: #4CAF50;
-            text-shadow: 3px 3px 0 #000;
+            font-family: var(--font-pixel);
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             margin-bottom: 20px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(66, 201, 144, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(66, 201, 144, 0.6)); }
         }
         
         .tagline {
-            font-size: 1.2rem;
-            color: #aaa;
+            font-size: 1.3rem;
+            color: var(--text-muted);
             margin-bottom: 40px;
+            font-weight: 500;
         }
         
         .minecraft-character {
-            font-size: 4rem;
-            color: #4CAF50;
-            text-shadow: 3px 3px 0 #000;
+            font-size: 5rem;
             margin: 30px 0;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: var(--transition);
+            filter: drop-shadow(0 0 15px rgba(66, 201, 144, 0.4));
+        }
+        
+        .minecraft-character:hover {
+            transform: scale(1.1) rotate(10deg);
+            filter: drop-shadow(0 0 25px rgba(66, 201, 144, 0.8));
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
         
         .buttons-container {
@@ -69,39 +115,56 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to bottom, #2c2c2c, #252525);
+            background: linear-gradient(135deg, var(--surface), var(--surface-light));
             color: white;
             padding: 25px;
-            border-radius: 10px;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            transition: all 0.3s ease;
-            border: 2px solid #3a3a3a;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            border: 2px solid var(--border);
+            box-shadow: var(--shadow);
             height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .main-btn:hover::before {
+            left: 100%;
         }
         
         .main-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-            border-color: #4CAF50;
+            box-shadow: 0 15px 35px rgba(66, 201, 144, 0.3);
+            border-color: var(--primary);
         }
         
         .btn-icon {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #4CAF50;
+            color: var(--primary);
         }
         
         .btn-title {
             font-size: 1.4rem;
             font-weight: bold;
             margin-bottom: 10px;
-            color: #4CAF50;
+            color: var(--primary);
         }
         
         .btn-desc {
             font-size: 0.9rem;
-            color: #aaa;
+            color: var(--text-muted);
         }
         
         .external-indicator {
@@ -115,46 +178,139 @@
             justify-content: center;
             gap: 15px;
             margin: 20px 0;
+            flex-wrap: wrap;
         }
         
         .version-btn {
-            background: #3a3a3a;
-            color: #e0e0e0;
-            border: 2px solid #4CAF50;
+            background: var(--surface);
+            color: var(--text);
+            border: 2px solid var(--border);
             padding: 12px 20px;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: bold;
+            transition: var(--transition);
+            font-weight: 600;
+            font-family: var(--font-body);
         }
         
         .version-btn.active {
-            background: #4CAF50;
+            background: var(--primary);
             color: white;
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(66, 201, 144, 0.3);
         }
         
         .version-btn:hover {
-            background: #66BB6A;
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 201, 144, 0.3);
+        }
+        
+        /* 实时人数小贴纸 */
+        .player-widget {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(21, 43, 36, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--border-radius);
+            padding: 15px 20px;
+            min-width: 200px;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .player-widget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .widget-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .server-info {
+            margin-bottom: 15px;
+        }
+        
+        .server-name {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .player-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .status-online {
+            background: #42c990;
+            box-shadow: 0 0 10px rgba(66, 201, 144, 0.5);
+        }
+        
+        .status-offline {
+            background: #f87171;
+            box-shadow: 0 0 10px rgba(248, 113, 113, 0.5);
+        }
+        
+        .widget-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 10px 0;
+        }
+        
+        .pixel-divider {
+            height: 6px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            margin: 40px auto;
+            width: 80%;
+            border: none;
+            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(66, 201, 144, 0.3);
         }
         
         footer {
             margin-top: 60px;
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9rem;
+            text-align: center;
         }
         
-        .pixel-divider {
-            height: 4px;
-            background: repeating-linear-gradient(
-                45deg,
-                #4CAF50,
-                #4CAF50 10px,
-                #2E7D32 10px,
-                #2E7D32 20px
-            );
-            margin: 30px auto;
-            width: 80%;
-            border: none;
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
         }
         
         @media (max-width: 768px) {
@@ -163,7 +319,7 @@
             }
             
             .minecraft-character {
-                font-size: 3rem;
+                font-size: 3.5rem;
             }
             
             .buttons-container {
@@ -178,24 +334,71 @@
             .version-btn {
                 width: 100%;
             }
+            
+            .player-widget {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+                max-width: 300px;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- 实时人数小贴纸 -->
+    <div class="player-widget">
+        <div class="widget-title">🎮 服务器状态</div>
+        <div class="server-info">
+            <div class="server-name">
+                <span class="status-indicator status-offline" id="java-status"></span>
+                Java服务器
+            </div>
+            <div class="player-count" id="java-players">
+                <span class="loading"></span>
+            </div>
+        </div>
+        <div class="widget-divider"></div>
+        <div class="server-info">
+            <div class="server-name">
+                <span class="status-indicator status-offline" id="bedrock-status"></span>
+                BE服务器
+            </div>
+            <div class="player-count" id="bedrock-players">
+                <span class="loading"></span>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <h1 class="logo">2B2T.US.KG</h1>
-        <p class="tagline">Minecraft 资源分享站</p>
+        <p class="tagline">🎯 Minecraft 资源分享站</p>
         
-        <div class="minecraft-character">⛏</div>
+        <div class="minecraft-character">⛏️</div>
         
         <div class="buttons-container">
-            <a href="http://2b2t.us.kg/2b2t" target="_blank" class="main-btn">
+            <a href="https://2b2t.us.kg/2b2t" target="_blank" class="main-btn">
                 <div class="btn-icon">🔗</div>
                 <div class="btn-title">2B2T 服务器信息<span class="external-indicator">↗</span></div>
                 <div class="btn-desc">访问2B2T服务器信息和指南</div>
             </a>
             
-            <a href="http://2b2t.us.kg/blog" target="_blank" class="main-btn">
+            <a href="https://2b2t.us.kg/blog" target="_blank" class="main-btn">
                 <div class="btn-icon">📝</div>
                 <div class="btn-title">博客<span class="external-indicator">↗</span></div>
                 <div class="btn-desc">阅读最新的Minecraft相关文章</div>
@@ -218,6 +421,11 @@
         <footer>
             <p>© 2023 2B2T.US.KG | 本网站与Mojang AB没有关联</p>
             <p>所有链接将在新窗口中打开</p>
+            <div class="footer-links">
+                <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+                <a href="#" title="QQ群"><i class="fab fa-qq"></i></a>
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+            </div>
         </footer>
     </div>
     
@@ -258,18 +466,65 @@
             const buttons = document.querySelectorAll('.main-btn');
             buttons.forEach(button => {
                 button.addEventListener('mousedown', function() {
-                    this.style.transform = 'scale(0.98)';
+                    this.style.transform = 'scale(0.98) translateY(-5px)';
                 });
                 
                 button.addEventListener('mouseup', function() {
-                    this.style.transform = '';
+                    this.style.transform = 'translateY(-5px)';
                 });
                 
                 button.addEventListener('mouseleave', function() {
                     this.style.transform = '';
                 });
             });
+            
+            // 获取服务器状态
+            fetchServerStatus();
+            
+            // 每30秒更新一次
+            setInterval(fetchServerStatus, 30000);
         });
+        
+        // 获取服务器状态函数
+        async function fetchServerStatus() {
+            try {
+                // 获取Java服务器状态
+                const javaResponse = await fetch('https://api.mcsrvstat.us/3/2b2t.us.kg');
+                const javaData = await javaResponse.json();
+                
+                const javaStatus = document.getElementById('java-status');
+                const javaPlayers = document.getElementById('java-players');
+                
+                if (javaData.online) {
+                    javaStatus.className = 'status-indicator status-online';
+                    javaPlayers.textContent = `${javaData.players.online}/${javaData.players.max}`;
+                } else {
+                    javaStatus.className = 'status-indicator status-offline';
+                    javaPlayers.textContent = '离线';
+                }
+                
+                // 获取BE服务器状态
+                const beResponse = await fetch('https://api.mcsrvstat.us/bedrock/3/be.2b2t.us.kg:22396');
+                const beData = await beResponse.json();
+                
+                const beStatus = document.getElementById('bedrock-status');
+                const bePlayers = document.getElementById('bedrock-players');
+                
+                if (beData.online) {
+                    beStatus.className = 'status-indicator status-online';
+                    bePlayers.textContent = `${beData.players.online}/${beData.players.max}`;
+                } else {
+                    beStatus.className = 'status-indicator status-offline';
+                    bePlayers.textContent = '离线';
+                }
+                
+            } catch (error) {
+                console.error('获取服务器状态失败:', error);
+                document.getElementById('java-players').textContent = '错误';
+                document.getElementById('bedrock-players').textContent = '错误';
+            }
+        }
     </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"46d1e7c3a1a94372a4be6515b5b134c6","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
